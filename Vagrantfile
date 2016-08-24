@@ -6,10 +6,11 @@ VAGRANTFILE_API_VERSION = "2"
 
 
 options = {
-    :network_ip => ENV['EY_COLLECTOR_VAGRANT_NETWORK_IP'] || "10.11.12.11",
-    :port_ssh => Integer(ENV['EY_COLLECTOR_VAGRANT_PORT_SSH'] || 2201),
-    :port_http => Integer(ENV['EY_COLLECTOR_VAGRANT_PORT_HTTP'] || 8081),
-    :vm_memory => Integer(ENV['EY_COLLECTOR_VAGRANT_MEMORY'] || 512),
+    :network_ip => ENV['BULAVKA_VAGRANT_NETWORK_IP'] || "10.11.12.11",
+    :port_ssh => Integer(ENV['BULAVKA_VAGRANT_PORT_SSH'] || 2201),
+    :port_http => Integer(ENV['BULAVKA_VAGRANT_PORT_HTTP'] || 8081),
+    :port_pg => Integer(ENV['BULAVKA_VAGRANT_PORT_PG'] || 5433),
+    :vm_memory => Integer(ENV['BULAVKA_VAGRANT_MEMORY'] || 512),
 }
 
 
@@ -33,6 +34,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             guest: 8080,
             host: options[:port_http],
             id: "http"
+        node.vm.network :forwarded_port,
+            guest: 5432,
+            host: options[:port_pg],
+            id: "pg"
 
         node.vm.synced_folder "./apps", "/opt/apps",
             сreate: true,
