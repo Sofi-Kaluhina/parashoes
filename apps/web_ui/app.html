@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html ng-app="bulavkaApp" lang="en">
 <head>
-    <!--<base href="">-->
+    <base href="/">
     <meta charset="UTF-8">
+    <meta name="fragment" content="!" />
     <title>BUlavka</title>
 
     <link href="libs/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet"/>
@@ -13,14 +14,12 @@
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="scripts/app.js"></script>
-    <!--<script src="scripts/controllers/main.js"></script>-->
-    <!--<script src="scripts/controllers/articles.js"></script>-->
-    <!--<script src="scripts/controllers/about_us.js"></script>-->
-    <!--<script src="scripts/controllers/contacts.js"></script>-->
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/articles.js"></script>
+    <script src="scripts/controllers/about_us.js"></script>
+    <script src="scripts/controllers/contacts.js"></script>
 </head>
     <body>
-
-        <div ng-include="'/template/main.html'"></div>
-
+        <div ng-include="'/template/main.html'"  onload="mainPageOnLoad()"></div>
     </body>
 </html>
