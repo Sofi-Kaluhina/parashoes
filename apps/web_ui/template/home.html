@@ -1,0 +1,97 @@
+<section class="banner-slider" ng-controller="MainController">
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <img src="#" alt="First slide">
+            </div>
+            <div class="carousel-item">
+                <img src="#" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img src="#" alt="Third slide">
+            </div>
+        </div>
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="icon-prev" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="icon-next" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</section>
+
+<div class="products-on-main-box">
+    <div class="row" id="prodOnMainTitle">
+        <div class="col-xs-12 col-sm-6 col-md-1" id="main-title-row">
+            <p>Товары на главной
+            <hr>
+            </p>
+        </div>
+    </div>
+
+    <ul class="flex-container">
+        <div class="item" ng-repeat="item in items">
+            <a href="#">
+                <li class="flex-item-photo" style="background-image: url({{item.photo}})"></li>
+                <div class="item-name-price">
+                    <div class="name">
+                        {{item.name}}
+                    </div>
+                    <div class="price">
+                        {{item.price}}
+                    </div>
+                </div>
+            </a>
+        </div>
+    </ul>
+
+    <div class="row" id="prodLatest">
+        <div class="col-xs-12 col-sm-6 col-md-1" id="latest-row">
+            <p>Недавно вы просматривали
+            <hr>
+            </p>
+        </div>
+    </div>
+
+    <ul class="flex-container">
+        <div class="item" ng-repeat="item in items | limitTo: 4">
+            <a href="#">
+                <li class="flex-item-photo" style="background-image: url({{item.photo}})"></li>
+                <div class="item-name-price">
+                    <div class="name">
+                        {{item.name}}
+                    </div>
+                    <div class="price">
+                        {{item.price}}
+                    </div>
+                </div>
+            </a>
+        </div>
+    </ul>
+</div>
+
+<div class="brief-reference-box">
+    <div class="row" id="brief-reference-title">
+        <div class="col-xs-12 col-sm-6 col-md-1" id="reference-title-row">
+            <p>Добро пожаловать!
+            <hr>
+            </p>
+        </div>
+    </div>
+    <div class="reference-text-box">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
+        massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
+        quam
+        felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec
+        pede
+        justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a,
+        venenatis vitae, justo.
+    </div>
+</div>

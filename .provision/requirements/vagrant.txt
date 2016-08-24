@@ -1,0 +1,2 @@
+-r dist.txt
+-r tests.txt

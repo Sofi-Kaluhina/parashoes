@@ -1,0 +1,292 @@
+<div>
+    <div id="top-line" class="col-md-12">
+        <div id="welcome" class="col-md-8">
+            Добро пожаловать! Вы можете
+            <a href="">войти</a>
+            или
+            <a href data-id="registration">зарегистрироваться</a>
+        </div>
+        <div id="btns-div" class="col-md-4">
+            <div class="log-in">
+                <button type="button" class="btn btn-default btn-sm">Войти</button>
+            </div>
+            <div class="log-out">
+                <span data-id="user-email">...user email</span> <!-- gets email when authorized -->
+                |
+                <button type="button" class="btn btn-default btn-sm">Выйти</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" data-id="overlay-registration-form">
+        <div class="registration-form">
+            <form>
+                <div class="form-group">
+                    <label for="login">Логин</label>
+                    <input id="login" class="form-control input-group-lg reg_name" type="text" name="login"
+                           data-toggle="tooltip" data-placement="right"
+                           title="Логин может состоять из латинских букв, цифр и знака подчеркивания, должен начинаться с буквы и содержать от 3 до 15 символов"
+                           data-trigger="focus"/>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Пароль</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль">
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Check me out
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-default">Готово!</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <header class="row">
+            <div id="logo" class="col-xs-6 col-md-4"><h1>BULAVKA</h1></div>
+            <div id="theme" class="col-xs-12 col-sm-6 col-md-8">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Integer at congue purus, sed vehicula leo. Pellentesque ut risus dolor. In fermentum neque ac erat
+                dapibus,
+                nec lacinia mauris maximus. Morbi ut ligula odio. Cras sit amet ligula non lacus laoreet cursus eu
+                porttitor
+                orci. Quisque porttitor commodo feugiat. Nunc aliquam mauris lectus, sit amet fermentum sem facilisis
+                ac.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </div>
+        </header>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">НА ГЛАВНУЮ</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">КАТЕГОРИИ <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Мужчинам</a></li>
+                                <li><a href="#">Женщинам</a></li>
+                                <li><a href="#">Детям</a></li>
+                                <li><a href="#">Для дома</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">БРЕНДЫ <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Бренд</a></li>
+                                <li><a href="#">Другой бренд</a></li>
+                                <li><a href="#">И еще бренд</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Введите слово для поиска">
+                        </div>
+                        <button type="submit" class="btn btn-default">Найти</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-left">
+                        <li><a href="/about_us/">О НАС</a></li>
+                        <li><a href="/articles/">СТАТЬИ</a></li>
+                        <li class="contacts-nav-block">
+                            <a href="/contacts/">КОНТАКТЫ</a>
+
+                            <div class="contacts-window">
+                                <div class="col-md-6">
+                                    <ul class="s6 columns">
+                                        <li>
+                                            <span class="ngw">КОНТАКТЫ</span>
+
+                                            <div class="mc">
+                                            <span class="mm_icon"><img
+                                                    src="../images/icons_contact/icon-contact-mphone-38.png"
+                                                    alt="Phone" title="Phone"></span>
+                                                <span class="mm">123 123 12 12</span>
+                                                <span class="mm">123 123 12 12</span>
+                                            </div>
+                                            <div class="mc">
+                                            <span class="mm_icon"><img
+                                                    src="../images/icons_contact/icon-contact-email-38.png"
+                                                    alt="Phone" title="Phone"></span>
+                                                <span class="mm">one@email.com</span>
+                                                <span class="mm">two@email.com</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="s6 columns">
+                                        <li>
+                                            <span class="ngw">АДРЕСС</span>
+
+                                            <div class="mc">
+                                            <span class="mm_icon"><img
+                                                    src="../images/icons_contact/icon-contact-location-38.png"></span>
+                                                <span class="mm">Украина, Мариуполь, 875**</span>
+                                                <span class="mm">улица А***я, 123</span>
+                                            </div>
+                                            <span class="ngw">МЫ РАДЫ ВАМ</span>
+
+                                            <div class="mc">
+                                            <span class="mm_icon"><img
+                                                    src="../images/icons_contact/icon-contact-hours-38.png"></span>
+                                                <span class="mm">Понедельник - пятница</span>
+                                                <span class="mm">с 9.00 до 18.00</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+
+        <div class="twelve-columns" id="main-content-box">
+            <div ng-view></div>
+        </div>
+
+        <aside id="column-left">
+            <div class="category-box">
+                <div class="box-heading">КАТЕГОРИИ</div>
+                <div class="category-box-content">
+                    <ul>
+                        <li>
+                            <a href="#">МУЖЧИНАМ</a>
+                        </li>
+                        <li>
+                            <a href="#">ЖЕНЩИНАМ</a>
+                        </li>
+                        <li>
+                            <a href="#">ДЕТЯМ</a>
+                        </li>
+                        <li>
+                            <a href="#">ДЛЯ ДОМА</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="products-box">
+                <div class="box-heading">ВАС МОГУТ ЗАИНТЕРЕСОВАТЬ:</div>
+                <div class="products-box-content">
+                    <div class="products-container">
+                        <div class="three mobile-two columns" ng-repeat="item in items | limitTo: 4">
+                            <a href="#">
+                                <div class="image" style="background-image: url({{item.photo}})"></div>
+                                <div class="name">
+                                    {{item.name}}
+                                </div>
+                                <div class="price">
+                                    <span>{{item.price}}</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="information-box">
+                <div class="box-heading">ИНФОРМАЦИЯ</div>
+                <div class="information-box-content">
+                    <ul>
+                        <li>
+                            <a href="#">О НАС</a>
+                        </li>
+                        <li>
+                            <a href="#">НОВОСТИ</a>
+                        </li>
+                        <li>
+                            <a href="#">ОБРАТНАЯ СВЯЗЬ</a>
+                        </li>
+                        <li>
+                            <a href="#">КОНТАКТЫ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </div>
+    <footer class="row">
+        <div class="col-md-3">
+            <ul class="footer-menu">
+                <li><a href="#">на главную</a></li>
+                <li><a href="#">о нас</a></li>
+                <li><a href="#">статьи</a></li>
+                <li><a href="#">контакты</a></li>
+                <li><a href="#">обратная связь</a></li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="footer-categories">
+                <li>категории</li>
+                <li><a href="#">мужчинам</a></li>
+                <li><a href="#">женщинам</a></li>
+                <li><a href="#">детям</a></li>
+                <li><a href="#">для дома</a></li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <div class="col-md-6" id="footer-phone-mail">
+                <ul class="s6 columns">
+                    <li>
+                        <span class="ngw">КОНТАКТЫ</span>
+
+                        <div class="mc">
+                            <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+                            <span class="mm">123 123 12 12</span>
+                            <span class="mm">123 123 12 12</span>
+                            <br>
+                            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                            <span class="mm">one@email.com</span>
+                            <span class="mm">two@email.com</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-3" id="footer-adress-div">
+            <div class="col-md-6" id="footer-adress">
+                <ul class="s6 columns">
+                    <li>
+                        <span class="ngw">АДРЕСС</span>
+
+                        <div class="mc">
+                            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                            <span class="mm">Украина, Мариуполь, 875**</span>
+                            <span class="mm">улица А***я, 123</span>
+                        </div>
+                        <span class="ngw">МЫ РАДЫ ВАМ</span>
+
+                        <div class="mc">
+                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                            <span class="mm">Понедельник - пятница</span>
+                            <span class="mm">с 9.00 до 18.00</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>

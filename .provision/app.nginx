@@ -1,0 +1,59 @@
+upstream bulavka {
+    server 127.0.0.1:8000;
+}
+
+server {
+    listen 8080;
+
+    # Allow file uploads
+    client_max_body_size 50M;
+
+    location ^~ /media {
+        alias   /opt/apps/spa_request_handler/media;
+        expires off;
+
+        gzip_comp_level 1;
+        gzip_proxied    any;
+        gzip_types      text/plain
+                        text/css
+                        text/xml
+                        text/javascript
+                        application/x-javascript
+                        application/xml
+                        application/xml+rss;
+    }
+
+    location /static {
+        alias   /opt/apps/spa_request_handler/static;
+        expires off;
+
+        gzip_comp_level 1;
+        gzip_proxied    any;
+        gzip_types      text/plain
+                        text/css
+                        text/xml
+                        text/javascript
+                        application/x-javascript
+                        application/xml
+                        application/xml+rss;
+    }
+
+    location / {
+        proxy_pass_header Server;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_pass http://bulavka/;
+    }
+}
+
+server {
+    listen 80 default_server;
+    root /opt/apps/web_ui;
+
+    location / {
+        index app.html;
+        try_files $uri $uri/ /app.html;
+    }
+}

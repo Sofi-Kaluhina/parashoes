@@ -1,0 +1,149 @@
+@media all and (max-width: 1286px) {
+    #footer-phone-mail ul {
+        padding: 0;
+    }
+}
+@media all and (max-width: 1045px) {
+    #footer-phone-mail:first-child,
+    #footer-phone-mail:last-child {
+        padding: 0;
+    }
+}
+@media all and (max-width: 1200px) {
+    .container {
+        width: 85%;
+        position: relative;
+    }
+
+    #main-content-box {
+        width: 100%;
+    }
+
+    #column-left {
+        display: flex;
+        flex-flow: row wrap;
+        width: 100%;
+    }
+
+    #column-left > div {
+        flex: 1 50%;
+        margin-bottom: 20px;
+    }
+
+    #column-left .products-box {
+        order: 1;
+    }
+
+    #column-left .products-box .products-container {
+        display: flex;
+    }
+
+    #column-left .products-box .products-container > div {
+        flex: 1;
+    }
+
+    #column-left .products-box .products-container a {
+        height: 215px;
+    }
+
+    #column-left .products-box .image {
+        background-size: cover;
+        display: block;
+        position: relative;
+        float: none;
+        width: 120px;
+        height: 130px;
+        padding: 2px;
+        margin: auto;
+    }
+
+    #column-left .products-box .image img { /* картинка будет прилетать JS-ом как background-image и background-size: cover или contain */
+        max-width: 120px;
+        max-height: 130px;
+    }
+
+    .name, .price {
+        text-align: center;
+    }
+}
+
+@media all and (max-width: 990px) {
+    .container {
+        width: 100%;
+    }
+    #top-line {
+        justify-content: space-between;
+    }
+
+    #main-content-box {
+        min-width: 545px;
+    }
+}
+
+@media all and (max-width: 851px) {
+    #footer-phone-mail:first-child,
+    #footer-phone-mail:last-child {
+        padding-left: 105px;
+    }
+    #footer-phone-mail div {
+        float: left;
+    }
+    #footer-adress ul {
+        padding-left: 135px;
+    }
+}
+
+@media all and (max-width: 767px) {
+    #main-content-box {
+        width: 100%;
+        float: none;
+    }
+
+    #column-left {
+        width: 100%;
+    }
+
+    #welcome {
+        padding-right: 0;
+    }
+    .dropdown:hover > .dropdown-menu {
+        /*display: none;*/
+    }
+}
+
+@media all and (max-width: 695px) {
+    #top-line {
+        justify-content: center;
+    }
+
+    #btns-div {
+        width: 100%;
+    }
+
+    #main-content-box {
+        width: 100%;
+        float: none;
+    }
+
+    #column-left {
+        width: 100%;
+    }
+}
+
+@media all and (max-width: 685px) {
+    #footer-adress-div {
+        width: 279px;
+    }
+}
+
+
+@media all and (max-width: 670px) {
+
+}
+
+@media all and (max-width: 616px) {
+    #column-left > div {
+        flex: 1 100%;
+    }
+}
+
