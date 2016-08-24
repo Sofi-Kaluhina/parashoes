@@ -50,10 +50,22 @@ server {
 
 server {
     listen 80 default_server;
+    expires -1;
+    add_header Pragma "no-cache";
+    add_header Cache-Control "no-store, no-cache, must-revalidate, post-check=0, pre-check=0";
+    index app.html;
     root /opt/apps/web_ui;
 
     location / {
-        index app.html;
-        try_files $uri $uri/ /app.html;
+        try_files $uri$args $uri$args/ /app.html =404;
+    }
+
+    if ($args ~ "_escaped_fragment_=(.*)") {
+        rewrite ^ /snapshot${uri};
+    }
+
+    location /snapshot {
+        proxy_pass http://bulavka/;
+        proxy_connect_timeout  60s;
     }
 }
