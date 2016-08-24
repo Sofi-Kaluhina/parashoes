@@ -9,8 +9,6 @@ app.controller('MainController', function($scope, $http) {
     $http.get('http://bulavka:8080/api/v1/products')
         .success(function(responce) {
             $scope.items = responce;
-            console.log(responce);
-            console.log("hi");
         }
     );
 

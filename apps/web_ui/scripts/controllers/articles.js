@@ -9,7 +9,6 @@ app.controller('ArticlesController', function($scope, $http) {
     $http.get('./scripts/json/item-example.json')
         .success(function(responce) {
             $scope.items = responce;
-            console.log(responce);
         }
     );
 
