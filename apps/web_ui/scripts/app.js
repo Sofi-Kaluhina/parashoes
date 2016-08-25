@@ -26,6 +26,10 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: '/template/contacts.html',
             controller: 'ContactsController'
         })
+        .when('/product/:id', {
+            templateUrl: '/template/product_page.html',
+            controller: 'ProductPageController'
+        })
         .otherwise({
             redirectTo: '/'
         })
