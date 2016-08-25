@@ -27,7 +27,8 @@ Bonia (fashion)
 Bontoni
 Borsalino
 Hugo Boss
-Bottega Veneta'''
+Bottega Veneta
+PORNHUB'''
 
 brands_description = '''Agnès had mixed twins at 19 and she separated from their father Christian Bourgois at 20. She graduated from École du Louvre in Paris. A career soon followed when her personal style caught the eyes of Elle magazine staffers at a Paris flea market.
 James Mischka began at Rice University as a biomedical engineering major and ultimately graduated with degrees in art history and managerial studies in 1985. Badgley and Mischka met at Parsons School of Design in Manhattan. The two launched the label Badgley Mischka in 1988, though their bridal business launched in 1993.
@@ -50,7 +51,8 @@ Borsalino is a hat company known particularly for its fedoras.
 Hugo Boss AG, often styled as BOSS, is a German luxury fashion house.
 Bottega Veneta is an Italian luxury goods house best known for its leather goods which are sold worldwide.
 Bla bla bla
-Bla bla'''
+Bla bla
+PornHub account'''
 
 clothing = '''Aba
 Acrilan fabric
@@ -365,6 +367,9 @@ Zephyr
 Zibeline
 Zorbeez'''
 
+from pprint import pprint
+
+pprint(brands.split('\n'))
 
 @gen.coroutine
 def get_random_products(full=True):
