@@ -367,10 +367,6 @@ Zephyr
 Zibeline
 Zorbeez'''
 
-from pprint import pprint
-
-pprint(brands.split('\n'))
-
 @gen.coroutine
 def get_random_products(full=True):
 	result = []
