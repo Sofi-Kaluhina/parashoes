@@ -12,10 +12,7 @@ from tornado.ioloop import IOLoop
 from tornado.web import FallbackHandler, Application
 
 from admin import app
-from options import load_options
 from handlers import *
-
-load_options()
 
 tr = WSGIContainer(app)
 
