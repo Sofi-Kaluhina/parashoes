@@ -21,21 +21,21 @@ class User(Base):
 		server_default=text("nextval('user_id_seq'::regclass)")
 	)
 	username = Column(
-		Text,
+		String(255),
 		nullable=False
 	)
 	password = Column(
-		Text,
+		String(255),
 		nullable=False
 	)
 	email = Column(
-		Text
+		String(255)
 	)
 	firstname = Column(
-		Text
+		String(255)
 	)
 	lastname = Column(
-		Text
+		String(255)
 	)
 	created_at = Column(
 		DateTime,
@@ -57,7 +57,7 @@ class CatalogUserType(Base):
 		server_default=text("nextval('catalog_user_type_id_seq'::regclass)")
 	)
 	name = Column(
-		Text
+		String(255)
 	)
 
 
@@ -97,12 +97,12 @@ class Product(Base):
 		server_default=text("nextval('product_id_seq'::regclass)")
 	)
 	name = Column(
-		Text,
+		String(255),
 		nullable=False,
 		index=True
 	)
 	slug_name = Column(
-		Text,
+		String(255),
 		nullable=False,
 		unique=True
 	)
@@ -156,7 +156,7 @@ class ProductManufacturer(Base):
 		server_default=text("nextval('product_manufacturer_id_seq'::regclass)")
 	)
 	name = Column(
-		Text,
+		String(255),
 		nullable=False,
 		index=True
 	)
@@ -172,19 +172,19 @@ class ProductPhoto(Base):
 		server_default=text("nextval('product_photo_id_seq'::regclass)")
 	)
 	name = Column(
-		Text,
+		String(255),
 		nullable=False
 	)
 	path = Column(
-		Text,
+		String(255),
 		nullable=False
 	)
 	tumbl_name = Column(
-		Text,
+		String(255),
 		nullable=False
 	)
 	tumbl_path = Column(
-		Text,
+		String(255),
 		nullable=False
 	)
 
