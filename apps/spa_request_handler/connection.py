@@ -11,4 +11,4 @@ engine = create_engine(options.db_url)
 session = sessionmaker()
 session.configure(bind=engine)
 Base.metadata.bind = engine
-s = session()
+db_session = session()
