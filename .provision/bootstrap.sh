@@ -43,7 +43,7 @@ chown -R "vagrant:vagrant" /opt/apps/spa_request_handler/static
 echo "Done!"
 
 echo "Run collector tornado..."
-su -l vagrant -c "nohup python3 /opt/apps/spa_request_handler/application.py --debug &"
+nohup python3 /opt/apps/spa_request_handler/application.py --debug &
 echo "Done!"
 
 echo "Configuring nginx..."
