@@ -1,22 +1,35 @@
+@media all and (max-width: 1310px) {
+    .when-zoom-in {
+        width: 100%;
+        margin-left: 0;
+        color: #405765;
+        font-size: 40px;
+        transition: all 0.5s ease-in-out;
+    }
+}
+@media all and (max-width: 1300px) {
+    #footer-phone-mail ul,
+    #footer-adress ul {
+        padding-left: 0;
+    }
+}
 @media all and (max-width: 1286px) {
     #footer-phone-mail ul {
         padding: 0;
     }
 }
-@media all and (max-width: 1045px) {
-    #footer-phone-mail:first-child,
-    #footer-phone-mail:last-child {
-        padding: 0;
-    }
-}
 @media all and (max-width: 1200px) {
     .container {
-        width: 85%;
+        width: 100%;
         position: relative;
     }
 
     #main-content-box {
         width: 100%;
+    }
+
+    .contacts-window {
+        left: -40px;
     }
 
     #column-left {
@@ -40,10 +53,11 @@
 
     #column-left .products-box .products-container > div {
         flex: 1;
+        height: 260px;
     }
 
     #column-left .products-box .products-container a {
-        height: 215px;
+        height: inherit;
     }
 
     #column-left .products-box .image {
@@ -52,14 +66,9 @@
         position: relative;
         float: none;
         width: 120px;
-        height: 130px;
+        height: 170px;
         padding: 2px;
         margin: auto;
-    }
-
-    #column-left .products-box .image img { /* картинка будет прилетать JS-ом как background-image и background-size: cover или contain */
-        max-width: 120px;
-        max-height: 130px;
     }
 
     .name, .price {
@@ -78,6 +87,15 @@
     #main-content-box {
         min-width: 545px;
     }
+    .col-md-3 {
+        width: 50%;
+    }
+    #footer-phone-mail {
+        padding-left: 105px;
+    }
+    #footer-adress ul {
+        padding-left: 90px;
+    }
 }
 
 @media all and (max-width: 851px) {
@@ -88,12 +106,9 @@
     #footer-phone-mail div {
         float: left;
     }
-    #footer-adress ul {
-        padding-left: 135px;
-    }
 }
 
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
     #main-content-box {
         width: 100%;
         float: none;
@@ -108,6 +123,24 @@
     }
     .dropdown:hover > .dropdown-menu {
         /*display: none;*/
+    }
+    .contacts-window {
+        display: none;
+    }
+    .footer-categories li {
+        padding: 10px 0;
+    }
+    #footer-adress ul {
+        padding-left: 25px;
+    }
+}
+@media all and (max-width: 723px) {
+    .when-zoom-in {
+        width: 100%;
+        margin-left: 15px;
+        color: #405765;
+        font-size: 40px;
+        transition: all 0.5s ease-in-out;
     }
 }
 
@@ -128,22 +161,31 @@
     #column-left {
         width: 100%;
     }
+    #column-left > div {
+        flex: 1 100%;
+    }
 }
-
-@media all and (max-width: 685px) {
-    #footer-adress-div {
-        width: 279px;
+@media all and (max-width: 550px) {
+    .flex-container {
+        flex-direction: column;
+        align-items: center;
     }
 }
 
-
-@media all and (max-width: 670px) {
-
+@media all and (max-width: 542px) {
+    #footer-adress-div {
+        width: 100%;
+    }
+    #footer-adress ul {
+        padding-left: 90px;
+    }
 }
-
-@media all and (max-width: 616px) {
-    #column-left > div {
-        flex: 1 100%;
+@media all and (max-width: 475px) {
+    .col-md-3 {
+        width: 100%;
+    }
+    .footer-categories li {
+        padding: 10px 65px;
     }
 }
 
