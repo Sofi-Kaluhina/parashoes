@@ -10,6 +10,8 @@ from flask_admin import Admin, form
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.model import BaseModelView
 from flask_babelex import Babel
+# import flask_login as login
+# from slugify import slugify # for slugify product name
 
 from tornado.options import options
 from model import *
@@ -44,7 +46,18 @@ def get_locale():
 ############################
 
 
-class AddNewProductPhotoView(ModelView):
+class UserView(ModelView):
+    can_delete = False
+    can_export = True
+    create_modal = True
+    edit_modal = True
+    column_exclude_list = ['password', ]
+    column_details_exclude_list = ['password', ]
+
+
+class AddNewProduct(ModelView):
+    create_modal = True
+    edit_modal = True
 
     @app.route('/media/product/<filename>')
     def product_image(self):
@@ -63,31 +76,31 @@ class AddNewProductPhotoView(ModelView):
             filename=form.thumbgen_filename(model.path))
         )
 
-    column_formatters = {
-        'path': _list_thumbnail
-    }
-
     def thumb_name(filename):
         return 'thumb/%s_thumb%s' % os.path.splitext(filename)
 
-    # Alternative way to contribute field is to override it completely.
-    # In this case, Flask-Admin won't attempt to merge various parameters for the field.
+    column_formatters = {
+        'path': _list_thumbnail,
+        'thumb_path': _list_thumbnail
+    }
+
+
     form_extra_fields = {
-        'path': form.ImageUploadField('Path',
-                                      base_path='{}/{}'.format(options.as_dict()['media_dir'], 'product'),
-                                      thumbgen=thumb_name,
-                                      thumbnail_size=(100, 100, True),
-                                      endpoint='product_image')
+        'path': form.ImageUploadField(
+            'Path',
+            base_path='{}/{}'.format(options.as_dict()['media_dir'], 'product'),
+            thumbgen=thumb_name,
+            thumbnail_size=(100, 100, True),
+            endpoint='product_image'
+        )
     }
 
 admin = Admin(app, name='BUlavka', template_mode='bootstrap3')
-admin.add_view(ModelView(User, db_session))
+admin.add_view(UserView(User, db_session))
 admin.add_view(ModelView(CatalogUserType, db_session))
 
-admin.add_view(AddNewProductPhotoView(ProductPhoto, db_session))
+admin.add_view(AddNewProduct(ProductPhoto, db_session))
 
 admin.add_view(ModelView(Product, db_session))
-admin.add_view(ModelView(ProductAttribute, db_session))
-admin.add_view(ModelView(ProductManufacturer, db_session))
-admin.add_view(ModelView(ProductFabric, db_session))
+admin.add_view(ModelView(CatalogProductAttribute, db_session))
 
