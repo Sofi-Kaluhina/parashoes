@@ -17,15 +17,14 @@ from handlers import *
 tr = WSGIContainer(app)
 
 handlers = [
-	(options.api_version, MainHandler),
-	('{}/{}'.format(options.api_version, 'product/(?P<id>[^\/]+)'), ProductHandler),
-	('{}/{}'.format(options.api_version, 'products'), ProductsHandler),
-	('.*', FallbackHandler, dict(fallback=tr))
+    (options.api_version, MainHandler),
+    ('{}/{}'.format(options.api_version, 'product/(?P<id>[^\/]+)'), ProductHandler),
+    ('{}/{}'.format(options.api_version, 'products'), ProductsHandler),
+    ('.*', FallbackHandler, dict(fallback=tr))
 ]
 
 if __name__ == "__main__":
-
-	tornado_app = Application(handlers, debug=True)
-	server = HTTPServer(tornado_app)
-	server.listen(options.port)
-	IOLoop.instance().start()
+    tornado_app = Application(handlers, debug=True)
+    server = HTTPServer(tornado_app)
+    server.listen(options.port)
+    IOLoop.instance().start()
