@@ -1,4 +1,4 @@
-<div>
+<div ng-controller="MainController">
     <div id="top-line" class="col-md-12">
         <div id="welcome" class="col-md-8">
             Добро пожаловать! Вы можете
@@ -194,10 +194,12 @@
                 <div class="products-box-content">
                     <div class="products-container">
                         <div class="three mobile-two columns" ng-repeat="item in items | limitTo: 4">
-                            <a href="#">
-                                <div class="image" style="background-image: url({{item.photo}})"></div>
+                            <a href="/product/{{item.id}}">
+                                <div class="image">
+                                    <img src="{{item.photo}}" class="cover">
+                                </div>
                                 <div class="name">
-                                    {{item.name}}
+                                    <span>{{item.name}}</span>
                                 </div>
                                 <div class="price">
                                     <span>{{item.price}}</span>
@@ -212,16 +214,16 @@
                 <div class="information-box-content">
                     <ul>
                         <li>
-                            <a href="#">О НАС</a>
+                            <a href="/about_us/">О НАС</a>
                         </li>
                         <li>
-                            <a href="#">НОВОСТИ</a>
+                            <a href="/articles/">НОВОСТИ</a>
                         </li>
                         <li>
                             <a href="#">ОБРАТНАЯ СВЯЗЬ</a>
                         </li>
                         <li>
-                            <a href="#">КОНТАКТЫ</a>
+                            <a href="/contacts/">КОНТАКТЫ</a>
                         </li>
                     </ul>
                 </div>
@@ -231,10 +233,10 @@
     <footer class="row">
         <div class="col-md-3">
             <ul class="footer-menu">
-                <li><a href="#">на главную</a></li>
-                <li><a href="#">о нас</a></li>
-                <li><a href="#">статьи</a></li>
-                <li><a href="#">контакты</a></li>
+                <li><a href="/">на главную</a></li>
+                <li><a href="/about_us/">о нас</a></li>
+                <li><a href="/articles/">статьи</a></li>
+                <li><a href="/contacts/">контакты</a></li>
                 <li><a href="#">обратная связь</a></li>
             </ul>
         </div>

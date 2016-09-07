@@ -1,6 +1,7 @@
 body {
     height: 100%;
     background: #c7e0e5;
+    overflow-x: hidden;
 }
 
 li {
@@ -17,8 +18,13 @@ a:hover {
     text-decoration: none;
 }
 
+a:focus {
+    text-decoration: none;
+}
+
 .container {
     padding: 0;
+    width: 95%;
 }
 
 /* Top line */
@@ -96,16 +102,61 @@ a:hover {
 
 /* Main menu (navbar) */
 
-.navbar-nav > li > a {
+.navbar-default {
+    background-color: transparent;
+    border-radius: 0;
+    border-color: #557c93;
+    border-left: none;
+    border-right: none;
+}
+.navbar-default .navbar-brand {
+    color: #557c93;
+}
+
+.navbar-default .navbar-nav > li > a {
     font-size: 15px;
+    color: #557c93;
 }
 
 .navbar-brand {
     font-size: 15px;
 }
+.btn-default {
+    color: #557c93;
+    background-color: transparent;
+    border-radius: 0;
+    text-transform: uppercase;
+    border-color: #557c93;
+}
+.btn-default:hover {
+    color: #f7f7f7;
+    background-color: #557c93;
+    border-color: #557c93;
+    transition: all 0.2s ease-in 0s;
+}
 
 .dropdown-menu {
     width: 375px;
+    padding: 0;
+}
+.dropdown-menu > li {
+    text-transform: uppercase;
+    font-size: 13px;
+    background-color: #f7f7f7;
+    border-top: 1px solid #e7e5de;
+}
+.dropdown-menu > li:hover {
+    background-color: #f7effd;
+    transition: all 0.2s ease-in 0s;
+}
+.dropdown-menu > li > a {
+    color: #86B9D4;
+    line-height: 2.428571;
+}
+.dropdown-menu > li > a:hover {
+    background-color: #f7effd;
+    color: #557c93;
+    transition: all 0.2s ease-in 0s;
 }
 
 .form-group {    /* search input block width */
@@ -121,7 +172,6 @@ a:hover {
 .contacts-window {
     position: absolute;
     z-index: 6;
-    height: 230px;
     width: 600px;
     left: 37px;
     padding: 10px;
@@ -178,7 +228,8 @@ a:hover {
 /* Categories */
 
 #column-left {
-    width: 25%;
+    /*width: 25%;*/
+    width: 20%;
     margin-bottom: 30px;
 }
 
@@ -232,17 +283,16 @@ a:hover {
     display: block;
     position: relative;
     float: left;
-    width: 66px;
-    height: 85px;
-    padding: 2px;
+    width: 80px;
+    height: 108px;
 }
 
 .products-box .products-container > div {
     position: relative;
     background-color: #f7f7f7;
     border-top: 1px solid #e7e5de;
-    padding: 3px;
-    min-height: 95px;
+    padding: 1px;
+    min-height: 110px;
 }
 
 .name, .price {
@@ -255,13 +305,14 @@ a:hover {
     transition: all 0.2s ease-in 0s;
 }
 
-.products-box .products-container a {
+.products-box .products-container > div a {
     display: block;
-    height: 88px;
+    height: 107px;
 }
-
-.products-box .products-container .image {
-    background-size: contain;
+.cover {             /* Good desigion to give tag <img> a class and to use "object-fit" to cover <div> without stretching image */
+    object-fit: contain;
+    width: inherit;
+    height: inherit;
 }
 
 .products-box .products-container .price span {
@@ -270,11 +321,11 @@ a:hover {
 
 /* Main content block */
 
-#main-content-box {          /* Carousel */
+#main-content-box {
     display: flex;
     flex-flow: row wrap;
     float: right;
-    width: 860px;
+    width: 78%;
     min-height: 692px;
 }
 
@@ -310,7 +361,8 @@ a:hover {
     border-top: 1px solid #557c93;
 }
 
-.reference-text-box {
+.reference-text-box,
+.product-description {
     margin: 20px 0 20px 0;
     font-size: 18px;
     line-height: 2;
@@ -351,13 +403,14 @@ a:hover {
     width: 100%;
 }
 
+.item {
+    width: 250px;
+}
+
 .flex-item-photo {
     position: relative;
-    background: #86B9D4;
-    background-size: contain;
-    padding: 5px;
-    width: 200px;
-    height: 260px;
+    width: 250px;
+    height: 348px;
     margin-top: 10px;
 
     line-height: 150px;
@@ -365,6 +418,11 @@ a:hover {
     font-weight: bold;
     font-size: 3em;
     text-align: center;
+}
+.flex-item-photo img {
+    object-fit: contain;
+    width: inherit;
+    height: inherit;
 }
 
 .item a {
@@ -451,6 +509,53 @@ footer {
     margin-left: 36px;
 }
 
+/* Product page styles */
+
+.zoom-in {                                                /* Classes for image to zoom it or zoom out, changes dynamically */
+    -webkit-transform: scale(1.5) translate(100px, 0px);
+    transition: all 0.5s ease-in-out;
+    position: fixed;
+    z-index: 6;
+}
+.zoom-out {
+    -webkit-transform: none;
+    transition: all 0.5s ease-in-out;
+}
+.product-page-item-box {
+    display: flex;
+    flex-flow: row wrap;
+}
+.product-thumbs-block {
+    margin-left: 20px;
+}
+.product-thumb {
+    margin-bottom: 19px;
+}
+.product-image {
+    height: 100%;
+    margin-left: 17px;
+}
+
+.product-info {
+    margin-left: 15px;
+    color: #405765;
+    font-size: 40px;
+}
+.when-zoom-in {
+    margin-left: 680px;
+    color: #405765;
+    font-size: 40px;
+    transition: all 0.5s ease-in-out;
+}
+
+.product-description {
+    font-size: 17px;
+}
+.thumb-image img {
+    object-fit: contain;
+    width: 80px;
+    height: 100px;
+}
 
 
 

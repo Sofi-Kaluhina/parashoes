@@ -39,7 +39,9 @@
     <ul class="flex-container">
         <div class="item" ng-repeat="item in items">
             <a href="/product/{{item.id}}">
-                <li class="flex-item-photo" style="background-image: url({{item.photo}})"></li>
+                <li class="flex-item-photo">
+                    <img src="{{item.photo}}">
+                </li>
                 <div class="item-name-price">
                     <div class="name">
                         {{item.name}}
@@ -63,7 +65,9 @@
     <ul class="flex-container">
         <div class="item" ng-repeat="item in items | limitTo: 4">
             <a href="/product/{{item.id}}">
-                <li class="flex-item-photo" style="background-image: url({{item.photo}})"></li>
+                <li class="flex-item-photo">
+                    <img src="{{item.photo}}">
+                </li>
                 <div class="item-name-price">
                     <div class="name">
                         {{item.name}}
