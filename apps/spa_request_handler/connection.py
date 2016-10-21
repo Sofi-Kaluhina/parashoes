@@ -8,6 +8,7 @@ from model import *
 
 
 engine = create_engine(options.db_url)
+engine.echo = True
 session = sessionmaker()
 session.configure(bind=engine)
 Base.metadata.bind = engine

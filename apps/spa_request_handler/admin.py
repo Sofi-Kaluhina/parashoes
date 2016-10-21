@@ -6,27 +6,28 @@ from jinja2 import Markup
 from flask import Flask, url_for
 from flask import request
 from flask import session
-from flask_admin import Admin, form
+from flask_admin import Admin, form as _form
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.model import BaseModelView
 from flask_babelex import Babel
 # import flask_login as login
+from security import *
 # from slugify import slugify # for slugify product name
 
-from tornado.options import options
+# from tornado.options import options
 from model import *
 
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-if "db_url" not in options.as_dict().keys():
-    sys.path.append(os.path.dirname(BASE_DIR))
-
-    from options import load_options
-
-    load_options()
-
-    from connection import db_session
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#
+# if "db_url" not in options.as_dict().keys():
+#     sys.path.append(os.path.dirname(BASE_DIR))
+#
+#     from options import load_options
+#
+#     load_options()
+#
+#     from connection import db_session
 
 app = Flask(__name__)
 app.secret_key = 'super secret key'
@@ -47,13 +48,25 @@ def get_locale():
 
 
 class UserView(ModelView):
+    def is_accessible(self):
+        return login.current_user.is_authenticated
+
     can_delete = False
     can_export = True
     create_modal = True
     edit_modal = True
     column_exclude_list = ['password', ]
-    column_details_exclude_list = ['password', ]
+    form_excluded_columns = ['password', ]
 
+
+class ProductView(ModelView):
+    def is_accessible(self):
+        return login.current_user.is_authenticated
+
+    # can_delete = False
+    # can_export = True
+    create_modal = True
+    edit_modal = True
 
 class AddNewProduct(ModelView):
     create_modal = True
@@ -73,7 +86,7 @@ class AddNewProduct(ModelView):
 
         return Markup('<img src="%s">' % url_for(
             'product_trumb_image',
-            filename=form.thumbgen_filename(model.path))
+            filename=_form.thumbgen_filename(model.path))
         )
 
     def thumb_name(filename):
@@ -86,7 +99,7 @@ class AddNewProduct(ModelView):
 
 
     form_extra_fields = {
-        'path': form.ImageUploadField(
+        'path': _form.ImageUploadField(
             'Path',
             base_path='{}/{}'.format(options.as_dict()['media_dir'], 'product'),
             thumbgen=thumb_name,
@@ -95,12 +108,27 @@ class AddNewProduct(ModelView):
         )
     }
 
-admin = Admin(app, name='BUlavka', template_mode='bootstrap3')
+
+# Initialize flask-login
+def init_login():
+    login_manager = login.LoginManager()
+    login_manager.init_app(app)
+
+    # Create user loader function
+    @login_manager.user_loader
+    def load_user(user_id):
+        return db_session.query(User).get(user_id)
+
+# Initialize flask-login
+init_login()
+
+admin = admin.Admin(app, 'BUlavka', index_view=MyAdminIndexView(), base_template='my_master.html')
 admin.add_view(UserView(User, db_session))
+
 admin.add_view(ModelView(CatalogUserType, db_session))
 
 admin.add_view(AddNewProduct(ProductPhoto, db_session))
 
-admin.add_view(ModelView(Product, db_session))
+admin.add_view(ProductView(Product, db_session))
 admin.add_view(ModelView(CatalogProductAttribute, db_session))
 

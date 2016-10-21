@@ -47,6 +47,19 @@ class User(Base):
     )
     types = relationship("CatalogUserType", secondary="users_types")
 
+    # Flask-Login integration
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return self.id
+
     def __repr__(self):
         return "%s" % self.username
 
