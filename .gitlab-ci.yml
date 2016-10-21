@@ -1,0 +1,6 @@
+test:
+  image: python:3-alpine
+  script:
+    - pip install coverage
+    - coverage run foo.py
+    - coverage report -m
