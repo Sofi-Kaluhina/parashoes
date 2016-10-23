@@ -15,3 +15,20 @@ provision:
   - mkdir -p /etc/nginx/sites-available /etc/nginx/sites-enabled
   - cp /opt/.provision/nginx.conf /etc/nginx/nginx.conf
   - cp /opt/.provision/app.nginx /etc/nginx/sites-available/bulavka && ln -fs /etc/nginx/sites-available/bulavka /etc/nginx/sites-enabled/bulavka
+  stage: build
+  only:
+    - master
+  except:
+    - develop
+  allow_failure: true
+  when: manual
+
+tests:
+  script:
+  - cd /opt/apps/spa_request_handler/
+  - python3 -m tornado.test.runtests application.py
+  stage: test
+  only:
+    - develop
+  allow_failure: true
+  when: manual
