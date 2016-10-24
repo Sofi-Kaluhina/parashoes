@@ -24,21 +24,23 @@ a:focus {
 
 .container {
     padding: 0;
-    width: 95%;
+    width: 100%;
 }
 
 /* Top line */
 
-#top-line {
+#top-line, header {
     display: flex;
     flex-flow: row wrap;
-    position: relative;
-    min-height: 30px;
     background-color: #86B9D4;
+    justify-content: space-between;
 }
 
 #top-line div {
-    height: inherit;
+    display: block;
+    float: left;
+    margin: 5px 0 5px;
+    font-size: 15px;
 }
 
 #top-line a {
@@ -47,20 +49,6 @@ a:focus {
 
 #top-line a:hover {
     color: #45545e;
-}
-
-#welcome {
-    text-align: end;
-    padding-top: 4px;
-    padding-right: 100px;
-}
-
-.user-email {
-    text-align: end;
-}
-.log-out, .log-in { /* changes display dynamically */
-    float: right;
-    /*display: none;*/
 }
 
 /* Registration form pop-up */
@@ -96,8 +84,35 @@ a:focus {
 
 /* Header */
 
-#logo h1 {
-    font-size: 55px;
+header {
+    width: 100%;
+    min-height: 215px;
+    background-color: inherit;
+}
+header > div {
+    width: 30%;
+    margin-top: 40px;
+    /*flex: 1 100%;*/
+}
+/*#logo {*/
+    /*flex: 2 0;*/
+/*}*/
+/*.aside-1 { order: 1; }*/
+/*#logo   { order: 2; }*/
+/*.aside-2 { order: 3; }*/
+
+#cart, #search {
+    text-align: end;
+}
+#search input {
+    width: 35%;
+    display: initial;
+}
+#address #working-hours,
+#search {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 /* Main menu (navbar) */
@@ -325,7 +340,7 @@ a:focus {
     display: flex;
     flex-flow: row wrap;
     float: right;
-    width: 78%;
+    width: 100%;
     min-height: 692px;
 }
 

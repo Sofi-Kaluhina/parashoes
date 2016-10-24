@@ -1,21 +1,12 @@
 <div ng-controller="MainController">
     <div id="top-line" class="col-md-12">
-        <div id="welcome" class="col-md-8">
-            Добро пожаловать! Вы можете
-            <a href="">войти</a>
-            или
-            <a href data-id="registration">зарегистрироваться</a>
-        </div>
-        <div id="btns-div" class="col-md-4">
-            <div class="log-in">
-                <button type="button" class="btn btn-default btn-sm">Войти</button>
-            </div>
-            <div class="log-out">
-                <span data-id="user-email">...user email</span> <!-- gets email when authorized -->
-                |
-                <button type="button" class="btn btn-default btn-sm">Выйти</button>
-            </div>
-        </div>
+        <div id="call_us">Позвоните нам: +380 (98) 123 45 67</div>
+        <div><a href="/home/">Главная</a></div>
+        <div><a href="/about_us/">О нас</a></div>
+        <div><a href="/articles/">Наши новости</a></div>
+        <div><a href="/contacts/">Контакты</a></div>
+        <div><a href="/feedback/">Обратная связь</a></div>
+        <div><a href="/account/">Кабинет</a></div>
     </div>
 
     <div class="modal-overlay" data-id="overlay-registration-form">
@@ -48,16 +39,31 @@
 
     <div class="container">
         <header class="row">
-            <div id="logo" class="col-xs-6 col-md-4"><h1>BULAVKA</h1></div>
-            <div id="theme" class="col-xs-12 col-sm-6 col-md-8">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Integer at congue purus, sed vehicula leo. Pellentesque ut risus dolor. In fermentum neque ac erat
-                dapibus,
-                nec lacinia mauris maximus. Morbi ut ligula odio. Cras sit amet ligula non lacus laoreet cursus eu
-                porttitor
-                orci. Quisque porttitor commodo feugiat. Nunc aliquam mauris lectus, sit amet fermentum sem facilisis
-                ac.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            <div id="address" class="aside">
+                <p>г. Мариуполь, ул. Артема, 59 (пересечение с ул. Фонтанной, 5 мин. пешком от Драмтеатра к пл. Кирова)</p>
+                <p id="working-hours">Пн-Вс с 9:00 до 19:00</p>
             </div>
+            <div id="logo"><a href="/home/"><img src="../images/header/logo.png"></a></div>
+            <div id="cart-and-search" class="aside">
+                <div id="cart">
+                    <img src="../images/header/shopping_cart.png">
+                    <span>КОРЗИНА(0)</span>
+                </div>
+                <div id="search">
+                    <input class="form-control" type="text" placeholder="поиск">
+                    <button class="btn btn-default"><div class="glyphicon glyphicon-search"></div></button>
+                </div>
+            </div>
+            <!--<div id="logo" class="col-xs-6 col-md-4"><h1>BULAVKA</h1></div>-->
+            <!--<div id="theme" class="col-xs-12 col-sm-6 col-md-8">Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+                <!--Integer at congue purus, sed vehicula leo. Pellentesque ut risus dolor. In fermentum neque ac erat-->
+                <!--dapibus,-->
+                <!--nec lacinia mauris maximus. Morbi ut ligula odio. Cras sit amet ligula non lacus laoreet cursus eu-->
+                <!--porttitor-->
+                <!--orci. Quisque porttitor commodo feugiat. Nunc aliquam mauris lectus, sit amet fermentum sem facilisis-->
+                <!--ac.-->
+                <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+            <!--</div>-->
         </header>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -168,67 +174,7 @@
             <div ng-view></div>
         </div>
 
-        <aside id="column-left">
-            <div class="category-box">
-                <div class="box-heading">КАТЕГОРИИ</div>
-                <div class="category-box-content">
-                    <ul>
-                        <li>
-                            <a href="#">МУЖЧИНАМ</a>
-                        </li>
-                        <li>
-                            <a href="#">ЖЕНЩИНАМ</a>
-                        </li>
-                        <li>
-                            <a href="#">ДЕТЯМ</a>
-                        </li>
-                        <li>
-                            <a href="#">ДЛЯ ДОМА</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
 
-            <div class="products-box">
-                <div class="box-heading">ВАС МОГУТ ЗАИНТЕРЕСОВАТЬ:</div>
-                <div class="products-box-content">
-                    <div class="products-container">
-                        <div class="three mobile-two columns" ng-repeat="item in items | limitTo: 4">
-                            <a href="/product/{{item.id}}">
-                                <div class="image">
-                                    <img src="{{item.photo}}" class="cover">
-                                </div>
-                                <div class="name">
-                                    <span>{{item.name}}</span>
-                                </div>
-                                <div class="price">
-                                    <span>{{item.price}}</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="information-box">
-                <div class="box-heading">ИНФОРМАЦИЯ</div>
-                <div class="information-box-content">
-                    <ul>
-                        <li>
-                            <a href="/about_us/">О НАС</a>
-                        </li>
-                        <li>
-                            <a href="/articles/">НОВОСТИ</a>
-                        </li>
-                        <li>
-                            <a href="#">ОБРАТНАЯ СВЯЗЬ</a>
-                        </li>
-                        <li>
-                            <a href="/contacts/">КОНТАКТЫ</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </aside>
     </div>
     <footer class="row">
         <div class="col-md-3">
