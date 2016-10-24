@@ -9,7 +9,7 @@ wget --quiet -O - https://postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key 
 sudo apt-get update
 
 echo "Installing dependencies..."
-apt-get install -y wget nginx python3.4 python3.4-dev git postgresql-9.4 postgresql-contrib-9.4
+apt-get install -y wget nginx python3.4 python3.4-dev git postgresql-9.4 postgresql-contrib-9.4 libpq-dev
 echo "Done!"
 
 echo "Installing pip3..."
@@ -51,6 +51,7 @@ mkdir -p /etc/nginx/sites-available /etc/nginx/sites-enabled
 cp /opt/.provision/nginx.conf /etc/nginx/nginx.conf
 cp /opt/.provision/app.nginx /etc/nginx/sites-available/bulavka && \
     ln -fs /etc/nginx/sites-available/bulavka /etc/nginx/sites-enabled/bulavka
+rm /etc/nginx/sites-available/@default
 echo "Done!"
 
 echo "Start & Enable nginx..."
