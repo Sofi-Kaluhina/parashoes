@@ -37,6 +37,8 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 .idea/
+.vagrant/
+.Vagrantfile.swp
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
