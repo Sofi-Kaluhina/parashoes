@@ -21,6 +21,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box = "ubuntu/trusty64"
     config.vm.box_version = "14.04"
 
+    config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+
     config.vm.define "bulavka" do |node|
         node.vm.hostname = "bulavka"
         node.vm.network :private_network, ip: options[:network_ip]
