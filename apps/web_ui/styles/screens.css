@@ -87,6 +87,10 @@
     .container {
         width: 100%;
     }
+    .carousel {
+        float: none;
+        width: 100%;
+    }
     #main-content-box {
         min-width: 545px;
     }
@@ -116,6 +120,10 @@
         flex-direction: column;
         align-items: center;
     }
+    .navbar-left li {
+        width: 100%;
+        text-align: center;
+    }
     #main-content-box {
         width: 100%;
         float: none;
@@ -131,8 +139,9 @@
     .dropdown:hover > .dropdown-menu {
         /*display: none;*/
     }
-    .contacts-window {
-        display: none;
+    .reference-text-box {
+        float: none;
+        width: 100%;
     }
     .footer-categories li {
         padding: 10px 0;
