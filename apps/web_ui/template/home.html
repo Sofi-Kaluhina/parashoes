@@ -1,3 +1,4 @@
+<!-- Template contains carousel, all products on main page box, including latest watched products, and brief reference box -->
 <section class="banner-slider" ng-controller="MainController">
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -36,8 +37,8 @@
     </div>
 </section>
 
-<div class="products-on-main-box">
-    <div class="row" id="prodOnMainTitle">
+<div class="all-products">
+    <div class="row" id="all-products-title">
         <div class="col-xs-12 col-sm-6 col-md-1" id="main-title-row">
             <p>все товары
             <hr>
@@ -49,21 +50,21 @@
         <div class="prod-item" ng-repeat="item in items">
             <a href="/product/{{item.id}}">
                 <li class="flex-item-photo">
-                    <img src="{{item.photo}}">
+                    <img src="http://bulavka:8080/{{item.images[0].path}}">
                 </li>
                 <div class="item-name-price">
                     <div class="name">
                         {{item.name}}
                     </div>
                     <div class="price">
-                        {{item.price}}
+                        {{item.attributes.Price}}
                     </div>
                 </div>
             </a>
         </div>
     </ul>
 
-    <div class="row" id="prodLatest">
+    <div class="row" id="latest-products-title">
         <div class="col-xs-12 col-sm-6 col-md-1" id="latest-row">
             <p>Недавно вы просматривали
             <hr>
@@ -75,14 +76,14 @@
         <div class="prod-item" ng-repeat="item in items | limitTo: 4">
             <a href="/product/{{item.id}}">
                 <li class="flex-item-photo">
-                    <img src="{{item.photo}}">
+                    <img src="http://bulavka:8080/{{item.images[0].path}}">
                 </li>
                 <div class="item-name-price">
                     <div class="name">
                         {{item.name}}
                     </div>
                     <div class="price">
-                        {{item.price}}
+                        {{item.attributes.Price}}
                     </div>
                 </div>
             </a>
