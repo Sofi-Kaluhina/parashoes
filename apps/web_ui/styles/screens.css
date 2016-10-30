@@ -149,6 +149,13 @@
     #footer-adress ul {
         padding-left: 25px;
     }
+    #subscribe,
+    #socials {
+        width: 100%;
+    }
+    #socials {
+        padding-left: 120px;
+    }
 }
 @media all and (max-width: 723px) {
     .when-zoom-in {

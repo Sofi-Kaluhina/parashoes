@@ -1,3 +1,5 @@
+<!-- Template contains topline, reg/auto forms and container with main structural components of the page: header, main menu, footer
+and main content box, where "home.html" template downloads -->
 <div ng-controller="MainController">
     <div id="top-line" class="col-md-12">
         <div id="call_us">Позвоните нам: +380 (98) 123 45 67</div>
@@ -40,7 +42,8 @@
     <div class="container">
         <header class="row">
             <div id="address" class="aside">
-                <p>г. Мариуполь, ул. Артема, 59 (пересечение с ул. Фонтанной, 5 мин. пешком от Драмтеатра к пл. Кирова)</p>
+                <p>г. Мариуполь, ул. Артема, 59 (пересечение с ул. Фонтанной, 5 мин. пешком от Драмтеатра к пл.
+                    Кирова)</p>
                 <p id="working-hours">Пн-Вс с 9:00 до 19:00</p>
             </div>
             <div id="logo"><a href="/home/"><img src="../images/header/logo.png"></a></div>
@@ -51,7 +54,9 @@
                 </div>
                 <div id="search">
                     <input class="form-control" type="text" placeholder="поиск">
-                    <button class="btn btn-default"><div class="glyphicon glyphicon-search"></div></button>
+                    <button class="btn btn-default">
+                        <div class="glyphicon glyphicon-search"></div>
+                    </button>
                 </div>
             </div>
         </header>
@@ -104,9 +109,8 @@
         <div class="twelve-columns" id="main-content-box">
             <div ng-view></div>
         </div>
-
-
     </div>
+
     <footer class="row">
         <div class="col-md-3">
             <ul class="footer-menu">
@@ -166,5 +170,32 @@
                 </ul>
             </div>
         </div>
+
+        <div class="col-md-6" id="subscribe">
+            <p>узнавайте первыми об акциях и новинках:</p>
+            <div>
+                <input class="form-control" type="email" placeholder="your-email@example.com">
+                <button class="btn btn-default" value="send">Подписаться</button>
+            </div>
+        </div>
+        <div class="col-md-6" id="socials">
+            <p>мы в социальных сетях:</p>
+            <a href="#">
+                <div id="facebook">
+                    <img src="../images/icons_contact/facebook.png">
+                </div>
+            </a>
+            <a href="#">
+                <div id="vkontakte">
+                    <img src="../images/icons_contact/vkontakte.png">
+                </div>
+            </a>
+        </div>
+        <p>
+        <hr>
+        </p>
+        <p id="copyright">
+            Copyright 2016 @ BUlavka
+        </p>
     </footer>
 </div>
