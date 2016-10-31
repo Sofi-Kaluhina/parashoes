@@ -38,6 +38,7 @@ jspm_packages
 .node_repl_history
 .idea/
 .vagrant/
+bower_components
 .Vagrantfile.swp
 ### Python template
 # Byte-compiled / optimized / DLL files
