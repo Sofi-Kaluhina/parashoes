@@ -1,5 +1,5 @@
 <!-- Template contains carousel, all products on main page box, including latest watched products, and brief reference box -->
-<section class="banner-slider" ng-controller="MainController">
+<section class="banner-slider">
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -37,7 +37,7 @@
     </div>
 </section>
 
-<div class="all-products">
+<div class="all-products" ng-controller="MainController" ng-init="init()">
     <div class="row" id="all-products-title">
         <div class="col-xs-12 col-sm-6 col-md-1" id="main-title-row">
             <p>все товары
@@ -47,7 +47,7 @@
     </div>
 
     <ul class="flex-container">
-        <div class="prod-item" ng-repeat="item in items">
+        <div class="prod-item" ng-repeat="item in items | start: (currentPage - 1) * pageSize | limitTo: pageSize">
             <a href="/product/{{item.id}}">
                 <li class="flex-item-photo">
                     <img src="http://bulavka:8080/{{item.images[0].path}}">
@@ -62,6 +62,7 @@
                 </div>
             </a>
         </div>
+        <pagination uib-pagination total-items="items.length" ng-model="currentPage" max-size="5" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
     </ul>
 
     <div class="row" id="latest-products-title">
