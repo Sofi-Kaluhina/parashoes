@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!-- Referenced as an example from by rabidGadfly.com -->
+<!-- http://rabidgadfly.com/2013/03/super-easy-angular-image-gallery/ -->
+
+<!-- Define this as an AngularJS app that uses the module named galleryApp -->
+<html ng-app="galleryApp">
+
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    
+    <div class="bg" ng-controller="GalleryController" >
+    
+<!--    Layout the large images horizontally using viewwindow
+        to hide the overflow (all but the current image). -->
+        <div class="mainimageshell">
+            <div class="viewwindow">
+        <!--    fullscroller is referenced from the Controller js
+                to control scrolling -->
+                <ul id="fullscroller" class="fullsizelist" ng-style="listposition" >
+            <!--    Iterate through all images and display them end to end -->
+                    <li ng-repeat="image in galleryData">
+                        <img id="fullsize" class="large" ng-src="{{IMAGE_LOCATION+image.image}}" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Display the description of the current image -->
+        <div class="captionshell">
+            <p class="caption">{{selected.desc}}</p>
+        </div>
+        
+        <div style="clear:both;"></div>
+        
+<!--    Layout the large images horizontally using viewwindow
+        to hide the overflow (all but the current image). -->
+        <div class="thumbsshell">
+            <div class="thumbswrapper">
+                <ul>
+            <!--    Iterate through all images and display them end to end as thumbs -->
+                    <li ng-repeat="image in galleryData">
+                        <div class="thumbwrapper">
+                    <!--    Note ng-click here calls the scrollTo function found in the
+                            controller and passes it its index. This is used to scroll 
+                            the large image to the correct image -->
+                            <a ng-href="" ng-click="scrollTo(image,$index)">
+                                <img class="thumbnail" ng-src="{{IMAGE_LOCATION+image.image}}" />
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Shameless self-promotion -->
+        <div class="logoshell">
+            <a href="http://rabidgadfly.com/2013/03/super-easy-angular-image-gallery/" target="_blank" title="Check out more Angular posts at rabidGadfly.com"><img src="http://rabidgadfly.com/assets/logos/rabidgadfly-plunker-100.jpg" alt="rabidGadfly.com"/></a>
+        </div>
+        
+    </div>
+
+</body>
+
+</html>

@@ -1,7 +1,7 @@
 /**
  * Created by sofi on 30.05.16.
  */
-var app = angular.module("bulavkaApp", ['ngRoute']);
+var app = angular.module("bulavkaApp", ['ngRoute', 'ui.bootstrap']);
 
 app.config(function($routeProvider, $locationProvider){
 
