@@ -63,7 +63,19 @@
             </a>
         </div>
         <div class="pagination-block">
-            <pagination uib-pagination total-items="items.length" ng-model="currentPage" max-size="5" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
+            <pagination
+                    uib-pagination
+                    total-items="items.length"
+                    ng-model="currentPage"
+                    max-size="5"
+                    class="pagination-sm"
+                    boundary-links="true"
+                    rotate="false"
+                    first-text="Начало"
+                    previous-text="Предыдущая"
+                    next-text="Следующая"
+                    last-text="Конец"
+            ></pagination>
         </div>
     </ul>
 
