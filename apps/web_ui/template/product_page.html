@@ -1,51 +1,72 @@
 <div ng-controller="ProductPageController">
     <div class="product-page-item-box">
-        <div class="product-thumbs-block">
-            <div class="product-thumb" ng-repeat="thumb in product | limitTo: 5">
-                <div class="thumb-image">
-                    <img class="thumbPhoto" src="../images/for_example/aurora_plush_mimi_2-300x400.jpg" ng-click="changePhoto()">
+        <div id="product-gallery">
+            <div id="product-large-image">
+                <img id="zoom_03"
+                     ng-src="{{approot}}{{imagesForGallery[0].large}}"
+                     data-zoom-image="{{approot}}{{image.large}}"
+                     ng-click="setScopeValue('zoom03',true);"
+                     ez-plus
+                     ezp-model="zoomModelGallery01"
+                     ezp-options="zoomOptionsGallery01"
+                />
+            </div>
+            <div id="product-thumbs-images">
+                <div id="gallery_01">
+                    <a ng-repeat="image in imagesForGallery"
+                       class="img-group-01"
+                       href="{{approot}}{{image.large}}"
+                       ng-click="setActiveImageInGallery('zoomModelGallery01', image);"
+                       data-image="{{approot}}{{image.large}}"
+                       data-zoom-image="{{approot}}{{image.large}}">
+                        <img ng-src="{{approot}}{{image.thumb}}"/>
+                    </a>
+                </div>
+                <colorbox
+                    box-for=".img-group-01"
+                    open="zoom03"
+                    on-open="alert"
+                    options="{rel:'img-group-01', slideshow:false, open:false}">
+                </colorbox>
+            </div>
+        </div>
+
+
+        <div ng-class="info" ng-repeat="product in product">
+            <div id="product-info">
+                <div>
+                    Артикул: {{product.oem}}
+                </div>
+                <div>
+                    Название: {{product.name}}
+                </div>
+                <div>
+                    Цена: {{product.attributes.price}} UAH
                 </div>
             </div>
-        </div>
-
-        <div class="product-image">
-            <img id="mainPhoto" src="{{product.photo}}" ng-class="class" ng-click="changeClass()">
-        </div>
-
-        <div ng-class="info" ng-click="changeClass()">
-            <div>
-                {{product.name}}
-            </div>
-            <div>
-                Артикул: {{product.oem}}
-            </div>
-            <div>
-                {{product.price}} UAH
-            </div>
-        </div>
-
-        <div class="product-description">
-            <h3>Описание:</h3>
-            <div>
-                {{product.description}}
-            </div>
-            <div>
-                Бренд: {{product.brand}}
-            </div>
-            <div>
-                Размер: {{product.size}}
-            </div>
-            <div>
-                Пол: {{product.gender}}
-            </div>
-            <div>
-                Возраст: {{product.age}}
-            </div>
-            <div>
-                Сезон: {{product.season}}
-            </div>
-            <div>
-                Состояние: {{product.condition}}
+            <div class="product-description">
+                <h3>Описание:</h3>
+                <div>
+                    {{product.description}}
+                </div>
+                <div>
+                    Бренд: {{product.attributes.brand}}
+                </div>
+                <div>
+                    Размер: {{product.attributes.size}}
+                </div>
+                <div>
+                    Пол: {{product.attributes.gender}}
+                </div>
+                <div>
+                    Возраст: {{product.attributes.age}}
+                </div>
+                <div>
+                    Сезон: {{product.attributes.season}}
+                </div>
+                <div>
+                    Состояние: {{product.attributes.condition}}
+                </div>
             </div>
         </div>
     </div>
