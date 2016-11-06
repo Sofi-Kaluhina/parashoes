@@ -42,7 +42,7 @@ mkdir -p /opt/apps/spa_request_handler/static
 chown -R "vagrant:vagrant" /opt/apps/spa_request_handler/static
 echo "Done!"
 
-echo "Run collector tornado..."
+echo "Run BUlavka application tornado..."
 nohup python3 /opt/apps/spa_request_handler/application.py --debug &
 echo "Done!"
 
