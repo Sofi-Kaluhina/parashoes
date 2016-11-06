@@ -6,10 +6,10 @@ app.controller('ContactsController', function($scope, $http) {
     $scope.items = [];
 
 
-    $http.get('./scripts/json/item-example.json')
-        .success(function(responce) {
-            $scope.items = responce;
-        }
-    );
+    // $http.get('./scripts/json/item-example.json')
+    //     .success(function(responce) {
+    //         $scope.items = responce;
+    //     }
+    // );
 
 });
