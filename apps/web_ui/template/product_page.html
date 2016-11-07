@@ -13,7 +13,7 @@
             </div>
             <div id="product-thumbs-images">
                 <div id="gallery_01">
-                    <a ng-repeat="image in imagesForGallery"
+                    <a ng-repeat="image in imagesForGallery | limitTo:5 "
                        class="img-group-01"
                        href="{{approot}}{{image.large}}"
                        ng-click="setActiveImageInGallery('zoomModelGallery01', image);"
@@ -31,41 +31,41 @@
             </div>
         </div>
 
-
-        <div ng-class="info" ng-repeat="product in product">
+        <div id="product-info-block" ng-class="info" ng-repeat="product in product">
             <div id="product-info">
+                <div>
+                    {{product.name}}
+                </div>
                 <div>
                     Артикул: {{product.oem}}
                 </div>
                 <div>
-                    Название: {{product.name}}Фввувусвсвсвсecdcdcddd
-                </div>
-                <div>
-                    Цена: {{product.attributes.price}} UAH
+                    Цена: <span>{{product.attributes.Price}} UAH</span>
+                    <button class="btn btn-default" value="add">добавить в корзину</button>
                 </div>
             </div>
             <div class="product-description">
-                <h3>Описание:</h3>
+                <div>
+                    Бренд: {{product.attributes.Brand}}
+                </div>
+                <div>
+                    Размер: {{product.attributes.Size}}
+                </div>
+                <div>
+                    Пол: {{product.attributes.Gender}}
+                </div>
+                <div>
+                    Возраст: {{product.attributes.Age}}
+                </div>
+                <div>
+                    Сезон: {{product.attributes.Season}}
+                </div>
+                <div>
+                    Состояние: {{product.attributes.Condition}}
+                </div>
+                <h3>Описание товара:</h3>
                 <div>
                     {{product.description}}
-                </div>
-                <div>
-                    Бренд: {{product.attributes.brand}}
-                </div>
-                <div>
-                    Размер: {{product.attributes.size}}
-                </div>
-                <div>
-                    Пол: {{product.attributes.gender}}
-                </div>
-                <div>
-                    Возраст: {{product.attributes.age}}
-                </div>
-                <div>
-                    Сезон: {{product.attributes.season}}
-                </div>
-                <div>
-                    Состояние: {{product.attributes.condition}}
                 </div>
             </div>
         </div>
