@@ -20,6 +20,9 @@ app.controller('ProductPageController', function ($rootScope, $http, $scope, $ro
                             }
                         )
                     });
+                    if ($scope.imagesForGallery.length != 0) {
+                        $scope.zoomModelGallery01 = $scope.imagesForGallery[0];
+                    }
                 }
             );
 
@@ -29,14 +32,6 @@ app.controller('ProductPageController', function ($rootScope, $http, $scope, $ro
                 return;
             }
             $scope.approot = appRoot;
-
-            // $scope.zoomModel1 = $scope.imagesForGallery[0];
-            // $scope.zoomModel2 = $scope.imagesForGallery[1];
-
-            $scope.zoomModelGallery01 = $scope.imagesForGallery[0];
-            // $scope.zoomModelGallery04 = $scope.imagesForGallery[3];
-            // $scope.zoomModelGallery05 = $scope.imagesForGallery[0];
-
             $scope.colorboxWithCallbacks = {
                 opacity: 0.5,
                 open: false,
