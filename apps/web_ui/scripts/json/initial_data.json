@@ -1,22 +1,30 @@
 {
   "brands": [
     {
-      "key": "value"
+      "name": "Bosss",
+      "slug_name": "bosss"
+    },
+    {
+      "name": "Brand which have name with more than one word",
+      "slug_name": "brand-which-have-name-with-more-than-one-word"
+    },
+    {
+      "name": "Some other brand",
+      "slug_name": "some-other-brand"
     }
   ],
-  "products": [
-    {
-      "attributes": {
-        "addtime": "value",
-        "Gender": {
-          "0": "Женский",
-          "1": "Мужской"
-        },
-        "Age": {
-          "1": "Дети",
-          "2": "Малыши"
-        }
-      }
+  "categories_filter_conditions": {
+    "new": {
+      "created_at": "2016-10-24 14:44:19.231877"
+    },
+    "woman": {
+      "gender": ["woman"]
+    },
+    "man": {
+      "gender" : ["man"]
+    },
+    "children": {
+      "age": ["kids", "children"]
     }
-  ]
+  }
 }
