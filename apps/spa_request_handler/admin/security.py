@@ -1,47 +1,66 @@
 # coding=utf8
 
-import os
-import sys
-from flask import Flask, url_for, redirect, render_template, request
-from model import *
-from wtforms import form, fields, validators
-import flask_admin as admin
-import flask_login as login
-from flask_admin.contrib import sqla
-from flask_admin import helpers, expose
+import flask_login
+from flask import url_for, redirect, request
+from flask_admin import helpers, expose, AdminIndexView
 from werkzeug.security import generate_password_hash, check_password_hash
+from wtforms import form, fields, validators
 
-from tornado.options import options
+from admin import app, db_session
+from admin.model import *
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-if "db_url" not in options.as_dict().keys():
-    sys.path.append(os.path.dirname(BASE_DIR))
+def init_login():
+    """
+    Initialize flask-login
 
-    from options import load_options
+    :return:
+    """
+    login_manager = flask_login.LoginManager()
+    login_manager.init_app(app)
 
-    load_options()
+    @login_manager.user_loader
+    def load_user(user_id):
+        """
+        Create user loader function
+        :param user_id:
+        :return:
+        """
+        return db_session.query(User).get(user_id)
 
-    from connection import db_session
 
-# Define login and registration forms (for flask-login)
+init_login()
+
+
 class LoginForm(form.Form):
+    """
+    Define login and registration forms (for flask-login)
+    """
     username = fields.StringField(validators=[validators.required()])
     password = fields.PasswordField(validators=[validators.required()])
 
     def validate_username(self, field):
+        """
+        we're comparing the plaintext pw with the the hash from the db
+        to compare plain text passwords use
+        >>>if user.password != self.password.data:
+        :param field:
+        :type field: object
+        :return: None
+        """
         user = self.get_user()
 
         if user is None:
             raise validators.ValidationError('Invalid user')
 
-        # we're comparing the plaintext pw with the the hash from the db
         if not check_password_hash(user.password, self.password.data):
-        # to compare plain text passwords use
-        # if user.password != self.password.data:
             raise validators.ValidationError('Invalid password')
 
     def get_user(self):
+        """
+        Method for getting user
+        :return: None
+        """
         return db_session.query(User).filter_by(username=self.username.data).first()
 
 
@@ -55,24 +74,30 @@ class RegistrationForm(form.Form):
             raise validators.ValidationError('Duplicate username')
 
 
-# Create customized index view class that handles login & registration
-class MyAdminIndexView(admin.AdminIndexView):
+class MyAdminIndexView(AdminIndexView):
+    """
+    Create customized index view class that handles login & registration
+    """
 
     @expose('/')
     def index(self):
-        if not login.current_user.is_authenticated:
+        if not flask_login.current_user.is_authenticated:
             return redirect(url_for('.login_view'))
         return super(MyAdminIndexView, self).index()
 
     @expose('/login/', methods=('GET', 'POST'))
     def login_view(self):
-        # handle user login
+        """
+        handle user login
+
+        :return: object
+        """
         form = LoginForm(request.form)
         if helpers.validate_form_on_submit(form):
             user = form.get_user()
-            login.login_user(user)
+            flask_login.login_user(user)
 
-        if login.current_user.is_authenticated:
+        if flask_login.current_user.is_authenticated:
             return redirect(url_for('.index'))
         link = '<p>Don\'t have an account? <a href="' + url_for('.register_view') + '">Click here to register.</a></p>'
         self._template_args['form'] = form
@@ -81,19 +106,23 @@ class MyAdminIndexView(admin.AdminIndexView):
 
     @expose('/register/', methods=('GET', 'POST'))
     def register_view(self):
+        """
+        we hash the users password to avoid saving it as plaintext in the db,
+        remove to use plain text:
+
+        :return: object
+        """
         form = RegistrationForm(request.form)
         if helpers.validate_form_on_submit(form):
             user = User()
 
             form.populate_obj(user)
-            # we hash the users password to avoid saving it as plaintext in the db,
-            # remove to use plain text:
             user.password = generate_password_hash(form.password.data)
 
             db_session.add(user)
             db_session.commit()
 
-            login.login_user(user)
+            flask_login.login_user(user)
             return redirect(url_for('.index'))
         link = '<p>Already have an account? <a href="' + url_for('.login_view') + '">Click here to log in.</a></p>'
         self._template_args['form'] = form
@@ -102,5 +131,5 @@ class MyAdminIndexView(admin.AdminIndexView):
 
     @expose('/logout/')
     def logout_view(self):
-        login.logout_user()
+        flask_login.logout_user()
         return redirect(url_for('.index'))
