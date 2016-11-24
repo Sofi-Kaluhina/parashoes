@@ -1,16 +1,11 @@
-__author__ = 'markel'
+# coding=utf8
 
-from tornado import web, gen, concurrent
-from mock import get_random_products
 import ujson
+from datetime import datetime, timedelta
+from tornado import web, gen
 
-from model import *
-from connection import db_session
-
-
-class MainHandler(web.RequestHandler):
-    def get(self):
-        self.write("Hello world")
+from admin.connection import db_session
+from admin.model import *
 
 
 class CORSHandler(web.RequestHandler):
@@ -22,50 +17,91 @@ class CORSHandler(web.RequestHandler):
                         "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control")
 
 
-class HProducts(CORSHandler):
-    def _get_product_attributes(self, product_id):
-        query = db_session.query(
-            Product,
-            CatalogProductAttribute,
-            ProductsProductAttribute
-        ).filter(
-            Product.id == product_id
-        )
-        query = query.join(
-            ProductsProductAttribute,
-            ProductsProductAttribute.product_id == Product.id
-        )
-        query = query.join(
-            CatalogProductAttribute,
-            CatalogProductAttribute.id == ProductsProductAttribute.catalog_product_attribute_id
-        )
+class InitHandler(CORSHandler):
+    @gen.coroutine
+    def get(self, *args, **kwargs):
         result = {}
-        attributes = query.all()
-        for _, attribute_name, attribute_value in attributes:
-            result[attribute_name.name] = attribute_value.attribute_value
+        query = db_session.query(
+            AttributeValue
+        ).filter(
+            Attribute.name == 'brand',
+            ProductAttributeValues is not None
+        ).join(
+            Attribute,
+            Attribute.id == AttributeValue.attribute_id
+        ).join(
+            ProductAttributeValues,
+            ProductAttributeValues.attribute_value_id == AttributeValue.id
+        ).all()
+        result['brand'] = [
+            {
+                'name': value.name.encode(),
+                'slug_name': value.description
+            } for value in query
+            ]
+        result['categories_filter_conditions'] = {
+            'new': {
+                'created_at': [(datetime.today() - timedelta(days=3)).strftime('%Y-%m-%d 00:00:00')]
+            },
+            'woman': {
+                'gender': ['woman']
+            },
+            'man': {
+                'gender': ['man']
+            },
+            'children': {
+                'age': ['babbie', 'children']
+            }
+        }
+        self.write(ujson.dumps(result))
+
+    def post(self, *args, **kwargs):
+        self.clear()
+        self.set_status(405)
+
+    def put(self, *args, **kwargs):
+        self.clear()
+        self.set_status(405)
+
+    def delete(self, *args, **kwargs):
+        self.clear()
+        self.set_status(405)
+
+
+class HProducts(CORSHandler):
+    @staticmethod
+    def _get_product_attributes(product_id):
+        attributes = db_session.query(
+            ProductAttributeValues,
+            AttributeValue,
+            Attribute
+        ).filter(
+            ProductAttributeValues.product_id == product_id
+        ).join(
+            AttributeValue,
+            AttributeValue.id == ProductAttributeValues.attribute_value_id
+        ).join(
+            Attribute,
+            Attribute.id == AttributeValue.attribute_id
+        ).all()
+        result = {}
+        for _, attribute_value, attribute in attributes:
+            result[attribute.name] = attribute_value.name
         return result
 
-    def _get_product_photos(self, product_id):
-        query = db_session.query(
-            Product,
-            ProductPhoto,
-            ProductsProductPhoto
-        ).filter(
-            Product.id == product_id
-        )
-        query = query.join(
+    @staticmethod
+    def _get_product_photos(product_id):
+        photos = db_session.query(
             ProductsProductPhoto,
-            Product.id == ProductsProductPhoto.product_id
-        )
-        query = query.join(
+            ProductPhoto
+        ).filter(
+            ProductsProductPhoto.product_id == product_id
+        ).join(
             ProductPhoto,
             ProductsProductPhoto.product_photo_id == ProductPhoto.id
-        )
-
-        photos = query.all()
-
+        ).all()
         result = []
-        for _, photo, _ in photos:
+        for _, photo in photos:
             result.append(
                 {
                     'name': photo.name,
@@ -76,51 +112,130 @@ class HProducts(CORSHandler):
             )
         return result
 
+    def _get_products(self, products):
+        result = []
+        for product in products:
+            _product = {
+                'id': product.id,
+                'name': product.name,
+                'slug_name': product.slug_name,
+                'description': product.description,
+                'images': self._get_product_photos(product.id),
+                'attributes': self._get_product_attributes(product.id)
+            }
+            result.append(_product)
+        return result
+
 
 class ProductsHandler(HProducts):
     @gen.coroutine
     def get(self):
         try:
-            query = db_session.query(Product)
-            products = query.all()
+            products = db_session.query(
+                Product
+            ).all()
 
-            result = []
-            for product in products:
-                _product = {
-                    'id': product.id,
-                    'name': product.name,
-                    'slug_name': product.slug_name,
-                    'description': product.description,
-                    'images': self._get_product_photos(product.id),
-                    'attributes': self._get_product_attributes(product.id)
-                }
-                result.append(_product)
-
-            self.write(ujson.dumps(result))
+            self.write(ujson.dumps(self._get_products(products)))
         except gen.BadYieldError as e:
             self.write(e.args)
+
+    def post(self, *args, **kwargs):
+        self.clear()
+        self.set_status(405)
+
+    def put(self, *args, **kwargs):
+        self.clear()
+        self.set_status(405)
+
+    def delete(self, *args, **kwargs):
+        self.clear()
+        self.set_status(405)
 
 
 class ProductHandler(HProducts):
     @gen.coroutine
-    def get(self, id):
+    def get(self, slug_name):
         try:
-            query = db_session.query(Product).filter(Product.id == id)
-            products = query.all()
+            products = db_session.query(
+                Product
+            ).filter(
+                Product.slug_name == slug_name
+            ).all()
 
-            result = []
-            for product in products:
-                _product = {
-                    'id': product.id,
-                    'name': product.name,
-                    'slug_name': product.slug_name,
-                    'description': product.description,
-                    'images': self._get_product_photos(product.id),
-                    'attributes': self._get_product_attributes(product.id)
-                }
-                result.append(_product)
-
-            self.write(ujson.dumps(result))
+            self.write(ujson.dumps(self._get_products(products)))
         except gen.BadYieldError as e:
             self.write(e.args)
 
+    def post(self, *args, **kwargs):
+        self.clear()
+        self.set_status(405)
+
+    def put(self, *args, **kwargs):
+        self.clear()
+        self.set_status(405)
+
+    def delete(self, *args, **kwargs):
+        self.clear()
+        self.set_status(405)
+
+
+class CategoriesHandler(HProducts):
+    def get(self, *args, **kwargs):
+        self.clear()
+        self.set_status(405)
+
+    @gen.coroutine
+    def post(self):
+        try:
+            conditions = ujson.loads(self.get_argument('categories_filter_conditions'))
+            products = set()
+            _products = db_session.query(
+                Product
+            ).distinct(
+                Product.id
+            ).outerjoin(
+                ProductAttributeValues,
+                Product.id == ProductAttributeValues.product_id
+            ).outerjoin(
+                AttributeValue,
+                ProductAttributeValues.attribute_value_id == AttributeValue.id
+            ).outerjoin(
+                Attribute,
+                AttributeValue.attribute_id == Attribute.id
+            )
+
+            def filter_constructor(_conditions):
+                result = []
+                for condition_list in _conditions:
+                    for condition in _conditions[condition_list]:
+                        result.append(and_(
+                            Attribute.name == condition_list,
+                            AttributeValue.name == condition
+                        ))
+                print('\n\n{}\n\n'.format(result))
+                return result
+
+            _products = _products.filter(
+                or_(*filter_constructor(conditions))
+            ).all()
+
+            for _product in _products:
+                products.add(_product)
+
+            self.write(ujson.dumps(self._get_products(products)))
+        except TypeError as e:
+            self.clear()
+            self.set_status(400, reason=str(e))
+        except ValueError as e:
+            self.clear()
+            self.set_status(400, reason=str(e))
+        except gen.BadYieldError as e:
+            self.write(e.args)
+
+    def put(self, *args, **kwargs):
+        self.clear()
+        self.set_status(405)
+
+    def delete(self, *args, **kwargs):
+        self.clear()
+        self.set_status(405)

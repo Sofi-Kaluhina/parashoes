@@ -34,7 +34,7 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: '/template/contacts.html',
             controller: 'ContactsController'
         })
-        .when('/product/:id', {
+        .when('/product/:slug_name', {
             templateUrl: '/template/product_page.html',
             controller: 'ProductPageController'
         })
