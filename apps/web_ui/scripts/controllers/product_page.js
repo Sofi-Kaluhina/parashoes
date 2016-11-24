@@ -6,9 +6,9 @@ app.controller('ProductPageController', function ($rootScope, $http, $scope, $ro
         $scope.product = [];
         $scope.imagesForGallery = [];
 
-        var current_id = $routeParams.id;
+        var slug_name = $routeParams.slug_name;
 
-        $http.get($rootScope.apiUrl + $rootScope.baseUrl + 'product/' + current_id)
+        $http.get($rootScope.apiUrl + $rootScope.baseUrl + 'product/' + slug_name)
             .success(function (responce) {
                     $scope.product = responce;
                     $scope.product[0].images.forEach(function (element, index) {

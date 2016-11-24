@@ -1,5 +1,10 @@
-# coding: utf-8
-from sqlalchemy import Column, DateTime, ForeignKey, Index, Integer, String, Text, text
+# coding=utf8
+
+from sqlalchemy import (
+    Column, DateTime, ForeignKey, Index,
+    Integer, String, Text, Boolean, text,
+    distinct, exists, and_, or_, desc
+)
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -17,8 +22,7 @@ class User(Base):
 
     id = Column(
         Integer,
-        primary_key=True,
-        server_default=text("nextval('user_id_seq'::regclass)")
+        primary_key=True
     )
     username = Column(
         String(255),
@@ -38,8 +42,7 @@ class User(Base):
         String(255)
     )
     created_at = Column(
-        DateTime,
-        nullable=False
+        DateTime
     )
     last_login_at = Column(
         DateTime,
@@ -70,8 +73,7 @@ class CatalogUserType(Base):
     id = Column(
         Integer,
         primary_key=True,
-        index=True,
-        server_default=text("nextval('catalog_user_type_id_seq'::regclass)")
+        index=True
     )
     name = Column(
         String(255)
@@ -90,8 +92,7 @@ class UsersType(Base):
 
     id = Column(
         Integer,
-        primary_key=True,
-        server_default=text("nextval('users_types_id_seq'::regclass)")
+        primary_key=True
     )
     user_id = Column(
         ForeignKey('user.id', onupdate='CASCADE')
@@ -111,45 +112,150 @@ class Product(Base):
     id = Column(
         Integer,
         primary_key=True,
-        index=True,
-        server_default=text("nextval('product_id_seq'::regclass)")
+        index=True
+    )
+    product_type_id = Column(
+        Integer,
+        ForeignKey('product_type.id', onupdate='CASCADE', use_alter=True, name='product_product_type_id_fkey')
     )
     name = Column(
         String(255),
         nullable=False,
-        index=True
-    )
-    slug_name = Column(
-        String(255),
-        nullable=False,
-        unique=True
     )
     description = Column(
         Text,
         nullable=False,
+    )
+    slug_name = Column(
+        String(255),
+        # nullable=False,
+        unique=True,
         index=True
     )
-    attributes = relationship("CatalogProductAttribute", secondary="products_product_attributes")
+    product_type = relationship('ProductType', foreign_keys=product_type_id, post_update=True)
+
     photos = relationship("ProductPhoto", secondary="products_product_photos")
 
+    def __repr__(self):
+        return "%s" % self.name
 
-class CatalogProductAttribute(Base):
-    __tablename__ = 'catalog_product_attribute'
+
+class ProductType(Base):
+    __tablename__ = 'product_type'
 
     id = Column(
         Integer,
         primary_key=True,
-        index=True,
-        server_default=text("nextval('product_attribute_id_seq'::regclass)")
+        index=True
     )
     name = Column(
         String,
         nullable=False,
         index=True
     )
+    description = Column(
+        Text,
+        nullable=False
+    )
+
+    # product = relationship(Product, backref='Type')
 
     def __repr__(self):
         return "%s" % self.name
+
+
+class ProductTypeAttributeValue(Base):
+    __tablename__ = 'product_type_attribute_value'
+    __table_args__ = (
+        Index('idx_product_type_attribute_value_id', 'product_type_id', 'attribute_value_id'),
+    )
+
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
+    product_type_id = Column(
+        ForeignKey('product_type.id', onupdate='CASCADE')
+    )
+    attribute_value_id = Column(
+        ForeignKey('attribute_value.id', onupdate='CASCADE')
+    )
+
+
+class AttributeValue(Base):
+    __tablename__ = 'attribute_value'
+
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
+    attribute_id = Column(
+        ForeignKey('attribute.id', onupdate='CASCADE')
+    )
+    name = Column(
+        String,
+        nullable=False,
+        index=True
+    )
+    description = Column(
+        Text,
+        nullable=False
+    )
+
+    def __repr__(self):
+        return "%s" % self.name
+
+
+class Attribute(Base):
+    __tablename__ = 'attribute'
+
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
+    name = Column(
+        String,
+        nullable=False,
+        index=True
+    )
+    description = Column(
+        Text,
+        nullable=False
+    )
+    type = Column(
+        String,
+        nullable=False
+    )
+    is_active = Column(
+        Boolean,
+        unique=False,
+        default=True
+    )
+
+    def __repr__(self):
+        return "%s" % self.name
+
+
+class ProductAttributeValues(Base):
+    __tablename__ = 'product_attribute_values'
+    __table_args__ = (
+        Index('idx_product_attribute_values_id', 'product_id', 'attribute_value_id'),
+    )
+
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
+    product_id = Column(
+        ForeignKey('product.id', onupdate='CASCADE')
+    )
+    attribute_value_id = Column(
+        ForeignKey('attribute_value.id', onupdate='CASCADE')
+    )
 
 
 class ProductPhoto(Base):
@@ -158,8 +264,7 @@ class ProductPhoto(Base):
     id = Column(
         Integer,
         primary_key=True,
-        index=True,
-        server_default=text("nextval('product_photo_id_seq'::regclass)")
+        index=True
     )
     name = Column(
         String(255),
@@ -182,32 +287,6 @@ class ProductPhoto(Base):
         return "%s" % self.name
 
 
-class ProductsProductAttribute(Base):
-    __tablename__ = 'products_product_attributes'
-    __table_args__ = (
-        Index('idx_products_product_attributes_id', 'product_id', 'catalog_product_attribute_id'),
-    )
-
-    id = Column(
-        Integer,
-        primary_key=True,
-        server_default=text("nextval('products_catalog_product_attribute_id_seq'::regclass)")
-    )
-    product_id = Column(
-        ForeignKey('product.id', onupdate='CASCADE')
-    )
-    catalog_product_attribute_id = Column(
-        ForeignKey('catalog_product_attribute.id', onupdate='CASCADE')
-    )
-    attribute_value = Column(
-        String(255),
-        nullable=False
-    )
-
-    catalog_product_attribute = relationship('CatalogProductAttribute')
-    product = relationship('Product')
-
-
 class ProductsProductPhoto(Base):
     __tablename__ = 'products_product_photos'
     __table_args__ = (
@@ -216,8 +295,7 @@ class ProductsProductPhoto(Base):
 
     id = Column(
         Integer,
-        primary_key=True,
-        server_default=text("nextval('products_product_photos_id_seq'::regclass)")
+        primary_key=True
     )
     product_id = Column(
         ForeignKey('product.id', onupdate='CASCADE')

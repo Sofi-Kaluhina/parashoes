@@ -11,15 +11,16 @@ from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
 from tornado.web import FallbackHandler, Application
 
-from admin import app
+from admin.admin import app
 from handlers import *
 
 tr = WSGIContainer(app)
 
 handlers = [
-    (options.api_version, MainHandler),
-    ('{}/{}'.format(options.api_version, 'product/(?P<id>[^\/]+)'), ProductHandler),
+    ('{}/{}'.format(options.api_version, 'categories'), CategoriesHandler),
+    ('{}/{}'.format(options.api_version, 'product/(?P<slug_name>[^\/]+)'), ProductHandler),
     ('{}/{}'.format(options.api_version, 'products'), ProductsHandler),
+    ('{}/{}'.format(options.api_version, 'init'), InitHandler),
     ('.*', FallbackHandler, dict(fallback=tr))
 ]
 
