@@ -3,11 +3,12 @@
 from sqlalchemy import (
     Column, DateTime, ForeignKey, Index,
     Integer, String, Text, Boolean, text,
-    distinct, exists, and_, or_, desc
+    distinct, exists, and_, or_, desc, update
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
+from datetime import datetime
 
 Base = declarative_base()
 metadata = Base.metadata
@@ -42,10 +43,13 @@ class User(Base):
         String(255)
     )
     created_at = Column(
-        DateTime
+        DateTime,
+        default=datetime.now(),
+        nullable=False
     )
     last_login_at = Column(
         DateTime,
+        default=datetime.now(),
         nullable=False
     )
     types = relationship("CatalogUserType", secondary="users_types")
@@ -128,13 +132,11 @@ class Product(Base):
     )
     slug_name = Column(
         String(255),
-        # nullable=False,
+        nullable=False,
         unique=True,
         index=True
     )
     product_type = relationship('ProductType', foreign_keys=product_type_id, post_update=True)
-
-    photos = relationship("ProductPhoto", secondary="products_product_photos")
 
     def __repr__(self):
         return "%s" % self.name
@@ -157,8 +159,6 @@ class ProductType(Base):
         Text,
         nullable=False
     )
-
-    # product = relationship(Product, backref='Type')
 
     def __repr__(self):
         return "%s" % self.name
@@ -266,13 +266,23 @@ class ProductPhoto(Base):
         primary_key=True,
         index=True
     )
-    name = Column(
+    large_name = Column(
         String(255),
         nullable=False
     )
-    path = Column(
+    large_path = Column(
+        String(255),
+        nullable=False,
+        unique=True
+    )
+    small_name = Column(
         String(255),
         nullable=False
+    )
+    small_path = Column(
+        String(255),
+        nullable=False,
+        unique=True
     )
     thumb_name = Column(
         String(255),
@@ -280,8 +290,11 @@ class ProductPhoto(Base):
     )
     thumb_path = Column(
         String(255),
-        nullable=False
+        nullable=False,
+        unique=True
     )
+
+    product = relationship("Product", secondary="products_product_photos")
 
     def __repr__(self):
         return "%s" % self.name
@@ -303,6 +316,3 @@ class ProductsProductPhoto(Base):
     product_photo_id = Column(
         ForeignKey('product_photo.id', onupdate='CASCADE')
     )
-
-    product = relationship('Product')
-    product_photo = relationship('ProductPhoto')
