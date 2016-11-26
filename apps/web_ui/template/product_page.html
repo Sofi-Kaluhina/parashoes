@@ -3,7 +3,7 @@
         <div id="product-gallery">
             <div id="product-large-image">
                 <img id="zoom_03"
-                     ng-src="{{approot}}{{imagesForGallery[0].large}}"
+                     ng-src="{{approot}}{{imagesForGallery[0].small}}"
                      data-zoom-image="{{approot}}{{image.large}}"
                      ng-click="setScopeValue('zoom03', imagesForGallery[0].large);"
                      ez-plus
@@ -17,7 +17,7 @@
                        class="img-group-01"
                        href="{{approot}}{{image.large}}"
                        ng-click="setActiveImageInGallery('zoomModelGallery01', image);"
-                       data-image="{{approot}}{{image.large}}"
+                       data-image="{{approot}}{{image.small}}"
                        data-zoom-image="{{approot}}{{image.large}}">
                         <img ng-src="{{approot}}{{image.thumb}}"/>
                     </a>
@@ -37,31 +37,31 @@
                     {{product.name}}
                 </div>
                 <div>
-                    Артикул: {{product.oem}}
+                    Артикул: {{product.attributes.oem}}
                 </div>
                 <div>
-                    Цена: <span>{{product.attributes.Price}} UAH</span>
+                    Цена: <span>{{product.attributes.price}} UAH</span>
                     <button class="btn btn-default" value="add">добавить в корзину</button>
                 </div>
             </div>
             <div class="product-description">
                 <div>
-                    Бренд: {{product.attributes.Brand}}
+                    Бренд: {{product.attributes.brand}}
                 </div>
                 <div>
-                    Размер: {{product.attributes.Size}}
+                    Размер: {{product.attributes.size}}
                 </div>
                 <div>
-                    Пол: {{product.attributes.Gender}}
+                    Пол: {{product.attributes.gender}}
                 </div>
                 <div>
-                    Возраст: {{product.attributes.Age}}
+                    Возраст: {{product.attributes.age}}
                 </div>
                 <div>
-                    Сезон: {{product.attributes.Season}}
+                    Сезон: {{product.attributes.season}}
                 </div>
                 <div>
-                    Состояние: {{product.attributes.Condition}}
+                    Состояние: {{product.attributes.condition}}
                 </div>
                 <h3>Описание товара:</h3>
                 <div>
