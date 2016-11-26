@@ -15,8 +15,8 @@ app.controller('ProductPageController', function ($rootScope, $http, $scope, $ro
                         $scope.imagesForGallery.push(
                             {
                                 thumb: $rootScope.apiUrl + element['thumb_path'],
-                                small: $rootScope.apiUrl + element['thumb_path'],
-                                large: $rootScope.apiUrl + element['path']
+                                small: $rootScope.apiUrl + element['small_path'],
+                                large: $rootScope.apiUrl + element['large_path']
                             }
                         )
                     });
@@ -71,16 +71,16 @@ app.controller('ProductPageController', function ($rootScope, $http, $scope, $ro
         };
 
         $scope.zoomOptionsGallery01 = {
-            scrollZoom: true,
+            scrollZoom: false,
             zoomWindowWidth: 600,
             zoomWindowHeight: 600,
             easing: true,
             zoomWindowFadeIn: 500,
             zoomWindowFadeOut: 500,
-            lensFadeIn: 500,
-            lensFadeOut: 500,
+            lensFadeIn: 100,
+            lensFadeOut: 100,
 
-            initial: 'large',
+            initial: 'small',
 
             gallery: 'gallery_01',
             cursor: 'pointer',
