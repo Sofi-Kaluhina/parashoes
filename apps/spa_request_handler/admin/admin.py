@@ -6,7 +6,8 @@ from admin import app, db_session
 from admin.security import MyAdminIndexView
 from admin.views import (
     UserView, CatalogUserTypeView, ProductPhotoView,
-    AttributeView, AttributeValueView, ProductView
+    AttributeView, AttributeValueView, ProductView,
+    ProductTypeView
 )
 
 
@@ -16,4 +17,5 @@ admin.add_view(CatalogUserTypeView(db_session))
 admin.add_view(AttributeView(db_session))
 admin.add_view(AttributeValueView(db_session))
 admin.add_view(ProductPhotoView(db_session))
+admin.add_view(ProductTypeView(db_session))
 admin.add_view(ProductView(db_session))
