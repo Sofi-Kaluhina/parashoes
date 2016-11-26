@@ -2,11 +2,14 @@
 
 import os
 from datetime import datetime
+from PIL import Image
+from uuid import uuid4 as uuid
 
 from flask import url_for
 from flask_admin import form
 from flask_admin.contrib.sqla import ModelView
-from slugify import slugify_url
+from slugify import slugify_url, UniqueSlugify
+
 from jinja2 import Markup
 from wtforms import StringField, IntegerField, DateTimeField, SelectField
 
@@ -24,6 +27,7 @@ class UserView(ModelView):
         self.column_exclude_list = ['password', ]
         self.form_excluded_columns = ['password', ]
         super().__init__(User, session, **kwargs)
+        self.name = 'Пользователи'
 
     def is_accessible(self):
         return flask_login.current_user.is_authenticated
@@ -32,6 +36,7 @@ class UserView(ModelView):
 class CatalogUserTypeView(ModelView):
     def __init__(self, session, **kwargs):
         super().__init__(CatalogUserType, session, **kwargs)
+        self.name = 'Типы пользователей'
 
     def is_accessible(self):
         return flask_login.current_user.is_authenticated
@@ -41,12 +46,15 @@ class ProductPhotoView(ModelView):
     def __init__(self, session, **kwargs):
         self.create_modal = True
         self.edit_modal = True
+        self.column_exclude_list = ['large_name', 'large_path', 'small_name', 'small_path']
+        self.form_excluded_columns = ['large_name', 'large_path', 'small_name', 'small_path', 'thumb_name', 'thumb_path']
         super().__init__(ProductPhoto, session, **kwargs)
+        self.name = 'Фотографии товаров'
 
     def is_accessible(self):
         return flask_login.current_user.is_authenticated
 
-    @app.route('/media/product/<filename>')
+    @app.route('/media/product/large/<filename>')
     def product_image(self):
         pass
 
@@ -55,28 +63,95 @@ class ProductPhotoView(ModelView):
         pass
 
     def _list_thumbnail(view, context, model, name):
-        if not model.path:
+        if not model.large_path:
             return ''
 
         return Markup('<img src="%s">' % url_for(
             'product_trumb_image',
-            filename=form.thumbgen_filename(model.path))
-                      )
+            filename=form.thumbgen_filename(model.large_path.replace('_large', '')))
+        )
 
-    def thumb_name(filename):
-        return 'thumb/%s_thumb%s' % os.path.splitext(filename)
+    def on_model_change(self, form, model, is_created):
+        if is_created:
+            size_large = 1035, 1440
+            size_small = 414, 576
+            size_thumb = 93, 129
+            new_photo_file_name = uuid()
+
+            def delete(source_file_name):
+                source_directory = '{}/{}/{}'.format(
+                    options.as_dict()['media_dir'],
+                    'product/large',
+                    source_file_name
+                )
+                os.remove(source_directory)
+
+            def resize(size, destination, source_file_name):
+                filename, extension = os.path.splitext(source_file_name)
+                source_directory = '{}/{}/{}'.format(
+                    options.as_dict()['media_dir'],
+                    'product/large',
+                    source_file_name
+                )
+                destination_file = '{}_{}{}'.format(
+                    new_photo_file_name,
+                    destination,
+                    extension
+                )
+                destination_directory = '{}/{}/{}/{}'.format(
+                    options.as_dict()['media_dir'],
+                    'product',
+                    destination,
+                    destination_file
+                )
+                if source_file_name != destination:
+                    try:
+                        im = Image.open(source_directory)
+                        im.thumbnail(size, Image.ANTIALIAS)
+                        im.save(destination_directory, "JPEG")
+                    except IOError as e:
+                        print(e)
+                        print("Cannot create thumbnail for '%s'" % model.large_path)
+                return destination_file
+
+            temp_photo_file_name = model.large_path
+
+            large_file_mane = resize(size_large, 'large', temp_photo_file_name)
+            small_file_mane = resize(size_small, 'small', temp_photo_file_name)
+            thumb_file_mane = resize(size_thumb, 'thumb', temp_photo_file_name)
+
+            delete(temp_photo_file_name)
+
+            model.large_name = model.product[0].name
+            model.large_path = large_file_mane
+            model.small_name = model.large_name
+            model.small_path = small_file_mane
+            model.thumb_name = model.large_name
+            model.thumb_path = thumb_file_mane
+
+    def on_model_delete(self, model):
+        for destination in ['large', 'small', 'thumb']:
+            infile = model.large_path\
+                .replace('_large', '')
+            filename, extension = os.path.splitext(infile)
+            image_file = '{media_dir}/{type_entity_dir}/{destination}/{filename}_{destination}{extension}'.format(
+                media_dir=options.as_dict()['media_dir'],
+                type_entity_dir='product',
+                destination=destination,
+                filename=filename,
+                extension=extension
+            )
+            os.remove(image_file)
 
     column_formatters = {
-        'path': _list_thumbnail,
+        'large_path': _list_thumbnail,
         'thumb_path': _list_thumbnail
     }
 
     form_extra_fields = {
-        'path': form.ImageUploadField(
+        'large_path': form.ImageUploadField(
             'Path',
-            base_path='{}/{}'.format(options.as_dict()['media_dir'], 'product'),
-            thumbgen=thumb_name,
-            thumbnail_size=(100, 100, True),
+            base_path='{}/{}'.format(options.as_dict()['media_dir'], 'product/large'),
             endpoint='product_image'
         )
     }
@@ -85,6 +160,7 @@ class ProductPhotoView(ModelView):
 class AttributeView(ModelView):
     def __init__(self, session, **kwargs):
         super().__init__(Attribute, session, **kwargs)
+        self.name = 'Аттрибуты'
 
     def is_accessible(self):
         return flask_login.current_user.is_authenticated
@@ -93,6 +169,16 @@ class AttributeView(ModelView):
 class AttributeValueView(ModelView):
     def __init__(self, session, **kwargs):
         super().__init__(AttributeValue, session, **kwargs)
+        self.name = 'Значения аттрибутов'
+
+    def is_accessible(self):
+        return flask_login.current_user.is_authenticated
+
+
+class ProductTypeView(ModelView):
+    def __init__(self, session, **kwargs):
+        super().__init__(ProductType, session, **kwargs)
+        self.name = 'Типы товаров'
 
     def is_accessible(self):
         return flask_login.current_user.is_authenticated
@@ -100,7 +186,6 @@ class AttributeValueView(ModelView):
 
 class ProductView(ModelView):
     def __init__(self, session, **kwargs):
-        self.name = 'Товары'
         self.create_modal = False
         self.edit_modal = False
         self.can_view_details = True
@@ -111,7 +196,7 @@ class ProductView(ModelView):
         self.on_form_prefill(self.form, None)
         super(ProductView, self).__init__(Product, session, **kwargs)
         self._refresh_cache()
-        self.on_form_prefill(self.form, self.model.id)
+        self.name = 'Товары'
 
     def is_accessible(self):
         return flask_login.current_user.is_authenticated
@@ -144,7 +229,18 @@ class ProductView(ModelView):
         self.form_widget_args = disables
 
     def on_model_change(self, form, model, is_created):
-        model.slug_name = slugify_url(form['name'].data)
+        slugify_unique = UniqueSlugify(separator='-')
+        product_name = form['name'].data.lower()
+
+        def get_unique_slug():
+            _slug = slugify_unique(product_name)
+            while 1:
+                if not db_session.query(exists().where(Product.slug_name == _slug)).scalar():
+                    return _slug
+                else:
+                    _slug = slugify_unique(product_name)
+        model.slug_name = get_unique_slug()
+
         if is_created:
             for attribute in db_session.query(Attribute).all():
                 if attribute.name == 'created_at':
@@ -248,6 +344,15 @@ class ProductView(ModelView):
         for attribute_value_delete in attribute_values_delete:
             db_session.delete(attribute_value_delete)
 
+        products_product_photos_delete = db_session.query(
+            ProductsProductPhoto
+        ).filter(
+            ProductsProductPhoto.product_id == model.id
+        ).all()
+
+        for products_product_photo_delete in products_product_photos_delete:
+            db_session.delete(products_product_photo_delete)
+
         db_session.flush()
 
     def _get_attribute_value(self, attribute_name, id):
@@ -275,18 +380,21 @@ class ProductView(ModelView):
             return datetime.today()
 
     def _get_new_oem_value(self, id):
-        result = self._get_attribute_value('oem', id)
-        if result:
-            return result.name
-        else:
-            last_product_id = db_session.query(
-                Product
-            ).order_by(
-                desc(
-                    Product.id
-                )
-            ).limit(1).first()
-            return 'BU{:05d}'.format(last_product_id.id)
+        try:
+            result = self._get_attribute_value('oem', id)
+            if result:
+                return result.name
+            else:
+                last_product_id = db_session.query(
+                    Product
+                ).order_by(
+                    desc(
+                        Product.id
+                    )
+                ).limit(1).first()
+                return 'BU{:05d}'.format(last_product_id.id)
+        except AttributeError:
+            return 'BU{:05d}'.format(1)
 
     def _get_price_value(self, id):
         result = self._get_attribute_value('price', id)
