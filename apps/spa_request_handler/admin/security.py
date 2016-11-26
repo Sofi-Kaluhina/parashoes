@@ -56,6 +56,12 @@ class LoginForm(form.Form):
         if not check_password_hash(user.password, self.password.data):
             raise validators.ValidationError('Invalid password')
 
+        user = db_session.query(User).filter(
+            User.username == self.username.data
+        ).first()
+        user.last_login_at = datetime.now()
+        db_session.flush()
+
     def get_user(self):
         """
         Method for getting user

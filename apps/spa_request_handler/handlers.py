@@ -104,8 +104,10 @@ class HProducts(CORSHandler):
         for _, photo in photos:
             result.append(
                 {
-                    'name': photo.name,
-                    'path': 'media/product/{}'.format(photo.path),
+                    'large_name': photo.large_name,
+                    'large_path': 'media/product/large/{}'.format(photo.large_path),
+                    'small_name': photo.small_name,
+                    'small_path': 'media/product/small/{}'.format(photo.small_path),
                     'thumb_name': photo.thumb_name,
                     'thumb_path': 'media/product/thumb/{}'.format(photo.thumb_path),
                 }
@@ -187,6 +189,16 @@ class CategoriesHandler(HProducts):
     @gen.coroutine
     def post(self):
         try:
+            def filter_constructor(_conditions):
+                result = []
+                for condition_list in _conditions:
+                    for condition in _conditions[condition_list]:
+                        result.append(and_(
+                            Attribute.name == condition_list,
+                            AttributeValue.name == condition
+                        ))
+                return result
+
             conditions = ujson.loads(self.get_argument('categories_filter_conditions'))
             products = set()
             _products = db_session.query(
@@ -202,20 +214,7 @@ class CategoriesHandler(HProducts):
             ).outerjoin(
                 Attribute,
                 AttributeValue.attribute_id == Attribute.id
-            )
-
-            def filter_constructor(_conditions):
-                result = []
-                for condition_list in _conditions:
-                    for condition in _conditions[condition_list]:
-                        result.append(and_(
-                            Attribute.name == condition_list,
-                            AttributeValue.name == condition
-                        ))
-                print('\n\n{}\n\n'.format(result))
-                return result
-
-            _products = _products.filter(
+            ).filter(
                 or_(*filter_constructor(conditions))
             ).all()
 
