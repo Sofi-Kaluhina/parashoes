@@ -44,13 +44,13 @@ class InitHandler(CORSHandler):
                 'created_at': [(datetime.today() - timedelta(days=3)).strftime('%Y-%m-%d 00:00:00')]
             },
             'woman': {
-                'gender': ['woman']
+                'gender': ['Женский']
             },
             'man': {
-                'gender': ['man']
+                'gender': ['Мужской']
             },
             'children': {
-                'age': ['babbie', 'children']
+                'age': ['Малыши', 'Дети']
             }
         }
         self.write(ujson.dumps(result))
@@ -182,9 +182,8 @@ class ProductHandler(HProducts):
 
 
 class CategoriesHandler(HProducts):
-    def get(self, *args, **kwargs):
-        self.clear()
-        self.set_status(405)
+    def get(self):
+        pass
 
     @gen.coroutine
     def post(self):
@@ -199,7 +198,7 @@ class CategoriesHandler(HProducts):
                         ))
                 return result
 
-            conditions = ujson.loads(self.get_argument('categories_filter_conditions'))
+            conditions = ujson.loads(self.request.body)['categories_filter_conditions']
             products = set()
             _products = db_session.query(
                 Product
