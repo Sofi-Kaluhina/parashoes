@@ -297,7 +297,7 @@ class ProductPhoto(Base):
     product = relationship("Product", secondary="products_product_photos")
 
     def __repr__(self):
-        return "%s" % self.name
+        return "%s" % self.large_name
 
 
 class ProductsProductPhoto(Base):
