@@ -122,7 +122,17 @@ class ProductPhotoView(ModelView):
 
             delete(temp_photo_file_name)
 
-            model.large_name = model.product[0].name
+            def get_unique_product_name():
+                counter = 0
+                while 1:
+                    if db_session.query(exists().where(ProductPhoto.large_name == '{}_{}'.format(model.product[0].name, counter))).scalar():
+                        counter += 1
+                    else:
+                        return '{}_{}'.format(model.product[0].name, counter)
+
+            print('\n', get_unique_product_name(), '\n')
+
+            model.large_name = get_unique_product_name()
             model.large_path = large_file_mane
             model.small_name = model.large_name
             model.small_path = small_file_mane

@@ -215,89 +215,6 @@ header > div {
     transition: all 0.2s ease-in 0s;
 }
 
-/* Left column styles */
-
-/* Categories */
-
-/*#column-left {*/
-    /*!*width: 25%;*!*/
-    /*width: 20%;*/
-    /*margin-bottom: 30px;*/
-/*}*/
-
-/*#column-left > div {*/
-    /*margin-bottom: 20px;*/
-/*}*/
-
-/*.box-heading {*/
-    /*padding: 12px 15px;*/
-    /*background-color: #86B9D4;*/
-    /*color: #f7f7f7;*/
-/*}*/
-
-/*#column-left ul {*/
-    /*padding-left: 0;*/
-    /*background-color: #f7f7f7;*/
-/*}*/
-
-/*#column-left ul li {*/
-    /*border-top: 1px solid #e7e5de;*/
-/*}*/
-
-/*#column-left ul li a {*/
-    /*padding-left: 15px;*/
-    /*line-height: 3.6;*/
-    /*text-decoration: none;*/
-    /*display: block;*/
-    /*color: #86B9D4;*/
-/*}*/
-
-/*#column-left ul li:hover {*/
-    /*background-color: #f7effd;*/
-    /*transition: all 0.2s ease-in 0s;*/
-/*}*/
-
-/*#column-left ul li a:hover {*/
-    /*color: #676767;*/
-/*}*/
-
-/* Products box styles */
-
-/*.products-box .image {*/
-    /*display: block;*/
-    /*position: relative;*/
-    /*float: left;*/
-    /*width: 80px;*/
-    /*height: 108px;*/
-/*}*/
-
-/*.products-box .products-container > div {*/
-    /*position: relative;*/
-    /*background-color: #f7f7f7;*/
-    /*border-top: 1px solid #e7e5de;*/
-    /*padding: 1px;*/
-    /*min-height: 110px;*/
-/*}*/
-
-/*.products-box .products-container > div:hover {*/
-    /*background-color: #f7effd;*/
-    /*transition: all 0.2s ease-in 0s;*/
-/*}*/
-
-/*.products-box .products-container > div a {*/
-    /*display: block;*/
-    /*height: 107px;*/
-/*}*/
-/*.cover {             !* Good desigion to give tag <img> a class and to use "object-fit" to cover <div> without stretching image *!*/
-    /*object-fit: contain;*/
-    /*width: inherit;*/
-    /*height: inherit;*/
-/*}*/
-
-/*.products-box .products-container .price span {*/
-    /*color: #7e5486*/
-/*}*/
-
 /* Main content block */
 
 #main-content-box {
@@ -336,7 +253,10 @@ header > div {
 }
 /* Products on the main */
 
-#all-products-title, #latest-products-title, #brief-reference-title {  /* Main block titles */
+#all-products-title,
+#latest-products-title,
+#brief-reference-title,
+#filter-title {  /* Main block titles */
     margin: 20px auto;
     text-align: center;
     background-color: #f98e00;
@@ -363,7 +283,8 @@ hr {
 
 #all-products-title #main-title-row,
 #latest-products-title #latest-row,
-#brief-reference-title #reference-title-row {
+#brief-reference-title #reference-title-row,
+#filter-title #filter-row {
     width: 100%;
     text-transform: uppercase;
     color: #676767;
@@ -371,7 +292,8 @@ hr {
 
 #all-products-title #main-title-row p,
 #latest-products-title #latest-row p,
-#brief-reference-title #reference-title-row p {
+#brief-reference-title #reference-title-row p,
+#filter-title #filter-row p {
     margin: 20px 0 10px;
 }
 
@@ -434,7 +356,7 @@ hr {
     text-transform: uppercase;
 }
 
-.name, .price {
+.name, .price, .buy-button {
     padding-top: 13px;
 }
 
@@ -645,7 +567,6 @@ footer hr {
 #product-thumbs-images {
     order: -1;
 }
-
 .product-description {
     font-size: 17px;
 }
