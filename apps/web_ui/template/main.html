@@ -49,8 +49,9 @@ and main content box, where "home.html" template downloads -->
             <div id="logo"><a href="/home/"><img src="../images/header/logo.png"></a></div>
             <div id="cart-and-search" class="aside">
                 <div id="cart">
-                    <img src="../images/header/shopping_cart.png">
-                    <span>КОРЗИНА(0)</span>
+                    <div ng-include="'/template/summary.html'">
+                        <!--<ngcart-summary></ngcart-summary>-->
+                    </div>
                 </div>
                 <div id="search">
                     <input class="form-control" type="text" placeholder="поиск">
@@ -82,22 +83,24 @@ and main content box, where "home.html" template downloads -->
                                aria-haspopup="true"
                                aria-expanded="false">БРЕНДЫ <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Бренд</a></li>
-                                <li><a href="#">Другой бренд</a></li>
-                                <li><a href="#">И еще бренд</a></li>
+                                <li ng-repeat="brand in initialData.brand">
+                                    <a href="{{brand.slug_name}}">{{brand.name}}</a>
+                                </li>
+                                <!--<li><a href="#">Другой бренд</a></li>-->
+                                <!--<li><a href="#">И еще бренд</a></li>-->
                             </ul>
                         </li>
                         <li>
-                            <a href="/new/">НОВИНКИ</a>
+                            <a href="/categories/new/">НОВИНКИ</a>
                         </li>
                         <li>
-                            <a href="/women/">ЖЕНЩИНАМ</a>
+                            <a href="/categories/woman/">ЖЕНЩИНАМ</a>
                         </li>
                         <li>
-                            <a href="/men/">МУЖЧИНАМ</a>
+                            <a href="/categories/man/">МУЖЧИНАМ</a>
                         </li>
                         <li>
-                            <a href="/children/">ДЕТЯМ</a>
+                            <a href="/categories/children/">ДЕТЯМ</a>
                         </li>
                     </ul>
                 </div>
