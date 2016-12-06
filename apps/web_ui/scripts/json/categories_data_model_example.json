@@ -1,0 +1,58 @@
+{
+  "products": [
+    {
+      "name": "\u0416\u0435\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0437\u0434\u0435\u043b\u044c\u043d\u044b\u0439 \u043a\u0443\u043f\u0430\u043b\u044c\u043d\u0438\u043a-\u0442\u0430\u043d\u043a\u0438\u043d\u0438 Lea",
+      "id": 1,
+      "images": [
+        {
+          "name": "2Q==-1.jpg",
+          "thumb_name": "2Q==-1-thumb.jpg",
+          "path": "media\/product\/2Q-1.jpg",
+          "thumb_path": "media\/product\/thumb\/2Q-1_thumb.jpg"
+        }
+      ],
+      "attributes": {
+        "Gender": "\u0416\u0435\u043d\u0441\u043a\u0430\u044f",
+        "Size": "S",
+        "Price": "526",
+        "Condition": "\u041d\u043e\u0432\u043e\u0435",
+        "Brand": "Diesel",
+        "Age": "22",
+        "Season": "\u041b\u0435\u0442\u043e"
+      },
+      "slug_name": "zhenskii-razdelnyi-kupalnik-tankini-lea",
+      "description": "\u0416\u0435\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0437\u0434\u0435\u043b\u044c\u043d\u044b\u0439 \u043a\u0443\u043f\u0430\u043b\u044c\u043d\u0438\u043a-\u0442\u0430\u043d\u043a\u0438\u043d\u0438 Lea"
+    },
+    {
+      "name": "\u0416\u0435\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0437\u0434\u0435\u043b\u044c\u043d\u044b\u0439 \u043a\u0443\u043f\u0430\u043b\u044c\u043d\u0438\u043a Night \u0443\u043f\u043b\u043e\u0442\u043d\u0435\u043d\u043d\u044b\u0439 \u043d\u0430 \u043a\u043e\u0441\u0442\u043e\u0447\u043a\u0430\u0445",
+      "id": 2,
+      "images": [
+        {
+          "name": "2Q==-2.jpg",
+          "thumb_name": "2Q==-2-thumb.jpg",
+          "path": "media\/product\/2Q-2.jpg",
+          "thumb_path": "media\/product\/thumb\/2Q-2_thumb.jpg"
+        }
+      ],
+      "attributes": {
+        "Gender": "\u0416\u0435\u043d\u0441\u043a\u0430\u044f",
+        "Size": "S",
+        "Price": "2582",
+        "Condition": "\u041d\u043e\u0432\u043e\u0435",
+        "Brand": "Danner",
+        "Age": "80",
+        "Season": "\u041b\u0435\u0442\u043e"
+      },
+      "slug_name": "zhenskii-razdelnyi-kupalnik-night-uplotnennyi-na-kostochkakh",
+      "description": "\u0416\u0435\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0437\u0434\u0435\u043b\u044c\u043d\u044b\u0439 \u043a\u0443\u043f\u0430\u043b\u044c\u043d\u0438\u043a Night \u0443\u043f\u043b\u043e\u0442\u043d\u0435\u043d\u043d\u044b\u0439 \u043d\u0430 \u043a\u043e\u0441\u0442\u043e\u0447\u043a\u0430\u0445"
+    }
+  ],
+  "attributes": {
+      "Age": ["Взрослые", "Дети", "Малыши"],
+      "Gender": ["Женский", "Мужской"],
+      "Size": ["XS", "S", "M", "L", "XL", "28/30", "32/34", "38/40", "40/42", "16", "16,5", "17", "18", "19", "19,5"],
+      "Condition": ["Новое", "Б/У"],
+      "Brand": ["Danner", "Diesel", "Chaco", "Versace", "Hanna Andersson", "Bettye Muller", "Fresh Produce", "Kate Mack"],
+      "Season": ["Весна", "Лето", "Осень", "Зима", "Демисезон"]
+  }
+}

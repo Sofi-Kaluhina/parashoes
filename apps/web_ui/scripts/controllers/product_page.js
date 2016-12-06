@@ -3,15 +3,15 @@
  */
 
 app.controller('ProductPageController', function ($rootScope, $http, $scope, $routeParams) {
-        $scope.product = [];
+        $scope.productPageProduct = [];
         $scope.imagesForGallery = [];
 
         var slug_name = $routeParams.slug_name;
 
         $http.get($rootScope.apiUrl + $rootScope.baseUrl + 'product/' + slug_name)
-            .success(function (responce) {
-                    $scope.product = responce;
-                    $scope.product[0].images.forEach(function (element, index) {
+            .success(function (response) {
+                    $scope.productPageProduct = response;
+                    $scope.productPageProduct[0].images.forEach(function (element, index) {
                         $scope.imagesForGallery.push(
                             {
                                 thumb: $rootScope.apiUrl + element['thumb_path'],

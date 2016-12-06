@@ -198,6 +198,9 @@ class CategoriesHandler(HProducts):
                         ))
                 return result
 
+            print('\n\n{}\n\n'.format(self.request.body))
+            print(ujson.loads(self.request.body))
+
             conditions = ujson.loads(self.request.body)['categories_filter_conditions']
             products = set()
             _products = db_session.query(
@@ -221,12 +224,12 @@ class CategoriesHandler(HProducts):
                 products.add(_product)
 
             self.write(ujson.dumps(self._get_products(products)))
-        except TypeError as e:
-            self.clear()
-            self.set_status(400, reason=str(e))
-        except ValueError as e:
-            self.clear()
-            self.set_status(400, reason=str(e))
+        #except TypeError as e:
+        #    self.clear()
+        #    self.set_status(400, reason=str(e))
+        #except ValueError as e:
+        #    self.clear()
+        #    self.set_status(400, reason=str(e))
         except gen.BadYieldError as e:
             self.write(e.args)
 

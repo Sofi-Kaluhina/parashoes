@@ -7,7 +7,8 @@ var app = angular.module(
         'colorbox',
         'ezplus',
         'ngRoute',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'ngCart'
     ]
 );
 
@@ -34,9 +35,17 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: '/template/contacts.html',
             controller: 'ContactsController'
         })
+        .when('/categories/:categoryName', {
+            templateUrl: '/template/categories.html',
+            controller: 'CategoriesController'
+        })
         .when('/product/:slug_name', {
             templateUrl: '/template/product_page.html',
             controller: 'ProductPageController'
+        })
+        .when('/cart', {
+            templateUrl: '/template/cart_view.html',
+            controller: 'CartController'
         })
         .otherwise({
             redirectTo: '/'
@@ -52,3 +61,20 @@ app.run(['$rootScope', '$route', function ($rootScope, $route) {
         $route.reload()
     };
 }]);
+
+app.factory('Init', function () {
+    var initialData = {
+        brand: [],
+        categoriesFilterCondition: []
+    };
+
+    return {
+        getInitialData: function () {
+            return initialData;
+        },
+        setInitialData: function (brand, conditions) {
+            initialData.brand = brand;
+            initialData.categoriesFilterCondition = conditions;
+        }
+    }
+});
