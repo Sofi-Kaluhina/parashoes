@@ -40,18 +40,19 @@ class InitHandler(CORSHandler):
             } for value in query
             ]
         result['categories_filter_conditions'] = {
-            'new': {
-                'created_at': [(datetime.today() - timedelta(days=3)).strftime('%Y-%m-%d 00:00:00')]
-            },
-            'woman': {
-                'gender': ['Женский']
-            },
-            'man': {
-                'gender': ['Мужской']
-            },
-            'children': {
-                'age': ['Малыши', 'Дети']
-            }
+            'new': [(datetime.today() - timedelta(days=3)).strftime('%Y-%m-%d 00:00:00')],
+            'woman': [79],
+            'man': [78],
+            'children': [27, 28]
+            # 'woman': {
+            #     'gender': [79]
+            # },
+            # 'man': {
+            #     'gender': [78]
+            # },
+            # 'children': {
+            #     'age': [27, 28]
+            # }
         }
         self.write(ujson.dumps(result))
 
@@ -128,6 +129,36 @@ class HProducts(CORSHandler):
             result.append(_product)
         return result
 
+    @staticmethod
+    def _get_filters(filters):
+        result = []
+        _filters = []
+        for filter in filters:
+            _filter = {
+                'attribute_name': filter[0].name,
+                'attribute_value_id': filter[1].id,
+                'attribute_value': filter[1].name,
+            }
+            _filters.append(_filter)
+        attribute_names = set(i['attribute_name'] for i in _filters)
+        attribute_value = []
+        filter_exclude = ['created_at', 'oem']
+        for attribute_name in attribute_names:
+            if attribute_name not in filter_exclude:
+                for filter in _filters:
+                    if filter['attribute_name'] == attribute_name:
+                        attribute_value.append({
+                            'id': filter['attribute_value_id'],
+                            'value': filter['attribute_value']
+                        })
+                if len(attribute_value) > 1:
+                    result.append({
+                        'filter_name': attribute_name,
+                        'filter_value': attribute_value
+                    })
+                attribute_value = []
+        return result
+
 
 class ProductsHandler(HProducts):
     @gen.coroutine
@@ -188,21 +219,11 @@ class CategoriesHandler(HProducts):
     @gen.coroutine
     def post(self):
         try:
-            def filter_constructor(_conditions):
-                result = []
-                for condition_list in _conditions:
-                    for condition in _conditions[condition_list]:
-                        result.append(and_(
-                            Attribute.name == condition_list,
-                            AttributeValue.name == condition
-                        ))
-                return result
-
-            print('\n\n{}\n\n'.format(self.request.body))
-            print(ujson.loads(self.request.body))
-
             conditions = ujson.loads(self.request.body)['categories_filter_conditions']
             products = set()
+            filters = set()
+            result = {}
+
             _products = db_session.query(
                 Product
             ).distinct(
@@ -217,19 +238,41 @@ class CategoriesHandler(HProducts):
                 Attribute,
                 AttributeValue.attribute_id == Attribute.id
             ).filter(
-                or_(*filter_constructor(conditions))
+                AttributeValue.id.in_(conditions)
             ).all()
 
             for _product in _products:
                 products.add(_product)
 
-            self.write(ujson.dumps(self._get_products(products)))
-        #except TypeError as e:
-        #    self.clear()
-        #    self.set_status(400, reason=str(e))
-        #except ValueError as e:
-        #    self.clear()
-        #    self.set_status(400, reason=str(e))
+            result['products'] = self._get_products(products)
+
+            _filters = db_session.query(
+                Attribute,
+                AttributeValue
+            ).distinct(
+                AttributeValue.id
+            ).outerjoin(
+                AttributeValue,
+                Attribute.id == AttributeValue.attribute_id
+            ).outerjoin(
+                ProductAttributeValues,
+                AttributeValue.id == ProductAttributeValues.attribute_value_id
+            ).outerjoin(
+                Product,
+                Product.id == ProductAttributeValues.product_id
+            ).filter(
+                Product.id.in_([i['id'] for i in result['products']])
+            ).all()
+
+            for _filter in _filters:
+                filters.add(_filter)
+
+            result['filters'] = self._get_filters(filters)
+
+            self.write(ujson.dumps(result))
+        except (TypeError, ValueError) as e:
+            self.clear()
+            self.set_status(400, reason=str(e))
         except gen.BadYieldError as e:
             self.write(e.args)
 
