@@ -49,9 +49,9 @@ and main content box, where "home.html" template downloads -->
             <div id="logo"><a href="/home/"><img src="../images/header/logo.png"></a></div>
             <div id="cart-and-search" class="aside">
                 <div id="cart">
-                    <div ng-include="'/template/summary.html'">
-                        <!--<ngcart-summary></ngcart-summary>-->
-                    </div>
+                    <!--<div ng-include="'/template/summary.html'">-->
+                        <!--&lt;!&ndash;<ngcart-summary></ngcart-summary>&ndash;&gt;-->
+                    <!--</div>-->
                 </div>
                 <div id="search">
                     <input class="form-control" type="text" placeholder="поиск">
@@ -86,8 +86,6 @@ and main content box, where "home.html" template downloads -->
                                 <li ng-repeat="brand in initialData.brand">
                                     <a href="{{brand.slug_name}}">{{brand.name}}</a>
                                 </li>
-                                <!--<li><a href="#">Другой бренд</a></li>-->
-                                <!--<li><a href="#">И еще бренд</a></li>-->
                             </ul>
                         </li>
                         <li>
