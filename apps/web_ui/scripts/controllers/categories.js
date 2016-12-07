@@ -2,42 +2,55 @@
  * Created by sofi on 06.11.16.
  */
 
-app.controller('CategoriesController', function ($rootScope, $scope, filterFilter, $http, $routeParams, Init) {
-    var _response = [];
-    $scope.categoriesPageProducts = [];
+app.controller('CategoriesController', function ($rootScope, $scope, $http, $routeParams, $location, $timeout, InitialData) {
+    $scope.categoriesPage = {};
     $scope.categoriesFilterCondition = [];
     $scope.categories = [];
     $scope.Filter = new Object();
-    $scope.currentCategoryName = $routeParams.categoryName;
 
-    $http({
-        method: 'POST',
-        url: $rootScope.apiUrl + $rootScope.baseUrl + 'categories',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Accept': 'application/json'
-        },
-        data: {
-            categories_filter_conditions: Init.getInitialData().categoriesFilterCondition[$scope.currentCategoryName]
+    var currentCategoryName = '';
+
+    if ($routeParams.categoryName) {
+        currentCategoryName = $routeParams.categoryName;
+    } else {
+        currentCategoryName = $location.path().split('/')[2];
+    }
+
+    $scope.filtersIds = InitialData.categoriesFilterCondition[currentCategoryName] || [];
+
+    var getContent = function () {
+        $http({
+            method: 'POST',
+            url: $rootScope.apiUrl + $rootScope.baseUrl + 'categories',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept': 'application/json'
+            },
+            data: {
+                categories_filter_conditions: $scope.filtersIds
+            }
+        }).success(function (response) {
+                $scope.categoriesPage.products = response.products;
+                $scope.categoriesPage.filters = response.filters;
+                return $scope.categoriesPage;
+            }
+        );
+    };
+
+    getContent();
+
+    $scope.filterCheck = function () {
+        var checkboxes = document.getElementsByClassName('filter-checkbox');
+        for (var i = 0; i < checkboxes.length; ++i) {
+            if (checkboxes[i].checked) {
+                $scope.filtersIds.push(parseInt(checkboxes[i].id))
+            }
         }
-    }).success(function (response) {
-            $scope.categoriesPageProducts = response;
-            // _response.push(response);
-            // _response.forEach(function (element) {
-            //     $scope.categoriesProducts.push(element.products);
-            //     $scope.categories.push(element.attributes)
-            // });
-            // $scope.categories.forEach(function (element) {
-            //     Object.keys(element).forEach(function (season) {
-            //         $scope.Filter.season = element[season]
-            //     });
-            // });
-        }
-    );
+        console.log($scope.filtersIds);
+        $timeout(function () {
+            getContent();
+            $scope.$apply();
+        }, 100);
+    }
 
-    $http.get('../json/categories_data_model_example.json')
-        .success(function (response) {
-
-            $scope.categoriesFilterCondition = response.attributes;
-        })
 });
