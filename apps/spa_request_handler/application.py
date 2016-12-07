@@ -12,6 +12,7 @@ from tornado.ioloop import IOLoop
 from tornado.web import FallbackHandler, Application
 
 from admin.admin import app
+from admin.handlers import *
 from handlers import *
 
 tr = WSGIContainer(app)
@@ -21,6 +22,7 @@ handlers = [
     ('{}/{}'.format(options.api_version, 'product/(?P<slug_name>[^\/]+)'), ProductHandler),
     ('{}/{}'.format(options.api_version, 'products'), ProductsHandler),
     ('{}/{}'.format(options.api_version, 'init'), InitHandler),
+    ('{}/{}'.format(options.api_version, 'admin/user/list'), AdminUser),
     ('.*', FallbackHandler, dict(fallback=tr))
 ]
 
