@@ -20,7 +20,10 @@ class CORSHandler(web.RequestHandler):
 class InitHandler(CORSHandler):
     @gen.coroutine
     def get(self, *args, **kwargs):
-        result = {}
+        result = {
+            'brand': {},
+            'categories_filter_conditions': {}
+        }
         query = db_session.query(
             AttributeValue
         ).filter(
@@ -34,26 +37,21 @@ class InitHandler(CORSHandler):
             ProductAttributeValues.attribute_value_id == AttributeValue.id
         ).all()
         result['brand'] = [
-            {
-                'name': value.name.encode(),
-                'slug_name': value.description
-            } for value in query
+                {
+                    'name': value.name.encode(),
+                    'slug_name': value.description
+                } for value in query
             ]
-        result['categories_filter_conditions'] = {
-            'new': [(datetime.today() - timedelta(days=3)).strftime('%Y-%m-%d 00:00:00')],
-            'woman': [79],
-            'man': [78],
-            'children': [27, 28]
-            # 'woman': {
-            #     'gender': [79]
-            # },
-            # 'man': {
-            #     'gender': [78]
-            # },
-            # 'children': {
-            #     'age': [27, 28]
-            # }
-        }
+        for value in query:
+            result['categories_filter_conditions'][value.description] = [value.id]
+        result['categories_filter_conditions'].update(
+            {
+                'new': [(datetime.today() - timedelta(days=3)).strftime('%Y-%m-%d 00:00:00')],
+                'woman': [79],
+                'man': [78],
+                'children': [28]
+            }
+        )
         self.write(ujson.dumps(result))
 
     def post(self, *args, **kwargs):
@@ -220,31 +218,35 @@ class CategoriesHandler(HProducts):
     def post(self):
         try:
             conditions = ujson.loads(self.request.body)['categories_filter_conditions']
-            products = set()
             filters = set()
             result = {}
 
-            _products = db_session.query(
-                Product
-            ).distinct(
-                Product.id
-            ).outerjoin(
-                ProductAttributeValues,
-                Product.id == ProductAttributeValues.product_id
-            ).outerjoin(
-                AttributeValue,
-                ProductAttributeValues.attribute_value_id == AttributeValue.id
-            ).outerjoin(
-                Attribute,
-                AttributeValue.attribute_id == Attribute.id
-            ).filter(
-                AttributeValue.id.in_(conditions)
-            ).all()
+            for i in conditions:
+                if not isinstance(i, int):
+                    raise TypeError('One or more filter items is not integer')
+            if len(conditions) == 0:
+                raise ValueError('Filter items list is empty')
 
-            for _product in _products:
-                products.add(_product)
+            sql = text(
+                'SELECT * FROM product WHERE filters @> ARRAY[{}];'.format(
+                    str(conditions).replace('[', '').replace(']', '')
+                )
+            )
+            _products = db_session.execute(sql)
+            products = []
+            for product in _products:
+                products.append({
+                    'id': product[0],
+                    'name': product[1],
+                    'slug_name': product[2],
+                    'description': product[3],
+                    'images': self._get_product_photos(product[0]),
+                    'attributes': self._get_product_attributes(product[0])
+                })
 
-            result['products'] = self._get_products(products)
+            result['products'] = products
+
+            db_session.commit()
 
             _filters = db_session.query(
                 Attribute,
