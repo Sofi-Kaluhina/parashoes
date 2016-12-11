@@ -69,3 +69,21 @@ server {
         proxy_connect_timeout  60s;
     }
 }
+
+server {
+    listen 8090 default_server;
+    expires -1;
+    add_header Pragma "no-cache";
+    add_header Cache-Control "no-store, no-cache, must-revalidate, post-check=0, pre-check=0";
+    index app.html;
+    root /opt/apps/admin_ui;
+
+    location / {
+        try_files $uri$args $uri$args/ /app.html =404;
+    }
+
+    location /snapshot {
+        proxy_pass http://bulavka/admin;
+        proxy_connect_timeout  60s;
+    }
+}

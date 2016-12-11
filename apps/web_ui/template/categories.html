@@ -1,5 +1,5 @@
-<div class="categories-wrapper">
-    <div class="all-products" ng-controller="CategoriesController" ng-init="init()">
+<div class="categories-wrapper" ng-controller="CategoriesController">
+    <div class="all-products">
         <div class="row" id="all-products-title">
             <div class="col-xs-12 col-sm-6 col-md-1" id="main-title-row">
                 <p>Товары по категориям
@@ -9,10 +9,10 @@
         </div>
 
         <ul class="flex-container">
-            <div class="prod-item" ng-repeat="product in categoriesPageProducts | start: (currentPage - 1) * pageSize | limitTo: pageSize">
+            <div class="prod-item" ng-repeat="product in categoriesPage.products | start: (currentPage - 1) * pageSize | limitTo: pageSize">
                 <a href="/product/{{product.slug_name}}">
                     <li class="flex-item-photo">
-                        <img src="http://bulavka:8080/{{product.images[0].small_path}}">
+                        <img ng-src="http://bulavka:8080/{{product.images[0].small_path}}">
                     </li>
                     <div class="item-name-price">
                         <div class="name">
@@ -50,10 +50,10 @@
         </div>
 
         <ul class="flex-container">
-            <div class="prod-item" ng-repeat="product in categoriesPageProducts | limitTo: 4">
+            <div class="prod-item" ng-repeat="product in mainPageProducts | limitTo: 4">
                 <a href="/product/{{product.slug_name}}">
                     <li class="flex-item-photo">
-                        <img src="http://bulavka:8080/{{product.images[0].small_path}}">
+                        <img ng-src="http://bulavka:8080/{{product.images[0].small_path}}">
                     </li>
                     <div class="item-name-price">
                         <div class="name">
@@ -68,261 +68,33 @@
         </ul>
     </div>
 
-    <div ng-repeat="item in categoriesFilterCondition">
-        <div>{{item}}</div>
-    </div>
-
-    <!--<aside id="column-left">-->
-        <!--<div class="row" id="filter-title">-->
-            <!--<div class="col-xs-12 col-sm-6 col-md-1" id="filter-row">-->
-                <!--<p>фильтры-->
-                <!--<hr>-->
-                <!--</p>-->
-                <!--<button class="btn btn-default" id="filter-button">Развернуть/свернуть</button>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div id="age" class="to-wrap">-->
-            <!--<h2>Возраст:</h2>-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.runlevel.PAV" ng-true-value='"0"'  ng-false-value="'!PAV'" />-->
-                <!--Взрослые-->
-            <!--</label>&nbsp;-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.runlevel.UAT" ng-true-value='"1"'  ng-false-value="'!UAT'" />-->
-                <!--Дети-->
-            <!--</label>-->
-            <!--&nbsp;<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.runlevel.ST" ng-true-value='"2"'  ng-false-value="'!ST'"/>-->
-                <!--Малыши-->
-            <!--</label>-->
-            <!--<hr />-->
-        <!--</div>-->
-        <!--<div id="gender" class="to-wrap">-->
-            <!--<h2>Пол:</h2>-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.mode.author" ng-true-value='"0"'  ng-false-value="'!author'" />-->
-                <!--Женский-->
-            <!--</label>&nbsp;-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.mode.publish" ng-true-value='"1"'  ng-false-value="'!publish'" />-->
-                <!--Мужской-->
-            <!--</label>-->
-            <!--<hr />-->
-        <!--</div>-->
-        <!--<div id="size" class="to-wrap">-->
-            <!--<h2>Размер:</h2>-->
-            <!--<div id="size-1">-->
-                <!--<label>XS</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.intranet" ng-true-value="'intranet'"  ng-false-value="'!intranet'" />&nbsp;-->
-                <!--<label>S</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>M</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.intranet" ng-true-value="'intranet'"  ng-false-value="'!intranet'" />-->
-                <!--<label>L</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.intranet" ng-true-value="'intranet'"  ng-false-value="'!intranet'" />-->
-                <!--<label>XL</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.intranet" ng-true-value="'intranet'"  ng-false-value="'!intranet'" />-->
-            <!--</div>-->
-            <!--<br>-->
-            <!--<div id="size-2">-->
-                <!--<label>28/30</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.intranet" ng-true-value="'intranet'"  ng-false-value="'!intranet'" />-->
-                <!--<label>32/34</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.intranet" ng-true-value="'intranet'"  ng-false-value="'!intranet'" />-->
-                <!--<label>38/40</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.intranet" ng-true-value="'intranet'"  ng-false-value="'!intranet'" />-->
-                <!--<label>40/42</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.intranet" ng-true-value="'intranet'"  ng-false-value="'!intranet'" />-->
-            <!--</div>-->
-            <!--<br>-->
-            <!--<div id="size-3">-->
-                <!--<label>16,5</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.intranet" ng-true-value="'intranet'"  ng-false-value="'!intranet'" />-->
-                <!--<label>19,5</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.intranet" ng-true-value="'intranet'"  ng-false-value="'!intranet'" />-->
-                <!--<label>22,5</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.intranet" ng-true-value="'intranet'"  ng-false-value="'!intranet'" />-->
-                <!--<label>25,5</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>28,5</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>31,5</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>34,5</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-            <!--</div>-->
-            <!--<br>-->
-            <!--<div id="size-4">-->
-                <!--<label>16</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.intranet" ng-true-value="'intranet'"  ng-false-value="'!intranet'" />-->
-                <!--<label>17</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.intranet" ng-true-value="'intranet'"  ng-false-value="'!intranet'" />-->
-                <!--<label>18</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>19</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>20</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-            <!--</div>-->
-            <!--<br>-->
-            <!--<div id="size-5">-->
-                <!--<label>21</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>22</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>23</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>24</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>25</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-            <!--</div>-->
-            <!--<br>-->
-            <!--<div id="size-6">-->
-                <!--<label>26</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>27</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>28</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>29</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>30</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-            <!--</div>-->
-            <!--<br>-->
-            <!--<div id="size-7">-->
-                <!--<label>31</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>32</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>33</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>34</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>35</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-            <!--</div>-->
-            <!--<br>-->
-            <!--<div id="size-8">-->
-                <!--<label>36</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>37</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>38</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>39</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>40</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-            <!--</div>-->
-            <!--<br>-->
-            <!--<div id="size-9">-->
-                <!--<label>41</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>42</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>43</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>44</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--<label>45</label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-            <!--</div>-->
-            <!--<hr />-->
-        <!--</div>-->
-        <!--<div id="condition" class="to-wrap">-->
-            <!--<h2>Состояние:</h2>-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.mode.author" ng-true-value='"0"'  ng-false-value="'!author'" />-->
-                <!--Новое-->
-            <!--</label>&nbsp;-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.mode.publish" ng-true-value='"1"'  ng-false-value="'!publish'" />-->
-                <!--Б/У-->
-            <!--</label>-->
-            <!--<hr />-->
-        <!--</div>-->
-        <!--<div id="brand" class="to-wrap">-->
-            <!--<h2>Бренд:</h2>-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.intranet" ng-true-value="'intranet'"  ng-false-value="'!intranet'" />-->
-                <!--Danner-->
-            <!--</label>-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--Diesel-->
-            <!--</label>-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--Chaco-->
-            <!--</label>-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--Versace-->
-            <!--</label>-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--Hanna Andersson-->
-            <!--</label>-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--Bettye Muller-->
-            <!--</label>-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--Fresh Produce-->
-            <!--</label>-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--Kate Mack-->
-            <!--</label>-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />-->
-                <!--Feetures-->
-            <!--</label>-->
-            <!--<hr />-->
-        <!--</div>-->
-        <!--<div id="season" class="to-wrap">-->
-            <!--<h2>Сезон:</h2>-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.mode.author" ng-true-value='"0"'  ng-false-value="'!author'" />-->
-                <!--Весна-->
-            <!--</label>-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.mode.author" ng-true-value='"1"'  ng-false-value="'!author'" />-->
-                <!--Лето-->
-            <!--</label>-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.mode.author" ng-true-value='"2"'  ng-false-value="'!author'" />-->
-                <!--Осень-->
-            <!--</label>-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.mode.author" ng-true-value='"3"'  ng-false-value="'!author'" />-->
-                <!--Зима-->
-            <!--</label>-->
-            <!--<label>-->
-                <!--<input  type="checkbox" ng-model="Filter.mode.author" ng-true-value='"4"'  ng-false-value="'!author'" />-->
-                <!--Демисезон-->
-            <!--</label>-->
-            <!--<hr />-->
-        <!--</div>-->
-        <!--&lt;!&ndash;<h2>Server list</h2>&ndash;&gt;-->
-        <!--&lt;!&ndash;<table width="100%" cellpadding="5">&ndash;&gt;-->
-            <!--&lt;!&ndash;<tr>&ndash;&gt;-->
-                <!--&lt;!&ndash;<th ng-click="OrderFilter='name'">Name</th>&ndash;&gt;-->
-                <!--&lt;!&ndash;<th ng-click="OrderFilter='runlevel'">Runlevel</th>&ndash;&gt;-->
-                <!--&lt;!&ndash;<th ng-click="OrderFilter='mode'">Runmode</th>&ndash;&gt;-->
-                <!--&lt;!&ndash;<th ng-click="OrderFilter='env'">Environment</th>&ndash;&gt;-->
-            <!--&lt;!&ndash;</tr>&ndash;&gt;-->
-            <!--&lt;!&ndash;<tr ng-repeat="server in servers | searchFilter:Filter.runlevel | searchFilter:Filter.mode | searchFilter:Filter.env | orderBy:OrderFilter">&ndash;&gt;-->
-                <!--&lt;!&ndash;<td>{{server.name}}</td>&ndash;&gt;-->
-                <!--&lt;!&ndash;<td>{{server.runlevel}}</td>&ndash;&gt;-->
-                <!--&lt;!&ndash;<td>{{server.mode}}</td>&ndash;&gt;-->
-                <!--&lt;!&ndash;<td>{{server.env}}</td>&ndash;&gt;-->
-            <!--&lt;!&ndash;</tr>&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;{{categories}}&ndash;&gt;-->
-    <!--</aside>-->
+    <aside id="column-left">
+        <div class="row" id="filter-title">
+            <div class="col-xs-12 col-sm-6 col-md-1" id="filter-row">
+                <p>фильтры
+                <hr>
+                </p>
+                <button class="btn btn-default" id="filter-button">Развернуть/свернуть</button>
+            </div>
+        </div>
+        <div ng-repeat="filter in categoriesPage.filters">
+            <div id="age" class="to-wrap">
+                <h2>{{filter.filter_name}}:</h2>
+                <div ng-repeat="filterValue in filter.filter_value">
+                    <label>
+                        <input
+                                id="{{filterValue.id}}"
+                                class="filter-checkbox"
+                                type="checkbox"
+                                ng-model="categoriesFilterModel.checkbox[filterValue.id]"
+                                ng-checked="isFilterChecked(filterValue.id)"
+                                ng-change="filterCheck()"
+                        />
+                        {{filterValue.value}}
+                    </label>
+                </div>
+                <hr />
+            </div>
+        </div>
+    </aside>
 </div>
