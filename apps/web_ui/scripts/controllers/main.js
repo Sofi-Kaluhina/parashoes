@@ -14,7 +14,9 @@ app.controller('MainController', function ($rootScope, $http, $scope, InitialDat
             }
         );
 
-    $scope.initialData = InitialData;
+    InitialData.async().then(function(responce) {
+        $scope.initialData = responce;
+    });
 });
 
 app.filter('start', function () {
