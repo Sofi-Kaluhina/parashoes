@@ -1,5 +1,5 @@
-<div class="categories-wrapper">
-    <div class="all-products" ng-controller="CategoriesController">
+<div class="categories-wrapper" ng-controller="CategoriesController">
+    <div class="all-products">
         <div class="row" id="all-products-title">
             <div class="col-xs-12 col-sm-6 col-md-1" id="main-title-row">
                 <p>Товары по категориям
@@ -82,7 +82,14 @@
                 <h2>{{filter.filter_name}}:</h2>
                 <div ng-repeat="filterValue in filter.filter_value">
                     <label>
-                        <input id="{{filterValue.id}}" class="filter-checkbox" type="checkbox" ng-click="filterCheck()"/>
+                        <input
+                                id="{{filterValue.id}}"
+                                class="filter-checkbox"
+                                type="checkbox"
+                                ng-model="categoriesFilterModel.checkbox[filterValue.id]"
+                                ng-checked="isFilterChecked(filterValue.id)"
+                                ng-change="filterCheck()"
+                        />
                         {{filterValue.value}}
                     </label>
                 </div>
