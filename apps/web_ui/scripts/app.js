@@ -7,8 +7,8 @@ var app = angular.module(
         'colorbox',
         'ezplus',
         'ngRoute',
-        'ui.bootstrap',
-        'ngCart'
+        'ui.bootstrap'
+        // 'ngCart'
     ]
 );
 
@@ -21,7 +21,7 @@ app.config(function($routeProvider, $locationProvider){
     $routeProvider
         .when('/', {
             templateUrl: '/template/home.html',
-            controller: 'MainController',
+            controller: 'MainController'
         })
         .when('/about_us', {
             templateUrl: '/template/about_us.html',
@@ -37,16 +37,17 @@ app.config(function($routeProvider, $locationProvider){
         })
         .when('/categories/:categoryName', {
             templateUrl: '/template/categories.html',
-            controller: 'CategoriesController'
+            controller: 'CategoriesController',
+            reloadOnSearch: false
         })
         .when('/product/:slug_name', {
             templateUrl: '/template/product_page.html',
             controller: 'ProductPageController'
         })
-        .when('/cart', {
-            templateUrl: '/template/cart_view.html',
-            controller: 'CartController'
-        })
+        // .when('/cart', {
+        //     templateUrl: '/template/cart_view.html',
+        //     controller: 'CartController'
+        // })
         .otherwise({
             redirectTo: '/'
         })
@@ -56,25 +57,21 @@ app.config(function($routeProvider, $locationProvider){
 app.run(['$rootScope', '$route', function ($rootScope, $route) {
     $rootScope.apiUrl = 'http://bulavka:8080/';
     $rootScope.baseUrl = 'api/v1/';
-
-    $rootScope.mainPageOnLoad = function () {
-        $route.reload()
-    };
 }]);
 
-app.factory('Init', function () {
+app.factory('InitialData', function ($rootScope, $http) {
     var initialData = {
-        brand: [],
-        categoriesFilterCondition: []
-    };
-
-    return {
-        getInitialData: function () {
-            return initialData;
-        },
-        setInitialData: function (brand, conditions) {
-            initialData.brand = brand;
-            initialData.categoriesFilterCondition = conditions;
+        async: function() {
+            var promise = $http.get($rootScope.apiUrl + $rootScope.baseUrl + 'init')
+                .then(function (response) {
+                    return {
+                        brand: response.data.brand,
+                        categoriesFilterCondition: response.data.categories_filter_conditions
+                    };
+                }
+            );
+            return promise;
         }
-    }
+    };
+    return initialData;
 });

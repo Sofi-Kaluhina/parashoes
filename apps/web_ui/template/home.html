@@ -37,7 +37,7 @@
     </div>
 </section>
 
-<div class="all-products" ng-init="init()">
+<div class="all-products">
     <div class="row" id="all-products-title">
         <div class="col-xs-12 col-sm-6 col-md-1" id="main-title-row">
             <p>все товары
@@ -50,7 +50,7 @@
         <div class="prod-item" ng-repeat="product in mainPageProducts | start: (currentPage - 1) * pageSize | limitTo: pageSize">
             <a href="/product/{{product.slug_name}}">
                 <li class="flex-item-photo">
-                    <img src="http://bulavka:8080/{{product.images[0].small_path}}">
+                    <img ng-src="http://bulavka:8080/{{product.images[0].small_path}}">
                 </li>
                 <div class="item-name-price">
                     <div class="name">
@@ -59,17 +59,17 @@
                     <div class="price">
                         {{product.attributes.price}}
                     </div>
-                    <div ng-include="'template/add_to_cart.html'" ng-controller="CartController" class="buy-button">
-                        <ngcart-addtocart id="{{product.id}}"
-                                          name="{{product.name}}"
-                                          price="{{product.attributes.price}}"
-                                          quantity="1"
-                                          quantity-max="5"
-                                          data={{product.images[0].small_path}}
-                                          class="ng-isolate-scope">
-                            Add to cart
-                        </ngcart-addtocart>
-                    </div>
+                    <!--<div ng-include="'template/add_to_cart.html'" ng-controller="CartController" class="buy-button">-->
+                        <!--<ngcart-addtocart id="{{product.id}}"-->
+                                          <!--name="{{product.name}}"-->
+                                          <!--price="{{product.attributes.price}}"-->
+                                          <!--quantity="1"-->
+                                          <!--quantity-max="5"-->
+                                          <!--data={{product.images[0].small_path}}-->
+                                          <!--class="ng-isolate-scope">-->
+                            <!--Add to cart-->
+                        <!--</ngcart-addtocart>-->
+                    <!--</div>-->
                 </div>
             </a>
         </div>
@@ -102,7 +102,7 @@
         <div class="prod-item" ng-repeat="product in mainPageProducts | limitTo: 4">
             <a href="/product/{{product.slug_name}}">
                 <li class="flex-item-photo">
-                    <img src="http://bulavka:8080/{{product.images[0].small_path}}">
+                    <img ng-src="http://bulavka:8080/{{product.images[0].small_path}}">
                 </li>
                 <div class="item-name-price">
                     <div class="name">
