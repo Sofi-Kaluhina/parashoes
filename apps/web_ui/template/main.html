@@ -2,7 +2,7 @@
 and main content box, where "home.html" template downloads -->
 <div ng-controller="MainController">
     <div id="top-line" class="col-md-12">
-        <div id="call_us">Позвоните нам: +380 (98) 123 45 67</div>
+        <div id="call_us">Позвоните нам: +380 (95) 889-36-36, +380 (96) 889-03-64</div>
         <div><a href="/home/">Главная</a></div>
         <div><a href="/about_us/">О нас</a></div>
         <div><a href="/articles/">Наши новости</a></div>
@@ -44,17 +44,17 @@ and main content box, where "home.html" template downloads -->
             <div id="address" class="aside">
                 <p>г. Мариуполь, ул. Артема, 59 (пересечение с ул. Фонтанной, 5 мин. пешком от Драмтеатра к пл.
                     Кирова)</p>
-                <p id="working-hours">Пн-Вс с 9:00 до 19:00</p>
+                <p id="working-hours">ПН-ПТ 9:00-17:00<br>СБ-ВС 10:00-16:00<br>Без перевывов и выходных</p>
             </div>
             <div id="logo"><a href="/home/"><img src="../images/header/logo.png"></a></div>
             <div id="cart-and-search" class="aside">
                 <div id="cart">
-                    <!--<div ng-include="'/template/summary.html'">-->
-                        <!--&lt;!&ndash;<ngcart-summary></ngcart-summary>&ndash;&gt;-->
-                    <!--</div>-->
+                    <div ng-include="'/template/summary.html'">
+                        <!--<ngcart-summary></ngcart-summary>-->
+                    </div>
                 </div>
                 <div id="search">
-                    <input class="form-control" type="text" placeholder="поиск">
+                    <input class="form-control" ng-model="$scope.mainPageProducts" type="text" placeholder="поиск">
                     <button class="btn btn-default">
                         <div class="glyphicon glyphicon-search"></div>
                     </button>
@@ -117,17 +117,17 @@ and main content box, where "home.html" template downloads -->
             <ul class="footer-menu">
                 <li><a href="/">на главную</a></li>
                 <li><a href="/about_us/">о нас</a></li>
-                <li><a href="/articles/">статьи</a></li>
+                <li><a href="/articles/">наши новости</a></li>
                 <li><a href="/contacts/">контакты</a></li>
-                <li><a href="#">обратная связь</a></li>
+                <li><a href="/feedback/">обратная связь</a></li>
             </ul>
         </div>
         <div class="col-md-3">
             <ul class="footer-categories">
-                <li><a href="#">мужчинам</a></li>
-                <li><a href="#">женщинам</a></li>
-                <li><a href="#">детям</a></li>
-                <li><a href="#">для дома</a></li>
+                <li><a href="/categories/woman/">женщинам</a></li>
+                <li><a href="/categories/man/">мужчинам</a></li>
+                <li><a href="/categories/children/">детям</a></li>
+                <li><a href="/categories/new/">новинки</a></li>
             </ul>
         </div>
         <div class="col-md-3">
@@ -138,12 +138,11 @@ and main content box, where "home.html" template downloads -->
 
                         <div class="mc">
                             <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
-                            <span class="mm">123 123 12 12</span>
-                            <span class="mm">123 123 12 12</span>
+                            <span class="mm">+380 (95) 889-36-36</span>
+                            <span class="mm">+380 (96) 889-03-64</span>
                             <br>
                             <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                            <span class="mm">one@email.com</span>
-                            <span class="mm">two@email.com</span>
+                            <span class="mm" id="footer-mm-email">werjiniya@mail.ru</span>
                         </div>
                     </li>
                 </ul>
@@ -156,16 +155,18 @@ and main content box, where "home.html" template downloads -->
                         <span class="ngw">АДРЕСС</span>
 
                         <div class="mc">
-                            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-                            <span class="mm">Украина, Мариуполь, 875**</span>
-                            <span class="mm">улица А***я, 123</span>
+                            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                            <span class="mm">Украина, Мариуполь</span>
+                            <span class="mm">улица Артема, 59</span>
                         </div>
-                        <span class="ngw">МЫ РАДЫ ВАМ</span>
+                        <span class="ngw">МЫ РАБОТАЕМ</span>
 
                         <div class="mc">
                             <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                            <span class="mm">Понедельник - пятница</span>
-                            <span class="mm">с 9.00 до 18.00</span>
+                            <span class="mm">ПН-ПТ 9:00-17:00</span>
+                            <span class="mm">СБ-ВС 10:00-16:00</span>
+                            <span class="mm">Без перевывов и выходных</span>
+                            <span class="mm">Дни приёма на комиссию: ВТ и ПТ</span>
                         </div>
                     </li>
                 </ul>

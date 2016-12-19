@@ -401,10 +401,10 @@ footer {
     position: relative;
     background-color: #f98e00;
 }
-.col-md-3 {
+footer .col-md-3 {
     padding-top: 30px;
 }
-.col-md-6 {
+footer .col-md-6 {
     padding-top: 45px;
     padding-bottom: 45px;
 }
@@ -475,6 +475,9 @@ footer {
     font-size: 15px;
     margin-top: 3px;
     margin-left: 36px;
+}
+#footer-phone-mail #footer-mm-email {
+    margin-top: 12px;
 }
 
 #subscribe {

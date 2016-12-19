@@ -74,6 +74,9 @@
     .name, .price, .buy-button{
         text-align: center;
     }
+    .info-block {
+        width: 100%;
+    }
 }
 
 @media all and (max-width: 990px) {
@@ -87,7 +90,7 @@
     #main-content-box {
         min-width: 545px;
     }
-    .col-md-3 {
+    footer .col-md-3 {
         width: 50%;
     }
     #footer-phone-mail {
@@ -172,9 +175,6 @@
     .footer-categories li {
         padding: 10px 0;
     }
-    #footer-adress ul {
-        padding-left: 25px;
-    }
     #subscribe,
     #socials {
         width: 100%;
@@ -214,6 +214,9 @@
     #cart-and-search div {
         text-align: center;
     }
+    footer .col-md-3 {
+        width: 100%;
+    }
 }
 @media all and (max-width: 550px) {
     .flex-container {
@@ -231,9 +234,9 @@
     }
 }
 @media all and (max-width: 475px) {
-    .col-md-3 {
-        width: 100%;
-    }
+    /*footer .col-md-3 {*/
+        /*width: 100%;*/
+    /*}*/
     .footer-categories li {
         padding: 10px 65px;
     }
