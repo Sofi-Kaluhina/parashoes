@@ -542,8 +542,8 @@ footer hr {
     color: #f98e00;
 }
 #product-info .btn-default, .btn-default:focus {
-    margin: 30px;
-    background-color: #f98e00;
+    /*margin: 30px;*/
+    background-color: transparent;
 }
 #product-info .btn-default:hover {
     background-color: #676767;

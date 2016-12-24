@@ -1,0 +1,68 @@
+<div ng-controller="FeedbackController" class="form-container">
+    <form name="myForm"
+          novalidate>
+        <div class="form-group">
+            <label for="exampleInputName">
+                Ваше имя
+            </label>
+            <input type="text"
+                   name="user"
+                   ng-model="user"
+                   class="form-control"
+                   id="exampleInputName"
+                   required>
+            <span ng-show="myForm.user.$dirty && myForm.user.$invalid">
+                    <span ng-show="myForm.user.$error.required">
+                        Имя обязательно для заполнения.
+                    </span>
+            </span>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">
+                Ваш email
+            </label>
+            <input type="email"
+                   name="email"
+                   ng-model="email"
+                   class="form-control"
+                   id="exampleInputEmail1"
+                   placeholder="email@test.com"
+                   required>
+            <span ng-show="myForm.email.$dirty && myForm.email.$invalid">
+                <span ng-show="myForm.email.$error.required">
+                    Email обязателен для заполнения.
+                </span>
+                <span ng-show="myForm.email.$error.email">
+                    Неверно указан email.
+                </span>
+            </span>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputTextarea1">
+                Ваше сообщение
+            </label>
+            <textarea name="myTextarea"
+                      ng-model="myTextarea"
+                      class="form-control"
+                      id="exampleInputTextarea1"
+                      required>
+            </textarea>
+            <span ng-show="myForm.myTextarea.$dirty && myForm.myTextarea.$error.required"
+                  id="textarea-message">
+                Текст сообщения обязателен.
+            </span>
+        </div>
+
+        <button type="submit"
+                class="btn btn-default"
+                ng-click="submit()"
+                ng-disabled="myForm.user.$error.required ||
+                   myForm.email.$dirty && myForm.email.$invalid ||
+                   myForm.email.$untouched && myForm.email.$error.required ||
+                   myForm.myTextarea.$error.required">
+            отправить
+        </button>
+    </form>
+</div>

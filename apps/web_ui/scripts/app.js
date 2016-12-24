@@ -7,13 +7,12 @@ var app = angular.module(
         'colorbox',
         'ezplus',
         'ngRoute',
-        'ui.bootstrap'
-        // 'ngCart'
+        'ui.bootstrap',
+        'ngCart'
     ]
 );
 
 app.config(function($routeProvider, $locationProvider){
-
 
     $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix('!');
@@ -35,6 +34,10 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: '/template/contacts.html',
             controller: 'ContactsController'
         })
+        .when('/feedback', {
+            templateUrl: '/template/feedback.html',
+            controller: 'FeedbackController'
+        })
         .when('/categories/:categoryName', {
             templateUrl: '/template/categories.html',
             controller: 'CategoriesController',
@@ -44,10 +47,10 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: '/template/product_page.html',
             controller: 'ProductPageController'
         })
-        // .when('/cart', {
-        //     templateUrl: '/template/cart_view.html',
-        //     controller: 'CartController'
-        // })
+        .when('/cart', {
+            templateUrl: '/template/cart_view.html',
+            controller: 'CartController'
+        })
         .otherwise({
             redirectTo: '/'
         })
@@ -60,6 +63,10 @@ app.run(['$rootScope', '$route', function ($rootScope, $route) {
 }]);
 
 app.factory('InitialData', function ($rootScope, $http) {
+    // фабрика возвращает объект, в котором под ключем async ф-ция,
+    // которая возвращает промис от http-запроса,
+    // который возвращает data.brand и data.categories_filter_conditions
+    // которые записываются в этот объект с ключами brand и categoriesFilterCondition
     var initialData = {
         async: function() {
             var promise = $http.get($rootScope.apiUrl + $rootScope.baseUrl + 'init')
