@@ -6,12 +6,12 @@ from PIL import Image
 from uuid import uuid4 as uuid
 
 from flask import url_for
-from flask_admin import form
+from flask_admin import form as flask_form
 from flask_admin.contrib.sqla import ModelView
 from slugify import slugify_url, UniqueSlugify
 
 from jinja2 import Markup
-from wtforms import StringField, IntegerField, DateTimeField, SelectField
+from wtforms import StringField, IntegerField, DateTimeField, SelectField, FieldList
 
 from admin import app, db_session, options
 from admin.model import *
@@ -68,7 +68,7 @@ class ProductPhotoView(ModelView):
 
         return Markup('<img src="%s">' % url_for(
             'product_trumb_image',
-            filename=form.thumbgen_filename(model.large_path.replace('_large', '')))
+            filename=flask_form.thumbgen_filename(model.large_path.replace('_large', '')))
         )
 
     def on_model_change(self, form, model, is_created):
@@ -159,7 +159,7 @@ class ProductPhotoView(ModelView):
     }
 
     form_extra_fields = {
-        'large_path': form.ImageUploadField(
+        'large_path': flask_form.ImageUploadField(
             'Path',
             base_path='{}/{}'.format(options.as_dict()['media_dir'], 'product/large'),
             endpoint='product_image'
@@ -225,6 +225,13 @@ class ProductView(ModelView):
                 self.form_extra_fields[attribute.name] = DateTimeField(
                     default=self._get_created_at_value(id)
                 )
+            elif attribute.type == 'select_create':
+                self.form_extra_fields[attribute.name] = flask_form.Select2TagsField(
+                    data=self._get_selectable_field_choices(attribute.id)
+                )
+                # self.form_extra_fields[attribute.name] = FieldList(
+                #     unbound_field=[i for i in self._get_selectable_field_choices(attribute.id)]
+                # )
             elif attribute.type == 'select':
                 self.form_extra_fields[attribute.name] = SelectField(
                     coerce=int,
