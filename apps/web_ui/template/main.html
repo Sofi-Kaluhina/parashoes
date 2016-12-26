@@ -79,10 +79,13 @@ and main content box, where "home.html" template downloads -->
 
                     <ul class="nav navbar-nav navbar-left">
                         <li class="dropdown">
-                            <a href="/brands/" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true"
                                aria-expanded="false">БРЕНДЫ <span class="caret"></span></a>
                             <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/">все бренды</a>
+                                </li>
                                 <li ng-repeat="brand in initialData.brand">
                                     <a href="/categories/{{brand.slug_name}}">{{brand.name}}</a>
                                 </li>
