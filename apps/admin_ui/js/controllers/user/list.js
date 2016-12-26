@@ -15,7 +15,7 @@ app.controller('UserListController', function ($rootScope, $http, $scope, $uibMo
 
     $scope.getUserList();
 
-    $scope.openUserDeletePopup = function (login) {
+    $scope.openUserDeletePopup = function (userId) {
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
             ariaLabelledBy: 'modal-title',
@@ -28,16 +28,20 @@ app.controller('UserListController', function ($rootScope, $http, $scope, $uibMo
         modalInstance.result.then(function () {
             $http({
                 method: 'DELETE',
-                url: $rootScope.apiUrl + $rootScope.baseUrl + 'admin/user/list?login=' + login,
+                url: $rootScope.apiUrl + $rootScope.baseUrl + 'admin/user/list?user_id=' + userId,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Accept': 'application/json'
                 }
-            }).then( function (response) {
+            }).then(
+                function (response) {
+                    $scope.getUserList();
+                    $log.info(response.statusText + ' at: ' + new Date());
+                },
+                function (response) {
                     $log.info(response.statusText + ' at: ' + new Date());
                 }
             );
-            $scope.getUserList();
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });

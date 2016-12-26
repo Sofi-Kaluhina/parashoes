@@ -6,6 +6,7 @@ from tornado import web, gen
 
 from admin.connection import db_session
 from admin.model import *
+from sqlalchemy.exc import IntegrityError
 
 
 class CORSHandler(web.RequestHandler):
@@ -27,6 +28,7 @@ class AdminUser(CORSHandler):
             for user in users:
                 result.append(
                     {
+                        'id': user.id,
                         'login': user.username,
                         'firstname': user.firstname,
                         'lastname': user.lastname,
@@ -42,21 +44,44 @@ class AdminUser(CORSHandler):
 
     def post(self, *args, **kwargs):
         result = []
-        login = self.get_argument('login')
-        self.set_status(200, reason='User with login {login} successfully created.'.format(login=login))
+        user_id = self.get_argument('user_id')
+        self.set_status(200, reason='User with user_id {user_id} successfully created.'.format(user_id=user_id))
         self.write(ujson.dumps(result))
 
     def put(self, *args, **kwargs):
         result = []
-        login = self.get_argument('login')
-        self.set_status(200, reason='User with login {login} successfully updated.'.format(login=login))
+        user_id = self.get_argument('user_id')
+        self.set_status(200, reason='User with user_id {user_id} successfully updated.'.format(user_id=user_id))
         self.write(ujson.dumps(result))
 
     def delete(self, *args, **kwargs):
-        result = []
-        login = self.get_argument('login')
-        self.set_status(200, reason='User with login {login} successfully deleted.'.format(login=login))
-        self.write(ujson.dumps(result))
+        user_id = self.get_argument('user_id')
+        try:
+            user = db_session.query(
+                User
+            ).filter(
+                User.id == user_id
+            ).one()
+            db_session.delete(user)
+            db_session.commit()
+            result = {
+                'message': 'User with user_id {user_id} successfully deleted.'.format(user_id=user_id)
+            }
+            self.set_status(200, reason=result['message'])
+            self.write(ujson.dumps(result))
+        except IntegrityError as e:
+            db_session.rollback()
+            db_session.commit()
+            result = {
+                'message': 'User with user_id {user_id} not deleted due to {reason}'.format(
+                    user_id=user_id,
+                    reason=str(e.args)
+                )
+            }
+            self.set_status(200, reason=result['message'])
+            self.write(ujson.dumps(result))
+        except gen.BadYieldError as e:
+            self.write(e.args)
 
     def options(self):
         self.set_status(204)

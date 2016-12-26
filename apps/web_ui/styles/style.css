@@ -142,24 +142,19 @@ header > div {
     background-color: #676767;
     transition: all 0.2s ease-in 0s;
 }
-.navbar-default .navbar-brand {
-    color: #557c93;
-}
-
 .navbar-default .navbar-nav > li > a {
     font-size: 15px;
     color: #676767;
 }
-
-.navbar-default .navbar-nav > li > a:hover {
-    color: #f98e00;
-}
 .navbar-default .navbar-nav > li > a:focus {
     color: #676767;
 }
+.navbar-default .navbar-nav > li > a:hover {
+    color: #f98e00;
+}
 .navbar-default .navbar-nav > .open > a,
-.navbar-default .navbar-nav > .open > a:hover,
-.navbar-default .navbar-nav > .open > a:focus {
+.navbar-default .navbar-nav > .open > a:focus,
+.navbar-default .navbar-nav > .open > a:hover {
     background-color: #676767;
     color: #f98e00;
 }
@@ -182,14 +177,13 @@ header > div {
     text-transform: uppercase;
     border-color: #676767;
 }
-.btn-default:hover,
-.btn-default:active {
+.btn-default:active,
+.btn-default:hover {
     color: #f98e00;
     background-color: #676767;
     border-color: #676767;
     transition: all 0.2s ease-in 0s;
 }
-
 .dropdown-menu {
     width: 375px;
     padding: 0;
@@ -198,20 +192,19 @@ header > div {
     width: 100%;
     text-transform: uppercase;
     font-size: 13px;
-    background-color: #f7f7f7;
-    border-top: 1px solid #e7e5de;
+    background-color: rgba(0, 0, 0, 0.11);
 }
 .dropdown-menu > li:hover {
     background-color: #f7effd;
     transition: all 0.2s ease-in 0s;
 }
 .dropdown-menu > li > a {
-    color: #86B9D4;
+    color: #676767;
     line-height: 2.428571;
 }
 .dropdown-menu > li > a:hover {
-    background-color: #f7effd;
-    color: #676767;
+    background-color: #676767;
+    color: #f98e00;
     transition: all 0.2s ease-in 0s;
 }
 
@@ -256,7 +249,8 @@ header > div {
 #all-products-title,
 #latest-products-title,
 #brief-reference-title,
-#filter-title {  /* Main block titles */
+#filter-title,
+#feedback-title {  /* Main block titles */
     margin: 20px auto;
     text-align: center;
     background-color: #f98e00;
@@ -266,7 +260,8 @@ hr {
     border-top: 1px solid #676767;
 }
 
-#brief-reference-title {          /* Reference box styles */
+#brief-reference-title,
+#feedback-title {          /* Reference box styles */
     background-color: transparent;
     color: #676767;
     font-size: 20px;
@@ -284,7 +279,8 @@ hr {
 #all-products-title #main-title-row,
 #latest-products-title #latest-row,
 #brief-reference-title #reference-title-row,
-#filter-title #filter-row {
+#filter-title #filter-row,
+#feedback-title #feedback-title-row {
     width: 100%;
     text-transform: uppercase;
     color: #676767;
@@ -293,7 +289,8 @@ hr {
 #all-products-title #main-title-row p,
 #latest-products-title #latest-row p,
 #brief-reference-title #reference-title-row p,
-#filter-title #filter-row p {
+#filter-title #filter-row p,
+#feedback-title #feedback-title-row p {
     margin: 20px 0 10px;
 }
 
@@ -542,8 +539,8 @@ footer hr {
     color: #f98e00;
 }
 #product-info .btn-default, .btn-default:focus {
-    margin: 30px;
-    background-color: #f98e00;
+    /*margin: 30px;*/
+    background-color: transparent;
 }
 #product-info .btn-default:hover {
     background-color: #676767;
