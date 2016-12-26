@@ -38,6 +38,10 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: '/template/feedback.html',
             controller: 'FeedbackController'
         })
+        .when('/feedback/thanx', {
+            templateUrl: '/template/thanx.html',
+            // controller: 'FeedbackThanxController'
+        })
         .when('/categories/:categoryName', {
             templateUrl: '/template/categories.html',
             controller: 'CategoriesController',
