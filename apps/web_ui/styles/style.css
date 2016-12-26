@@ -3,6 +3,20 @@ body {
     background-color: rgba(0, 0, 0, 0.11);
     overflow-x: hidden;
 }
+#goTop{
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    background:#f98e00;
+    color: #676767;
+    padding-top: 30px;
+    padding-left: 17px;
+    cursor: pointer;
+    position:fixed;
+    top:-100px;
+    right:10px;
+    z-index: 5000;
+}
 
 li {
     list-style-type: none;
