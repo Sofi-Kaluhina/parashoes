@@ -26,3 +26,9 @@ tests:
   - cd /opt/apps/spa_request_handler/
   - python3 -m tornado.test.runtests application.py
   stage: test
+
+deploy_production:
+  stage: deploy
+  environment: production
+  when: manual
+  script: echo 1
