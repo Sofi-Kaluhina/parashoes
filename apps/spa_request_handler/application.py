@@ -22,6 +22,7 @@ handlers = [
     ('{}/{}'.format(options.api_version, 'product/(?P<slug_name>[^\/]+)'), ProductHandler),
     ('{}/{}'.format(options.api_version, 'products'), ProductsHandler),
     ('{}/{}'.format(options.api_version, 'init'), InitHandler),
+    ('{}/{}'.format(options.api_version, 'feedback/post'), FeedbackHandler),
     ('{}/{}'.format(options.api_version, 'admin/user/list'), AdminUser),
     ('.*', FallbackHandler, dict(fallback=tr))
 ]

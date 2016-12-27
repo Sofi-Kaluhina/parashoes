@@ -6,6 +6,7 @@ from sqlalchemy import (
     distinct, exists, and_, or_, desc, update
 )
 from sqlalchemy.orm import relationship
+from sqlalchemy.dialects.postgresql.base import ARRAY
 from sqlalchemy.ext.declarative import declarative_base
 
 from datetime import datetime
@@ -30,8 +31,7 @@ class User(Base):
         nullable=False
     )
     password = Column(
-        String(255),
-        nullable=False
+        String(255)
     )
     email = Column(
         String(255)
@@ -50,6 +50,11 @@ class User(Base):
     last_login_at = Column(
         DateTime,
         default=datetime.now(),
+        nullable=False
+    )
+    is_created = Column(
+        Boolean,
+        default=False,
         nullable=False
     )
     types = relationship("CatalogUserType", secondary="users_types")
@@ -136,6 +141,7 @@ class Product(Base):
         unique=True,
         index=True
     )
+    filters = Column(ARRAY(Integer()), nullable=False, server_default=text("ARRAY[]::integer[]"))
     product_type = relationship('ProductType', foreign_keys=product_type_id, post_update=True)
 
     def __repr__(self):
@@ -315,4 +321,22 @@ class ProductsProductPhoto(Base):
     )
     product_photo_id = Column(
         ForeignKey('product_photo.id', onupdate='CASCADE')
+    )
+
+############################################
+# FEEDBACK
+
+
+class FeedbackBody(Base):
+    __tablename__ = 'feedback_body'
+    id = Column(
+        Integer,
+        primary_key=True
+    )
+    message = Column(
+        Text,
+        nullable=False
+    )
+    user_id = Column(
+        ForeignKey('user.id', onupdate='CASCADE')
     )

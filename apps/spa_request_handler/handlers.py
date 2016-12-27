@@ -285,3 +285,53 @@ class CategoriesHandler(HProducts):
     def delete(self, *args, **kwargs):
         self.clear()
         self.set_status(405)
+
+
+class FeedbackHandler(CORSHandler):
+    def get(self, *args, **kwargs):
+        pass
+
+    def post(self, *args, **kwargs):
+        try:
+            print(self.request.body)
+            feedback = ujson.loads(self.request.body)
+            if db_session.query(exists().where(User.email == feedback['email'])).scalar():
+                user = db_session.query(
+                    User
+                ).filter(
+                    User.email == feedback['email']
+                ).one()
+            else:
+                user = (
+                    User(
+                        username=feedback['username'],
+                        email=feedback['email']
+                    )
+                )
+                db_session.add(user)
+                db_session.flush()
+                db_session.refresh(user)
+            feedback_dody = (
+                FeedbackBody(
+                    user_id=user.id,
+                    message=feedback['message']
+                )
+            )
+            db_session.add(feedback_dody)
+            db_session.flush()
+            db_session.commit()
+            result = {
+                'message': 'Благодарим за обращение, {}, мы непремено свяжемся с вами.'.format(feedback['username'])
+            }
+            self.write(ujson.dumps(result))
+        except (TypeError, ValueError) as e:
+            self.clear()
+            self.set_status(400, reason=str(e))
+        except gen.BadYieldError as e:
+            self.write(e.args)
+
+    def put(self, *args, **kwargs):
+        pass
+
+    def delete(self, *args, **kwargs):
+        pass

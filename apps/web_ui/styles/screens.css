@@ -39,9 +39,6 @@
         display: block;
         margin: 10px auto;
     }
-    hr {
-        display: none;
-    }
     .all-products {
         width: 100%;
     }
@@ -139,7 +136,7 @@
     }
 }
 
-@media all and (max-width: 768px) {
+@media all and (max-width: 767px) {
     #top-line {
         flex-direction: column;
         align-items: center;
@@ -156,9 +153,6 @@
     #welcome {
         padding-right: 0;
     }
-    .dropdown:hover > .dropdown-menu {
-        /*display: none;*/
-    }
     .navbar-nav {
         margin: 0 0;
     }
@@ -167,6 +161,7 @@
     .container>.navbar-collapse,
     .container>.navbar-header {
         margin-right: -30px;
+        margin-left: -30px;
     }
     .reference-text-box {
         float: none;
