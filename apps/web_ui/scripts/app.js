@@ -40,7 +40,7 @@ app.config(function($routeProvider, $locationProvider){
         })
         .when('/feedback/thanx', {
             templateUrl: '/template/thanx.html',
-            // controller: 'FeedbackThanxController'
+            controller: 'FeedbackController'
         })
         .when('/categories/:categoryName', {
             templateUrl: '/template/categories.html',

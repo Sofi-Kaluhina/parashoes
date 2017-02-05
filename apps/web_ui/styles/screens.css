@@ -3,6 +3,16 @@
         display: none;
     }
 }
+@media all and (max-width: 1350px) {
+    .aside{
+        width: 45%;
+    }
+    #logo {
+        flex: 1 100%;
+        text-align: center;
+        order: 2;
+    }
+}
 @media all and (max-width: 1300px) {
     #footer-phone-mail ul,
     #footer-adress ul {
@@ -53,14 +63,6 @@
         width: 100%;
         position: relative;
     }
-    #logo {
-        flex: 1 100%;
-        text-align: center;
-        order: 2;
-    }
-    .aside{
-        width: 45%;
-    }
     #main-content-box {
         width: 100%;
     }
@@ -73,6 +75,10 @@
     }
     .info-block {
         width: 100%;
+    }
+    .info-block:nth-child(4),
+    .info-block:nth-child(6) {
+        margin-top: 5px;
     }
 }
 
@@ -202,11 +208,11 @@
     header {
         flex-direction: column;
     }
-    #logo, #address, #cart-and-search {
+    #logo, #address, #call-and-search {
         width: 100%;
         text-align: center;
     }
-    #cart-and-search div {
+    #call-and-search div {
         text-align: center;
     }
     footer .col-md-3 {

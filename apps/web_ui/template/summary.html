@@ -1,0 +1,9 @@
+<div class="row">
+    <a href="/cart/">
+        <img src="../images/header/shopping_cart.png">
+        <div class="col-md-6">КОРЗИНА({{ ngCart.getTotalItems() }})
+            <ng-pluralize count="ngCart.getTotalItems()" when="{1: 'item', 'other':'items'}"></ng-pluralize>
+            <br />{{ ngCart.totalCost() | currency }}
+        </div>
+    </a>
+</div>
