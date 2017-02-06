@@ -114,7 +114,7 @@ header > div {
     width: 30%;
     margin-top: 40px;
 }
-#call, #search {
+#search {
     text-align: end;
 }
 #search input {

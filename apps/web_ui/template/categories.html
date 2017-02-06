@@ -50,7 +50,7 @@
         </div>
 
         <ul class="flex-container">
-            <div class="prod-item" ng-repeat="product in mainPageProducts | limitTo: 4">
+            <div class="prod-item" ng-repeat="product in Products | limitTo: 4">
                 <a href="/product/{{product.slug_name}}">
                     <li class="flex-item-photo">
                         <img ng-src="http://bulavka:8080/{{product.images[0].small_path}}">
