@@ -1,245 +1,388 @@
-@media all and (min-width: 1300px) {
-    #filter-button {
+@media screen and (min-width: 320px) and (max-width: 736px) { /* From iPhone 5 to iPhone 6s+ */
+    .row, .navbar-left {
+        margin: 0;
+    }
+    header, header > div, .navbar-left li, footer .col-md-3, #subscribe, #socials,
+    .info-block /* C.P. */, .form-container, .form-group input, .form-group textarea, .form-container #warning /* F.P. */,
+    .btn-group, .btn-group-vertical /* Ct.P. */ {
+        width: 100%;
+    }
+    header > div, #search, .footer-menu a, .footer-categories a, #footer-phone-mail .ngw, #footer-adress .ngw,
+    #footer-phone-mail .mc, #footer-adress .mc, #footer-phone-mail .mm, #footer-adress .mm,
+    #subscribe p, #socials p, #subscribe div, .form-container p /* F.P. */ {
+        text-align: center;
+    }
+    #search {
+        margin-bottom: 20px;
+    }
+    #search input {
+        width: 70%;
+    }
+    #search button {
+        width: 20%;
+    }
+    #logo img {
+        width: 320px;
+    }
+    #goTop, .banner-slider {
         display: none;
     }
-}
-@media all and (max-width: 1350px) {
-    .aside{
-        width: 45%;
-    }
-    #logo {
-        flex: 1 100%;
-        text-align: center;
-        order: 2;
-    }
-}
-@media all and (max-width: 1300px) {
-    #footer-phone-mail ul,
-    #footer-adress ul {
-        padding-left: 0;
-    }
-    .categories-wrapper {
-        flex-direction: column-reverse;
-    }
-    #column-left #age,
-    #column-left #gender,
-    #column-left #condition,
-    #column-left #season {
-        width: 25%;
-    }
-    #column-left,
-    #column-left #size,
-    #column-left #brand {
-        width: 100%;
-        display: flex;
-        flex-flow: row wrap;
-    }
-    #column-left #size,
-    #column-left #brand {
-        order: 1;
-    }
-    #column-left #size h2,
-    #column-left #brand h2 {
-        width: 100%;
-    }
-    #filter-title {
-        width: 100%;
-    }
-    #filter-button {
-        display: block;
-        margin: 10px auto;
-    }
-    .all-products {
-        width: 100%;
-    }
-}
-@media all and (max-width: 1286px) {
-    #footer-phone-mail ul {
+    .navbar-default .navbar-collapse, .navbar-default .navbar-form,
+    .footer-menu, .footer-categories, #footer-phone-mail, #footer-adress {
         padding: 0;
     }
-}
-@media all and (max-width: 1200px) {
-    .container {
-        width: 100%;
-        position: relative;
-    }
     #main-content-box {
-        width: 100%;
+        margin-top: -30px;
     }
-
-    .contacts-window {
-        left: -40px;
+    .prod-item .item-name-price {
+        background-color: #6b3528;
+        color: #f7f7f7;
     }
-    .name, .price, .buy-button{
-        text-align: center;
+    footer .col-md-3, #subscribe, #socials {
+        padding-right: 0;
+    }
+    footer .col-md-3, #subscribe, #socials,
+    #footer-phone-mail ul, #footer-adress ul {
+        padding-left: 0;
+    }
+    #footer-phone-mail .glyphicon, #footer-adress .glyphicon {
+        float: none;
+    }
+    #footer-phone-mail .mm, #footer-adress .mm, #subscribe .btn-default {
+        margin-left: 0;
+    }
+    #subscribe p, #socials p {
+        padding-bottom: 0;
+    }
+    #subscribe input {
+        width: 90%;
+    }
+    #subscribe input, #subscribe .btn-default, #facebook, #vkontakte,
+    .info-block:first-child /* C.P. */ {
+        margin-top: 10px;
+    }
+    #socials {
+        padding-top: 0;
+    }
+    #socials-btns {
+        height: 70px;
+        width: 150px;
+        margin: 10px auto 0;
+    }
+    /* Contacts page (C.P.) */
+    .info-wrapper {
+        flex-direction: column;
     }
     .info-block {
-        width: 100%;
+        margin-top: 0;
     }
-    .info-block:nth-child(4),
-    .info-block:nth-child(6) {
-        margin-top: 5px;
+    .info-block, .info-block:nth-child(7) {
+        height: inherit;
     }
-}
-
-@media all and (max-width: 990px) {
-    .container {
-        width: 100%;
+    .info-block:nth-child(7) {
+        margin-bottom: 15px;
     }
-    .carousel {
-        float: none;
-        width: 100%;
+    .info-block:nth-child(4), .info-block:nth-child(6) {
+        margin-top: 15px;
     }
+    .info-block span {
+        margin: 10px auto;
+    }
+    /* Feedback page (F.P.) */
     #main-content-box {
-        min-width: 545px;
+        min-height: inherit;
     }
-    footer .col-md-3 {
-        width: 50%;
+    /* Categories page (Ct.P.) */
+    .btn-group, .btn-group-vertical, #filter-title .dropdown-menu label {
+        display: block;
     }
-    #footer-phone-mail {
-        padding-left: 105px;
+    #filter-title .dropdown-menu {
+        position: initial;
     }
-    #footer-adress ul {
-        padding-left: 90px;
+    #filter-title .dropdown-menu label {
+        margin-bottom: 10px;
+        margin-left: 40px;
+        margin-top: -25px;
     }
-    #product-gallery {
-        width: 100%;
-        flex-direction: column-reverse;
-        margin-left: 0;
-        position: relative;
+    #filter-title .dropdown-menu input[type=checkbox] {
+        zoom: 1.7;
+        margin-left: 10px;
     }
-    #product-large-image {
-        width: 100%;
-        height: 100%;
-        margin-left: 0;
-    }
-    .zoomWrapper {        /* не работает!!! */
-        display: flex;
-        width: 100%;
-    }
-    #product-thumbs-images {
-        margin: 20px 0;
-    }
-    #gallery_01 {
-        flex-direction: row;
-    }
-    #zoom_03 {            /* не работает!!! */
-        position: inherit;
-        margin: 0 auto;
-    }
-    #product-info-block {
-        margin-left: 0;
+    .zoomWindow, #colorbox, #cboxOverlay, .zoomLens {
+        display: none!important;
     }
 }
-
-@media all and (max-width: 851px) {
-    #footer-phone-mail:first-child,
-    #footer-phone-mail:last-child {
-        padding-left: 105px;
+@media screen and (min-width: 414px) and (max-width: 736px) { /* Top line for iPhone 6s+ */
+    .col-md-2:last-child {
+        width: 100%;
+        text-align: center;
     }
-    #footer-phone-mail div {
+}
+@media screen and (min-width: 568px) and (max-width: 736px) { /* Feedback page and filters dropdowns from iPhone 5 to iPhone 6s+ landscaped*/
+    .form-group input,.form-group textarea, .form-container #warning {
+        width: 90%;
+    }
+    #filter-title .dropdown-menu div {
+        width: 50%;
         float: left;
     }
 }
-
-@media all and (max-width: 767px) {
-    #top-line {
-        flex-direction: column;
-        align-items: center;
-    }
-    .navbar-left li {
-        width: 100%;
-        text-align: center;
-    }
-    #main-content-box {
-        width: 100%;
-        float: none;
-    }
-
-    #welcome {
-        padding-right: 0;
-    }
-    .navbar-nav {
-        margin: 0 0;
-    }
-    .container-fluid>.navbar-collapse,
-    .container-fluid>.navbar-header,
-    .container>.navbar-collapse,
-    .container>.navbar-header {
-        margin-right: -30px;
-        margin-left: -30px;
-    }
-    .reference-text-box {
-        float: none;
-        width: 100%;
-    }
-    .footer-categories li {
-        padding: 10px 0;
-    }
-    #subscribe,
-    #socials {
-        width: 100%;
+@media screen and (min-width: 667px) and (max-width: 736px) { /* From iPhone 6 to iPhone 6s+ landscaped */
+    footer .col-md-3, #subscribe, #socials {
+        width: 50%;
     }
     #socials {
-        padding-left: 120px;
+        padding-top: 45px;
     }
-}
-@media all and (max-width: 723px) {
-    .when-zoom-in {
-        width: 100%;
-        margin-left: 15px;
-        color: #405765;
-        font-size: 40px;
-        transition: all 0.5s ease-in-out;
+    #top-line .col-md-2:last-child {
+        width: inherit;
     }
 }
 
-@media all and (max-width: 695px) {
-    #btns-div {
-        width: 100%;
-    }
 
-    #main-content-box {
-        width: 100%;
-        float: none;
-    }
-}
-@media all and (max-width: 600px) {
-    header {
-        flex-direction: column;
-    }
-    #logo, #address, #call-and-search {
-        width: 100%;
-        text-align: center;
-    }
-    #call-and-search div {
-        text-align: center;
-    }
-    footer .col-md-3 {
-        width: 100%;
-    }
-}
-@media all and (max-width: 550px) {
-    .flex-container {
-        flex-direction: column;
-        align-items: center;
-    }
-}
 
-@media all and (max-width: 542px) {
-    #footer-adress-div {
-        width: 100%;
-    }
-    #footer-adress ul {
-        padding-left: 90px;
-    }
-}
-@media all and (max-width: 475px) {
+/*@media all and (min-width: 1300px) {*/
+    /*#filter-button {*/
+        /*display: none;*/
+    /*}*/
+/*}*/
+/*@media all and (max-width: 1350px) {*/
+    /*.aside{*/
+        /*width: 45%;*/
+    /*}*/
+    /*#logo {*/
+        /*flex: 1 100%;*/
+        /*text-align: center;*/
+        /*order: 2;*/
+    /*}*/
+/*}*/
+/*@media all and (max-width: 1300px) {*/
+    /*#footer-phone-mail ul,*/
+    /*#footer-adress ul {*/
+        /*padding-left: 0;*/
+    /*}*/
+    /*.categories-wrapper {*/
+        /*flex-direction: column-reverse;*/
+    /*}*/
+    /*#column-left #age,*/
+    /*#column-left #gender,*/
+    /*#column-left #condition,*/
+    /*#column-left #season {*/
+        /*width: 25%;*/
+    /*}*/
+    /*#column-left,*/
+    /*#column-left #size,*/
+    /*#column-left #brand {*/
+        /*width: 100%;*/
+        /*display: flex;*/
+        /*flex-flow: row wrap;*/
+    /*}*/
+    /*#column-left #size,*/
+    /*#column-left #brand {*/
+        /*order: 1;*/
+    /*}*/
+    /*#column-left #size h2,*/
+    /*#column-left #brand h2 {*/
+        /*width: 100%;*/
+    /*}*/
+    /*#filter-title {*/
+        /*width: 100%;*/
+    /*}*/
+    /*#filter-button {*/
+        /*display: block;*/
+        /*margin: 10px auto;*/
+    /*}*/
+    /*.all-products {*/
+        /*width: 100%;*/
+    /*}*/
+/*}*/
+/*@media all and (max-width: 1286px) {*/
+    /*#footer-phone-mail ul {*/
+        /*padding: 0;*/
+    /*}*/
+/*}*/
+/*@media all and (max-width: 1200px) {*/
+    /*.container {*/
+        /*width: 100%;*/
+        /*position: relative;*/
+    /*}*/
+    /*#main-content-box {*/
+        /*width: 100%;*/
+    /*}*/
+
+    /*.contacts-window {*/
+        /*left: -40px;*/
+    /*}*/
+    /*.name, .price, .buy-button{*/
+        /*text-align: center;*/
+    /*}*/
+    /*.info-block {*/
+        /*width: 100%;*/
+    /*}*/
+    /*.info-block:nth-child(4),*/
+    /*.info-block:nth-child(6) {*/
+        /*margin-top: 5px;*/
+    /*}*/
+/*}*/
+
+/*@media all and (max-width: 990px) {*/
+    /*.container {*/
+        /*width: 100%;*/
+    /*}*/
+    /*.carousel {*/
+        /*float: none;*/
+        /*width: 100%;*/
+    /*}*/
+    /*#main-content-box {*/
+        /*min-width: 545px;*/
+    /*}*/
+    /*footer .col-md-3 {*/
+        /*width: 50%;*/
+    /*}*/
+    /*#footer-phone-mail {*/
+        /*padding-left: 105px;*/
+    /*}*/
+    /*#footer-adress ul {*/
+        /*padding-left: 90px;*/
+    /*}*/
+    /*#product-gallery {*/
+        /*width: 100%;*/
+        /*flex-direction: column-reverse;*/
+        /*margin-left: 0;*/
+        /*position: relative;*/
+    /*}*/
+    /*#product-large-image {*/
+        /*width: 100%;*/
+        /*height: 100%;*/
+        /*margin-left: 0;*/
+    /*}*/
+    /*.zoomWrapper {        !* не работает!!! *!*/
+        /*display: flex;*/
+        /*width: 100%;*/
+    /*}*/
+    /*#product-thumbs-images {*/
+        /*margin: 20px 0;*/
+    /*}*/
+    /*#gallery_01 {*/
+        /*flex-direction: row;*/
+    /*}*/
+    /*#zoom_03 {            !* не работает!!! *!*/
+        /*position: inherit;*/
+        /*margin: 0 auto;*/
+    /*}*/
+    /*#product-info-block {*/
+        /*margin-left: 0;*/
+    /*}*/
+/*}*/
+
+/*@media all and (max-width: 851px) {*/
+    /*#footer-phone-mail:first-child,*/
+    /*#footer-phone-mail:last-child {*/
+        /*padding-left: 105px;*/
+    /*}*/
+    /*#footer-phone-mail div {*/
+        /*float: left;*/
+    /*}*/
+/*}*/
+
+/*@media all and (max-width: 767px) {*/
+    /*#top-line {*/
+        /*flex-direction: column;*/
+        /*align-items: center;*/
+    /*}*/
+    /*.navbar-left li {*/
+        /*width: 100%;*/
+        /*text-align: center;*/
+    /*}*/
+    /*#main-content-box {*/
+        /*width: 100%;*/
+        /*float: none;*/
+    /*}*/
+
+    /*#welcome {*/
+        /*padding-right: 0;*/
+    /*}*/
+    /*.navbar-nav {*/
+        /*margin: 0 0;*/
+    /*}*/
+    /*.container-fluid>.navbar-collapse,*/
+    /*.container-fluid>.navbar-header,*/
+    /*.container>.navbar-collapse,*/
+    /*.container>.navbar-header {*/
+        /*margin-right: -30px;*/
+        /*margin-left: -30px;*/
+    /*}*/
+    /*.reference-text-box {*/
+        /*float: none;*/
+        /*width: 100%;*/
+    /*}*/
+    /*.footer-categories li {*/
+        /*padding: 10px 0;*/
+    /*}*/
+    /*#subscribe,*/
+    /*#socials {*/
+        /*width: 100%;*/
+    /*}*/
+    /*#socials {*/
+        /*padding-left: 120px;*/
+    /*}*/
+/*}*/
+/*@media all and (max-width: 723px) {*/
+    /*.when-zoom-in {*/
+        /*width: 100%;*/
+        /*margin-left: 15px;*/
+        /*color: #405765;*/
+        /*font-size: 40px;*/
+        /*transition: all 0.5s ease-in-out;*/
+    /*}*/
+/*}*/
+
+/*@media all and (max-width: 695px) {*/
+    /*#btns-div {*/
+        /*width: 100%;*/
+    /*}*/
+
+    /*#main-content-box {*/
+        /*width: 100%;*/
+        /*float: none;*/
+    /*}*/
+/*}*/
+/*@media all and (max-width: 600px) {*/
+    /*header {*/
+        /*flex-direction: column;*/
+    /*}*/
+    /*#logo, #address, #call-and-search {*/
+        /*width: 100%;*/
+        /*text-align: center;*/
+    /*}*/
+    /*#call-and-search div {*/
+        /*text-align: center;*/
+    /*}*/
     /*footer .col-md-3 {*/
         /*width: 100%;*/
     /*}*/
-    .footer-categories li {
-        padding: 10px 65px;
-    }
-}
+/*}*/
+/*@media all and (max-width: 550px) {*/
+    /*.flex-container {*/
+        /*flex-direction: column;*/
+        /*align-items: center;*/
+    /*}*/
+/*}*/
+
+/*@media all and (max-width: 542px) {*/
+    /*#footer-adress-div {*/
+        /*width: 100%;*/
+    /*}*/
+    /*#footer-adress ul {*/
+        /*padding-left: 90px;*/
+    /*}*/
+/*}*/
+/*@media all and (min-width: 320px) and (min-width: 320px){*/
+    /*!*footer .col-md-3 {*!*/
+        /*!*width: 100%;*!*/
+    /*!*}*!*/
+    /*.footer-categories li {*/
+        /*padding: 10px 65px;*/
+    /*}*/
+/*}*/
 

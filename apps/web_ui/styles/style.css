@@ -126,7 +126,6 @@ header > div {
 #address #working-hours,
 #call,
 #search {
-    margin-top: 20px;
     font-size: 18px;
     font-weight: bold;
 }
@@ -177,15 +176,23 @@ header > div {
     color: #482a23;
 }
 .navbar-default .navbar-toggle {
-    border: 1px solid #676767;
+    border: 1px solid #f5deb3;
     margin-right: 40px;
 }
 .navbar-default .navbar-toggle .icon-bar {
-    background-color: #676767;
+    background-color: #f5deb3;
 }
 .navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:active,
 .navbar-default .navbar-toggle:hover {
-    background-color: #f98e00;
+    background-color: #482a23;
+    border: 1px solid #5a3f39;
+}
+
+.navbar-default .navbar-toggle:focus .icon-bar,
+.navbar-default .navbar-toggle:active .icon-bar,
+.navbar-default .navbar-toggle:hover .icon-bar {
+    background-color: #5a3f39;
 }
 .btn-default,
 .btn-default:focus,
@@ -357,7 +364,6 @@ hr {
 .prod-item a:hover,
 #gallery_01 img:hover {
     box-shadow: 0 0 20px #6b3528;
-    /*border: 1px solid #6b3528;*/
     transition: all 0.2s ease-in 0s;
 }
 .prod-item a:hover .item-name-price {
@@ -580,18 +586,6 @@ footer hr {
     font-size: x-large;
     color: #6b3528;
 }
-/*#product-info .btn-default,*/
-/*#product-info .btn-default:focus,*/
-/*#product-info .btn-default:active,*/
-/*#product-info .btn-default:active:focus,*/
-/*#product-info .btn-default:active:hover {*/
-    /*background-color: transparent;*/
-    /*outline: none;*/
-/*}*/
-/*#product-info .btn-default:hover {*/
-    /*background-color: #482a23;*/
-    /*color: wheat;*/
-/*}*/
 #product-info-block span {
     color: #ff0000;
     text-transform: uppercase;

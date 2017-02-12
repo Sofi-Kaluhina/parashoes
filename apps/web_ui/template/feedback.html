@@ -22,7 +22,7 @@
                    required>
             <p>
                 <span ng-show="myForm.username.$dirty && myForm.username.$invalid">
-                    <span ng-show="myForm.username.$error.required">
+                    <span class="error" ng-show="myForm.username.$error.required">
                         Имя обязательно для заполнения.
                     </span>
             </span>
@@ -44,10 +44,10 @@
                    required>
             <p>
                 <span ng-show="myForm.email.$dirty && myForm.email.$invalid">
-                <span ng-show="myForm.email.$error.required">
+                <span class="error" ng-show="myForm.email.$error.required">
                     Email обязателен для заполнения.
                 </span>
-                <span ng-show="myForm.email.$error.email">
+                <span class="error" ng-show="myForm.email.$error.email">
                     Неверно указан email.
                 </span>
             </span>
@@ -67,17 +67,15 @@
                       required>
             </textarea>
             <p>
-                <span ng-show="myForm.message.$dirty && myForm.message.$error.required">
+                <span class="error" ng-show="myForm.message.$dirty && myForm.message.$error.required">
                     Текст сообщения обязателен.
                 </span>
             </p>
         </div>
 
         <div class="form-group">
-            <p>
-                <span class="label label-warning">
+            <p id="warning">
                     Ответ поступит на указанный email.
-                </span>
             </p>
         </div>
 
