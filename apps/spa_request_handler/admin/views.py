@@ -225,10 +225,10 @@ class ProductView(ModelView):
                 self.form_extra_fields[attribute.name] = DateTimeField(
                     default=self._get_created_at_value(id)
                 )
-            elif attribute.type == 'select_create':
-                self.form_extra_fields[attribute.name] = flask_form.Select2TagsField(
-                    data=self._get_selectable_field_choices(attribute.id)
-                )
+            # elif attribute.type == 'select_create':
+                # self.form_extra_fields[attribute.name] = flask_form.Select2TagsField(
+                #     data=self._get_selectable_field_choices(attribute.id)
+                # )
                 # self.form_extra_fields[attribute.name] = FieldList(
                 #     unbound_field=[i for i in self._get_selectable_field_choices(attribute.id)]
                 # )
