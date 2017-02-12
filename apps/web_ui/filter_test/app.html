@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="style.css" type="text/css" rel="stylesheet"/>
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/checklist-model/checklist-model.js"></script>
+    <script type='text/javascript' src="app.js"></script>
+</head>
+<body>
+<div ng-app="app">
+    <div  ng-controller="mainController">
+        <h2>Runlevel</h2>
+        <label>PAV</label>
+        <input  type="checkbox" ng-model="Filter.runlevel.PAV" ng-true-value="'PAV'"  ng-false-value="'!PAV'" />&nbsp;
+        <label>UAT</label>
+        <input  type="checkbox" ng-model="Filter.runlevel.UAT" ng-true-value="'UAT'"  ng-false-value="'!UAT'" />&nbsp;
+        <label>ST</label>
+        <input  type="checkbox" ng-model="Filter.runlevel.ST" ng-true-value="'ST'"  ng-false-value="'!ST'"/>
+        <hr />
+        <h2>Runmode</h2>
+        <label>Author</label>
+        <input  type="checkbox" ng-model="Filter.mode.author" ng-true-value="'author'"  ng-false-value="'!author'" />&nbsp;
+        <label>Publish</label>
+        <input  type="checkbox" ng-model="Filter.mode.publish" ng-true-value="'publish'"  ng-false-value="'!publish'" />
+        <hr />
+        <h2>Environment</h2>
+        <label>Intranet</label>
+        <input  type="checkbox" ng-model="Filter.env.intranet" ng-true-value="'intranet'"  ng-false-value="'!intranet'" />&nbsp;
+        <label>Internet</label>
+        <input  type="checkbox" ng-model="Filter.env.internet" ng-true-value="'internet'"  ng-false-value="'!internet'" />
+        <hr />
+        <h2>Server list</h2>
+        <table width="100%" cellpadding="5">
+            <tr>
+                <th ng-click="OrderFilter='name'">Name</th>
+                <th ng-click="OrderFilter='runlevel'">Runlevel</th>
+                <th ng-click="OrderFilter='mode'">Runmode</th>
+                <th ng-click="OrderFilter='env'">Environment</th>
+            </tr>
+            <tr ng-repeat="server in servers | searchFilter:Filter.runlevel | searchFilter:Filter.mode | searchFilter:Filter.env | orderBy:OrderFilter">
+                <td>{{server.name}}</td>
+                <td>{{server.runlevel}}</td>
+                <td>{{server.mode}}</td>
+                <td>{{server.env}}</td>
+            </tr>
+        </table>
+
+        {{categories}}
+
+    </div>
+</div>
+</body>
+</html>

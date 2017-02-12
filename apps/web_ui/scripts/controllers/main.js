@@ -3,14 +3,14 @@
  */
 
 app.controller('MainController', function ($rootScope, $http, $scope, InitialData) {
-    $scope.mainPageProducts = [];
+    $scope.Products = [];
     $scope.currentPage = 1; // keeps track of the current page
     $scope.pageSize = 10; // holds the number of items per page
 
 
     $http.get($rootScope.apiUrl + $rootScope.baseUrl + 'products')
         .success(function (response) {
-                $scope.mainPageProducts = response;
+                $scope.Products = response;
             }
         );
 

@@ -293,7 +293,6 @@ class FeedbackHandler(CORSHandler):
 
     def post(self, *args, **kwargs):
         try:
-            print(self.request.body)
             feedback = ujson.loads(self.request.body)
             if db_session.query(exists().where(User.email == feedback['email'])).scalar():
                 user = db_session.query(
@@ -321,7 +320,7 @@ class FeedbackHandler(CORSHandler):
             db_session.flush()
             db_session.commit()
             result = {
-                'message': 'Благодарим за обращение, {}, мы непремено свяжемся с вами.'.format(feedback['username'])
+                'message': 'Спасибо, за то что написали нам, {}! Ответ поступит на указанный Вами email в ближайшее время.'.format(feedback['username'])
             }
             self.write(ujson.dumps(result))
         except (TypeError, ValueError) as e:

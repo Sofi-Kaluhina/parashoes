@@ -2,13 +2,11 @@
 and main content box, where "home.html" template downloads -->
 <div ng-controller="MainController">
     <div id="top-line" class="col-md-12">
-        <div id="call_us">Позвоните нам: +380 (95) 889-36-36, +380 (96) 889-03-64</div>
-        <div><a href="/home/">Главная</a></div>
-        <div><a href="/about_us/">О нас</a></div>
-        <div><a href="/articles/">Наши новости</a></div>
-        <div><a href="/contacts/">Контакты</a></div>
-        <div><a href="/feedback/">Обратная связь</a></div>
-        <div><a href="/account/">Кабинет</a></div>
+        <div class="col-md-2"><a href="/home/">Главная</a></div>
+        <div class="col-md-2"><a href="/about_us/">О нас</a></div>
+        <div class="col-md-2"><a href="/articles/">Наши новости</a></div>
+        <div class="col-md-2"><a href="/contacts/">Контакты</a></div>
+        <div class="col-md-2"><a href="/feedback/">Обратная связь</a></div>
     </div>
 
     <div class="modal-overlay" data-id="overlay-registration-form">
@@ -42,24 +40,19 @@ and main content box, where "home.html" template downloads -->
     <div class="container">
         <header class="row">
             <div id="address" class="aside">
-                <p>г. Мариуполь, ул. Артема, 59 (пересечение с ул. Фонтанной, 5 мин. пешком от Драмтеатра к пл.
-                    Кирова)</p>
-                <p id="working-hours">ПН-ПТ 9:00-17:00<br>СБ-ВС 10:00-16:00<br>Без перевывов и выходных</p>
-            </div>
-            <div id="logo"><a href="/home/"><img src="../images/header/logo.png"></a></div>
-            <div id="cart-and-search" class="aside">
-                <div id="cart">
-                    <div ng-include="'/template/summary.html'">
-                        <!--<ngcart-summary></ngcart-summary>-->
-                    </div>
+                <div id="call">
+                    Для оформления заказа звоните:<br>+380 (95) 889-36-36<br>+380 (96) 889-03-64
                 </div>
+            </div>
+            <div id="logo"><a href="/home/"><img src="../images/header/Logo.png"></a></div>
+            <!--<div id="call-and-search" class="aside">-->
                 <div id="search">
-                    <input class="form-control" ng-model="$scope.mainPageProducts" type="text" placeholder="поиск">
+                    <input class="form-control" ng-model="$scope.Products" type="text" placeholder="поиск">
                     <button class="btn btn-default">
                         <div class="glyphicon glyphicon-search"></div>
                     </button>
                 </div>
-            </div>
+            <!--</div>-->
         </header>
         <!-- Navbar start -->
         <nav class="navbar navbar-default">
@@ -149,7 +142,7 @@ and main content box, where "home.html" template downloads -->
                             <span class="mm">+380 (96) 889-03-64</span>
                             <br>
                             <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                            <span class="mm" id="footer-mm-email">werjiniya@mail.ru</span>
+                            <span class="mm" id="footer-mm-email">support@bu-lavka.com</span>
                         </div>
                     </li>
                 </ul>
@@ -159,22 +152,22 @@ and main content box, where "home.html" template downloads -->
             <div class="col-md-6" id="footer-adress">
                 <ul class="s6 columns">
                     <li>
-                        <span class="ngw">АДРЕСС</span>
+                        <span class="ngw">АДРЕС</span>
 
                         <div class="mc">
                             <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                             <span class="mm">Украина, Мариуполь</span>
-                            <span class="mm">улица Артема, 59</span>
+                            <span class="mm">ул. Куинджи (Артёма), 59</span>
                         </div>
-                        <span class="ngw">МЫ РАБОТАЕМ</span>
+                        <!--<span class="ngw">МЫ РАБОТАЕМ</span>-->
 
-                        <div class="mc">
-                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                            <span class="mm">ПН-ПТ 9:00-17:00</span>
-                            <span class="mm">СБ-ВС 10:00-16:00</span>
-                            <span class="mm">Без перевывов и выходных</span>
-                            <span class="mm">Дни приёма на комиссию: ВТ и ПТ</span>
-                        </div>
+                        <!--<div class="mc">-->
+                            <!--<span class="glyphicon glyphicon-time" aria-hidden="true"></span>-->
+                            <!--<span class="mm">ПН-ПТ 9:00-17:00</span>-->
+                            <!--<span class="mm">СБ-ВС 10:00-16:00</span>-->
+                            <!--<span class="mm">Без перевывов и выходных</span>-->
+                            <!--<span class="mm">Дни приёма на комиссию: ВТ и ПТ</span>-->
+                        <!--</div>-->
                     </li>
                 </ul>
             </div>
@@ -189,16 +182,18 @@ and main content box, where "home.html" template downloads -->
         </div>
         <div class="col-md-6" id="socials">
             <p>мы в социальных сетях:</p>
-            <a href="#">
-                <div id="facebook">
-                    <img src="../images/icons_contact/facebook.png">
-                </div>
-            </a>
-            <a href="#">
-                <div id="vkontakte">
-                    <img src="../images/icons_contact/vkontakte.png">
-                </div>
-            </a>
+            <div id="socials-btns">
+                <a href="#">
+                    <div id="facebook">
+                        <img src="../images/icons_contact/facebook.png">
+                    </div>
+                </a>
+                <a href="#">
+                    <div id="vkontakte">
+                        <img src="../images/icons_contact/vkontakte.png">
+                    </div>
+                </a>
+            </div>
         </div>
         <p>
         <hr>

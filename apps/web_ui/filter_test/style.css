@@ -1,0 +1,15 @@
+body{
+    font-family:calibri,arial;
+}
+h2{
+    font-size:14pt;
+    font-weight:bold;
+}
+li{
+    font-family:courier;
+}
+
+th{
+    font-weight:bold;
+    cursor:pointer;
+}

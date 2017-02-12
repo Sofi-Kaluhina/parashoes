@@ -1,7 +1,7 @@
 /**
  * Created by sofi on 24.12.16.
  */
-app.controller('FeedbackController', function ($rootScope, $scope, $http, $window) {
+app.controller('FeedbackController', function ($rootScope, $scope, $http, $location, $log, FeedbackFactory) {
 
     /* Making textarea's height equal to text's height */
     $('textarea').keyup(function () {
@@ -9,7 +9,6 @@ app.controller('FeedbackController', function ($rootScope, $scope, $http, $windo
         $(this).height(this.scrollHeight);
     });
     $scope.submit = function () {
-
         $http({
             method: 'POST',
             url: $rootScope.apiUrl + $rootScope.baseUrl + 'feedback/post',
@@ -22,7 +21,8 @@ app.controller('FeedbackController', function ($rootScope, $scope, $http, $windo
                 email: $scope.email,
                 message: $scope.message
             }
-        }).success(function () {
+        }).then(
+            function (response) {
                 /* Clean data object */
                 // $scope.data = {};
 
@@ -33,10 +33,39 @@ app.controller('FeedbackController', function ($rootScope, $scope, $http, $windo
                 $scope.myForm.$setUntouched();
                 $scope.myForm.$setPristine();
 
+                FeedbackFactory.setData(
+                    'сообщение успешно отправлено',
+                    response.data.message
+                );
+
                 /* Relocation when success */
-                $window.location.href = '/feedback/thanx';
+                $location.path('/feedback/thanx');
+            }, function () {
+                FeedbackFactory.setData(
+                    'сообщение не отправлено',
+                    'Не в этот раз, сервер лежит!'
+                );
             }
         );
+    };
+    $scope.thanx = FeedbackFactory.getData();
+});
+
+app.factory('FeedbackFactory', function () {
+    var result = {
+        status: "",
+        message: ""
+    };
+    return {
+        setData: function (status, message) {
+            result = {
+                status: status,
+                message: message
+            };
+        },
+        getData: function () {
+            return result;
+        }
     }
 });
 

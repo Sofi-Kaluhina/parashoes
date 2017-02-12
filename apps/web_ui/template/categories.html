@@ -1,4 +1,30 @@
 <div class="categories-wrapper" ng-controller="CategoriesController">
+    <div class="row" id="filter-title">
+        <div class="col-xs-12 col-sm-6 col-md-1" id="filter-row">
+            <p>фильтры
+            <hr>
+            </p>
+        </div>
+        <div class="btn-group" ng-repeat="filter in categoriesPage.filters">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{filter.filter_name}} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <div ng-repeat="filterValue in filter.filter_value">
+                    <input
+                            id="{{filterValue.id}}"
+                            class="filter-checkbox"
+                            type="checkbox"
+                            ng-model="categoriesFilterModel.checkbox[filterValue.id]"
+                            ng-checked="isFilterChecked(filterValue.id)"
+                            ng-change="filterCheck()"
+                    />
+                    <label>{{filterValue.value}}</label>
+                </div>
+            </ul>
+        </div>
+    </div>
+
     <div class="all-products">
         <div class="row" id="all-products-title">
             <div class="col-xs-12 col-sm-6 col-md-1" id="main-title-row">
@@ -50,7 +76,7 @@
         </div>
 
         <ul class="flex-container">
-            <div class="prod-item" ng-repeat="product in mainPageProducts | limitTo: 4">
+            <div class="prod-item" ng-repeat="product in Products | limitTo: 4">
                 <a href="/product/{{product.slug_name}}">
                     <li class="flex-item-photo">
                         <img ng-src="http://bulavka:8080/{{product.images[0].small_path}}">
@@ -68,33 +94,25 @@
         </ul>
     </div>
 
-    <aside id="column-left">
-        <div class="row" id="filter-title">
-            <div class="col-xs-12 col-sm-6 col-md-1" id="filter-row">
-                <p>фильтры
-                <hr>
-                </p>
-                <button class="btn btn-default" id="filter-button">Развернуть/свернуть</button>
-            </div>
-        </div>
-        <div ng-repeat="filter in categoriesPage.filters">
-            <div id="age" class="to-wrap">
-                <h2>{{filter.filter_name}}:</h2>
-                <div ng-repeat="filterValue in filter.filter_value">
-                    <label>
-                        <input
-                                id="{{filterValue.id}}"
-                                class="filter-checkbox"
-                                type="checkbox"
-                                ng-model="categoriesFilterModel.checkbox[filterValue.id]"
-                                ng-checked="isFilterChecked(filterValue.id)"
-                                ng-change="filterCheck()"
-                        />
-                        {{filterValue.value}}
-                    </label>
-                </div>
-                <hr />
-            </div>
-        </div>
-    </aside>
+    <!--<aside id="column-left">-->
+        <!--<div ng-repeat="filter in categoriesPage.filters">-->
+            <!--<div id="age" class="to-wrap">-->
+                <!--<h2>{{filter.filter_name}}:</h2>-->
+                <!--<div ng-repeat="filterValue in filter.filter_value">-->
+                    <!--<label>-->
+                        <!--<input>-->
+                                <!--&lt;!&ndash;id="{{filterValue.id}}"&ndash;&gt;-->
+                                <!--class="filter-checkbox"-->
+                                <!--type="checkbox"-->
+                                <!--ng-model="categoriesFilterModel.checkbox[filterValue.id]"-->
+                                <!--ng-checked="isFilterChecked(filterValue.id)"-->
+                                <!--ng-change="filterCheck()"-->
+                        <!--/>-->
+                        <!--{{filterValue.value}}-->
+                    <!--</label>-->
+                <!--</div>-->
+                <!--<hr />-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</aside>-->
 </div>

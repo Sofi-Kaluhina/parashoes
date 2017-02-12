@@ -8,19 +8,19 @@
         </ol>
         <div class="carousel-inner" role="listbox">
             <div class="item active">
-                <img src="../images/header/logo.png" alt="First slide">
+                <img src="../images/header/Logo.png" alt="First slide">
                 <div class="carousel-caption">
                     <h3>БАМБОЛЕЙО!</h3>
                 </div>
             </div>
             <div class="item">
-                <img src="../images/header/logo.png" alt="Second slide">
+                <img src="../images/header/Logo.png" alt="Second slide">
                 <div class="carousel-caption">
                     ...
                 </div>
             </div>
             <div class="item">
-                <img src="../images/header/logo.png" alt="Third slide">
+                <img src="../images/header/Logo.png" alt="Third slide">
                 <div class="carousel-caption">
                     ...
                 </div>
@@ -47,7 +47,7 @@
     </div>
 
     <ul class="flex-container">
-        <div class="prod-item" ng-repeat="product in mainPageProducts | start: (currentPage - 1) * pageSize | limitTo: pageSize">
+        <div class="prod-item" ng-repeat="product in Products | start: (currentPage - 1) * pageSize | limitTo: pageSize | filter: $scope.Products">
             <a href="/product/{{product.slug_name}}">
                 <li class="flex-item-photo">
                     <img ng-src="http://bulavka:8080/{{product.images[0].small_path}}">
@@ -73,21 +73,21 @@
                 </div>
             </a>
         </div>
-        <div class="pagination-block">
-            <pagination
-                    uib-pagination
-                    total-items="mainPageProducts.length"
-                    ng-model="currentPage"
-                    max-size="5"
-                    class="pagination-sm"
-                    boundary-links="true"
-                    rotate="false"
-                    first-text="Начало"
-                    previous-text="Предыдущая"
-                    next-text="Следующая"
-                    last-text="Конец"
-            ></pagination>
-        </div>
+        <!--<div class="pagination-block">-->
+            <!--<pagination-->
+                    <!--uib-pagination-->
+                    <!--total-items="Products.length"-->
+                    <!--ng-model="currentPage"-->
+                    <!--max-size="5"-->
+                    <!--class="pagination-sm"-->
+                    <!--boundary-links="true"-->
+                    <!--rotate="false"-->
+                    <!--first-text="Начало"-->
+                    <!--previous-text="Предыдущая"-->
+                    <!--next-text="Следующая"-->
+                    <!--last-text="Конец"-->
+            <!--&gt;</pagination>-->
+        <!--</div>-->
     </ul>
 
     <div class="row" id="latest-products-title">
@@ -99,7 +99,7 @@
     </div>
 
     <ul class="flex-container">
-        <div class="prod-item" ng-repeat="product in mainPageProducts | limitTo: 4">
+        <div class="prod-item" ng-repeat="product in Products | limitTo: 4">
             <a href="/product/{{product.slug_name}}">
                 <li class="flex-item-photo">
                     <img ng-src="http://bulavka:8080/{{product.images[0].small_path}}">
