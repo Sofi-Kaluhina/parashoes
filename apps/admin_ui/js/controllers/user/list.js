@@ -40,10 +40,12 @@ app.controller('UserListController', function ($rootScope, $http, $scope, $uibMo
                 },
                 function (response) {
                     $log.info(response.statusText + ' at: ' + new Date());
+                    $scope.getUserList();
                 }
             );
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
+            $scope.getUserList();
         });
     };
 
@@ -63,12 +65,43 @@ app.controller('UserListController', function ($rootScope, $http, $scope, $uibMo
             }
         });
 
-        modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
-            $log.info($scope.userEdit);
+        modalInstance.result.then(function (userEditDetails) {
+            $log.info(userEditDetails);
             $scope.getUserList();
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    $scope.openUserAddPopup = function () {
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: '/template/user/modal/add.html',
+            controller: 'UserAddInstanceController',
+            controllerAs: '$scope',
+            scope: $scope
+        });
+
+        modalInstance.result.then(function (userAddDetails) {
+            $log.info(userAddDetails);
+            $http({
+                method: 'POST',
+                url: $rootScope.apiUrl + $rootScope.baseUrl + 'admin/user/list',
+                data: userAddDetails,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json'
+                }
+            }).then( function (response) {
+                    $log.info(response.statusText + ' at: ' + new Date());
+                    $scope.getUserList();
+                }
+            );
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+            $scope.getUserList();
         });
     };
 
@@ -78,21 +111,9 @@ app.controller('UserListController', function ($rootScope, $http, $scope, $uibMo
 
 });
 
-app.controller('UserEditInstanceController', function ($scope, $uibModalInstance, userEditDetails) {
-    $scope.userEditDetails = userEditDetails;
-
-    $scope.modUserEditDetails = function () {
-        $scope.userEditDetails.login = $scope.userEdit.login;
-        // firstname: $scope.userEditDetails.firstname,
-        // lastname: $scope.userEditDetails.lastname,
-        // gender: $scope.userEditDetails.gender,
-        // email: $scope.userEditDetails.email,
-        // created_at: $scope.userEditDetails.created_at,
-        // last_login_at: $scope.userEditDetails.last_login_at
-    };
-
+app.controller('UserDeleteInstanceController', function ($scope, $uibModalInstance) {
     $scope.ok = function () {
-        $uibModalInstance.close($scope.selected);
+        $uibModalInstance.close();
     };
 
     $scope.cancel = function () {
@@ -100,9 +121,19 @@ app.controller('UserEditInstanceController', function ($scope, $uibModalInstance
     };
 });
 
-app.controller('UserDeleteInstanceController', function ($scope, $uibModalInstance) {
+app.controller('UserEditInstanceController', function ($scope, $uibModalInstance) {
     $scope.ok = function () {
-        $uibModalInstance.close();
+        $uibModalInstance.close($scope.userEdit);
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+});
+
+app.controller('UserAddInstanceController', function ($scope, $uibModalInstance) {
+    $scope.ok = function () {
+        $uibModalInstance.close($scope.userAdd);
     };
 
     $scope.cancel = function () {
