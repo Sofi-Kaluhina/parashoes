@@ -6,7 +6,6 @@ from tornado import web, gen
 
 from admin.connection import db_session
 from admin.model import *
-from sqlalchemy.exc import IntegrityError
 
 
 class CORSHandler(web.RequestHandler):
@@ -44,44 +43,51 @@ class AdminUser(CORSHandler):
 
     def post(self, *args, **kwargs):
         result = []
-        user_id = self.get_argument('user_id')
-        self.set_status(200, reason='User with user_id {user_id} successfully created.'.format(user_id=user_id))
-        self.write(ujson.dumps(result))
-
-    def put(self, *args, **kwargs):
-        result = []
-        user_id = self.get_argument('user_id')
-        self.set_status(200, reason='User with user_id {user_id} successfully updated.'.format(user_id=user_id))
-        self.write(ujson.dumps(result))
-
-    def delete(self, *args, **kwargs):
-        user_id = self.get_argument('user_id')
+        print(ujson.loads(self.request.body))
+        args = ujson.loads(self.request.body)
+        args['is_created'] = False if 'is_created' not in args else args['is_created']
         try:
-            user = db_session.query(
-                User
-            ).filter(
-                User.id == user_id
-            ).one()
-            db_session.delete(user)
+            new_user = User(**args)
+            db_session.add(new_user)
             db_session.commit()
-            result = {
-                'message': 'User with user_id {user_id} successfully deleted.'.format(user_id=user_id)
-            }
-            self.set_status(200, reason=result['message'])
+            self.set_status(200, reason='User with login {login} successfully created.'.format(login=args['username']))
             self.write(ujson.dumps(result))
         except IntegrityError as e:
             db_session.rollback()
             db_session.commit()
-            result = {
-                'message': 'User with user_id {user_id} not deleted due to {reason}'.format(
-                    user_id=user_id,
-                    reason=str(e.args)
-                )
-            }
-            self.set_status(200, reason=result['message'])
+            self.set_status(200, reason='User with login {login} can not be create. Reason: {reason}'.format(
+                login=args['username'],
+                reason=str(e.args)
+            ))
             self.write(ujson.dumps(result))
-        except gen.BadYieldError as e:
-            self.write(e.args)
+
+    def put(self, *args, **kwargs):
+        result = []
+        user_id = self.get_argument('user_id')
+        self.set_status(200, reason='User with login {login} successfully updated.'.format(login=user_id))
+        self.write(ujson.dumps(result))
+
+    def delete(self, *args, **kwargs):
+        result = []
+        user_id = self.get_argument('user_id')
+        user = db_session.query(
+            User
+        ).filter(
+            User.id == user_id
+        ).one()
+        try:
+            db_session.delete(user)
+            db_session.commit()
+            self.set_status(200, reason='User with login {login} successfully deleted.'.format(login=user.username))
+            self.write(ujson.dumps(result))
+        except IntegrityError as e:
+            db_session.rollback()
+            db_session.commit()
+            self.set_status(200, reason='User with login {login} can not be delete. Reason: {reason}'.format(
+                login=user.username,
+                reason=str(e.args)
+            ))
+            self.write(ujson.dumps(result))
 
     def options(self):
         self.set_status(204)

@@ -128,3 +128,16 @@ ENV/
 
 # Rope project settings
 .ropeproject
+.DS_Store
+apps/create_tasks.py
+apps/neural_test.py
+apps/spa_request_handler/.DS_Store
+apps/spa_request_handler/media/
+apps/spa_request_handler/static/
+apps/test.py
+bulavka_public_attribute.sql
+bulavka_public_attribute_value.sql
+bulavka_public_product_photo.sql
+bulavka_public_product_type.sql
+photos/
+test.py

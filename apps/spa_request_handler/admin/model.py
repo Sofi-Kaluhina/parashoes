@@ -3,11 +3,12 @@
 from sqlalchemy import (
     Column, DateTime, ForeignKey, Index,
     Integer, String, Text, Boolean, text,
-    distinct, exists, and_, or_, desc, update
+    distinct, exists, and_, or_, desc, update,
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql.base import ARRAY
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.exc import IntegrityError
 
 from datetime import datetime
 
