@@ -7,8 +7,8 @@ from tornado.options import options
 from admin.model import *
 
 engine = create_engine(options.db_url)
-engine.echo = True
+engine.echo = False
 session = sessionmaker()
-session.configure(bind=engine)
+session.configure(bind=engine, autoflush=False)
 Base.metadata.bind = engine
 db_session = session()
