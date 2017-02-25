@@ -201,8 +201,9 @@ class ProductView(ModelView):
         self.can_view_details = True
         self.can_edit = False
         self.can_export = True
-        self.column_exclude_list = ['slug_name', ]
-        self.form_excluded_columns = ['slug_name', ]
+        self.slug_names = self._get_all_slug_names()
+        self.column_exclude_list = ['slug_name', 'filters']
+        self.form_excluded_columns = ['slug_name', 'filters']
         self.on_form_prefill(self.form, None)
         super(ProductView, self).__init__(Product, session, **kwargs)
         self._refresh_cache()
@@ -215,6 +216,7 @@ class ProductView(ModelView):
         self.form_extra_fields = {}
         disables = {}
         for attribute in db_session.query(Attribute).all():
+            print(attribute.name, attribute.type)
             if attribute.type == 'integer':
                 self.form_extra_fields[attribute.name] = IntegerField(
                     default=self._get_price_value(id)
@@ -225,13 +227,11 @@ class ProductView(ModelView):
                 self.form_extra_fields[attribute.name] = DateTimeField(
                     default=self._get_created_at_value(id)
                 )
-            # elif attribute.type == 'select_create':
-                # self.form_extra_fields[attribute.name] = flask_form.Select2TagsField(
-                #     data=self._get_selectable_field_choices(attribute.id)
-                # )
-                # self.form_extra_fields[attribute.name] = FieldList(
-                #     unbound_field=[i for i in self._get_selectable_field_choices(attribute.id)]
-                # )
+            elif attribute.type == 'select_create':
+                self.form_extra_fields[attribute.name] = SelectField(
+                    coerce=int,
+                    choices=self._get_selectable_field_choices(attribute.id)
+                )
             elif attribute.type == 'select':
                 self.form_extra_fields[attribute.name] = SelectField(
                     coerce=int,
@@ -246,19 +246,10 @@ class ProductView(ModelView):
         self.form_widget_args = disables
 
     def on_model_change(self, form, model, is_created):
-        slugify_unique = UniqueSlugify(separator='-')
-        product_name = form['name'].data.lower()
-
-        def get_unique_slug():
-            _slug = slugify_unique(product_name)
-            while 1:
-                if not db_session.query(exists().where(Product.slug_name == _slug)).scalar():
-                    return _slug
-                else:
-                    _slug = slugify_unique(product_name)
-        model.slug_name = get_unique_slug()
 
         if is_created:
+            model.slug_name = self._get_unique_slug(form['name'].data.lower())
+            filters = []
             for attribute in db_session.query(Attribute).all():
                 if attribute.name == 'created_at':
                     attribute_created_at_insert = (
@@ -277,6 +268,7 @@ class ProductView(ModelView):
                             attribute_value_id=attribute_created_at_insert.id
                         )
                     )
+                    filters.append(product_attribute_created_at_insert.id)
                     db_session.add(product_attribute_created_at_insert)
                     db_session.flush()
                 elif attribute.name == 'oem':
@@ -296,26 +288,27 @@ class ProductView(ModelView):
                             attribute_value_id=attribute_new_oem_insert.id
                         )
                     )
+                    filters.append(product_attribute_new_oem_insert.id)
                     db_session.add(product_attribute_new_oem_insert)
                     db_session.flush()
                 elif attribute.name == 'price':
-                    attribute_new_oem_insert = (
+                    attribute_price_insert = (
                         AttributeValue(
                             attribute_id=attribute.id,
                             name=form[attribute.name].data,
                             description=form[attribute.name].data
                         )
                     )
-                    db_session.add(attribute_new_oem_insert)
+                    db_session.add(attribute_price_insert)
                     db_session.flush()
-                    db_session.refresh(attribute_new_oem_insert)
-                    product_attribute_new_oem_insert = (
+                    db_session.refresh(attribute_price_insert)
+                    product_attribute_price_insert = (
                         ProductAttributeValues(
                             product_id=model.id,
-                            attribute_value_id=attribute_new_oem_insert.id
+                            attribute_value_id=attribute_price_insert.id
                         )
                     )
-                    db_session.add(product_attribute_new_oem_insert)
+                    db_session.add(product_attribute_price_insert)
                     db_session.flush()
                 else:
                     product_attribute_selectable_insert = (
@@ -326,8 +319,18 @@ class ProductView(ModelView):
                     )
                     db_session.add(product_attribute_selectable_insert)
                     db_session.flush()
-        else:
-            pass
+            attribute_value_ids = db_session.query(
+                ProductAttributeValues.attribute_value_id
+            ).filter(
+                ProductAttributeValues.product_id == model.id
+            ).join(
+                AttributeValue,
+                AttributeValue.id == ProductAttributeValues.attribute_value_id
+            ).join(
+                Attribute,
+                Attribute.id == AttributeValue.attribute_id
+            ).all()
+            model.filters = [i[0] for i in attribute_value_ids]
 
     def on_model_delete(self, model):
         product_attribute_values_delete = db_session.query(
@@ -340,7 +343,8 @@ class ProductView(ModelView):
             ProductAttributeValues.attribute_value_id
         ).filter(
             ProductAttributeValues.product_id == model.id,
-            Attribute.type != 'select'
+            Attribute.type != 'select',
+            Attribute.type != 'select_create'
         ).join(
             AttributeValue,
             AttributeValue.id == ProductAttributeValues.attribute_value_id
@@ -351,15 +355,17 @@ class ProductView(ModelView):
 
         for product_attribute_value_delete in product_attribute_values_delete:
             db_session.delete(product_attribute_value_delete)
+        db_session.flush()
 
         attribute_values_delete = db_session.query(
             AttributeValue
         ).filter(
-            AttributeValue.id.in_(attribute_value_ids)
+            AttributeValue.id.in_(attribute_value_ids),
         ).all()
 
         for attribute_value_delete in attribute_values_delete:
             db_session.delete(attribute_value_delete)
+        db_session.flush()
 
         products_product_photos_delete = db_session.query(
             ProductsProductPhoto
@@ -369,7 +375,6 @@ class ProductView(ModelView):
 
         for products_product_photo_delete in products_product_photos_delete:
             db_session.delete(products_product_photo_delete)
-
         db_session.flush()
 
     def _get_attribute_value(self, attribute_name, id):
@@ -429,3 +434,17 @@ class ProductView(ModelView):
                 ).all()
             ]
         return choices
+
+    def _get_all_slug_names(self):
+        return db_session.query(
+            Product.slug_name
+        ).all()
+
+    def _get_unique_slug(self, product_name):
+        slugify_unique = UniqueSlugify(separator='-')
+        _slug = slugify_unique(product_name)
+        while _slug in [i[0] for i in self.slug_names]:
+            _slug = slugify_unique(product_name)
+        else:
+            slugify_unique = UniqueSlugify(separator='-')
+            return _slug
