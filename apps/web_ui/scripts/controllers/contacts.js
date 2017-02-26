@@ -5,8 +5,7 @@
 app.controller('ContactsController', function ($scope) {
 
     $scope.initialize = (function () {
-        $scope.myLatlng = new google.maps.LatLng(47.100035, 37.553630);
-        /* 47.1044400, 37.5644400 */
+        $scope.myLatlng = new google.maps.LatLng(47.096030, 37.547198);
         $scope.myOptions = {
             zoom: 16,
             center: $scope.myLatlng,
@@ -23,9 +22,9 @@ app.controller('ContactsController', function ($scope) {
 
         $scope.contentString = '<div id="content">' +
             '<p style="font-weight: bold">' + '"ParaShoes"' + '</p>' +
-            'ул. Артема, 59' +
+            'пр. Мира, 62/37' +
             '<p>' + 'Пн-Вс с 9:00 до 19:00' + '</p>' +
-            '<a target="_blank" href="https://maps.google.com/maps?ll=47.100236,37.553397&z=18&t=m&hl=ru-RU&gl=US&mapclient=apiv3&cid=15462233706182546960">' +
+            '<a target="_blank" href="https://maps.google.com/maps?ll=47.096030,37.547198&z=18&t=m&hl=ru-RU&gl=US&mapclient=apiv3&cid=15462233706182546960">' +
             '<p>' + ' Показать на Google Картах' + '</p>' +
             '</a>' +
             '</div>';
@@ -37,7 +36,7 @@ app.controller('ContactsController', function ($scope) {
             $scope.infowindow.open($scope.map, $scope.marker);
         });
 
-        $scope.myLatlng2 = new google.maps.LatLng(47.097392, 37.549925);
+        $scope.myLatlng2 = new google.maps.LatLng(47.127851, 37.564193); /* 47.127851, 37.564193 */
         $scope.myOptions2 = {
             zoom: 16,
             center: $scope.myLatlng2,
@@ -54,11 +53,11 @@ app.controller('ContactsController', function ($scope) {
 
         $scope.contentString2 = '<div id="content2">' +
             '<p style="font-weight: bold">' + '"ParaShoes"' + '</p>' +
-            'г. Мариуполь' +
+            'пр. Металлургов, 164' +
             '<p>' + 'Пн-Вс с 9:00 до 19:00' + '</p>' +
             '<a target="_blank" href="https://maps.google.com/maps/place/Медиа-поиск/' +
-            '@47.097392,37.5477363,17z/data=!4m13!1m7!3m6!1s0x0:0x0!2zNDfCsDA1JzUwLjYiTiAzN8KwMzInNTkuNyJF!3b1!8m2!3d' +
-            '47.097392!4d37.549925!3m4!1s0x0:0x7edc8b93cd2c7f4!8m2!3d47.0970338!4d37.5497621">' +
+            '@47.127851,37.564193,17z/data=!4m13!1m7!3m6!1s0x0:0x0!2zNDfCsDA1JzUwLjYiTiAzN8KwMzInNTkuNyJF!3b1!8m2!3d' +
+            '47.127851!4d37.564193!3m4!1s0x0:0x7edc8b93cd2c7f4!8m2!3d47.0970338!4d37.5497621">' +
             '<p>' + ' Показать на Google Картах' + '</p>' +
             '</a>' +
             '</div>';
