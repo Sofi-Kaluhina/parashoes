@@ -1,17 +1,16 @@
 # coding=utf8
 
 import os
-from datetime import datetime
 from PIL import Image
 from uuid import uuid4 as uuid
 
 from flask import url_for
 from flask_admin import form as flask_form
 from flask_admin.contrib.sqla import ModelView
-from slugify import slugify_url, UniqueSlugify
+from slugify import UniqueSlugify
 
 from jinja2 import Markup
-from wtforms import StringField, IntegerField, DateTimeField, SelectField, FieldList
+from wtforms import StringField, IntegerField, DateTimeField, SelectField
 
 from admin import app, db_session, options
 from admin.model import *
@@ -129,8 +128,6 @@ class ProductPhotoView(ModelView):
                         counter += 1
                     else:
                         return '{}_{}'.format(model.product[0].name, counter)
-
-            print('\n', get_unique_product_name(), '\n')
 
             model.large_name = get_unique_product_name()
             model.large_path = large_file_mane

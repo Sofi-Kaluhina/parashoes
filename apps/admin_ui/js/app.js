@@ -1,5 +1,5 @@
 var app = angular.module(
-    "bulavkaAdminApp",
+    "parashoesAdminApp",
     [
         'ngRoute',
         'ngAnimate',
@@ -53,6 +53,6 @@ app.config(function($routeProvider, $locationProvider){
 );
 
 app.run(['$rootScope', '$route', function ($rootScope, $route) {
-    $rootScope.apiUrl = 'http://bulavka:8080/';
+    $rootScope.apiUrl = 'http://parashoes:8080/';
     $rootScope.baseUrl = 'api/v1/';
 }]);

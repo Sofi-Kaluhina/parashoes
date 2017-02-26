@@ -1,12 +1,12 @@
 {
-  "name": "bulavka",
+  "name": "parashoes",
   "authors": [
     "sofi.kalugina <sofi.kalugina@gmail.com>"
   ],
-  "description": "Application for showcase BUlavka",
+  "description": "Application for showcase ParaShoes",
   "main": "app.html",
   "keywords": [
-    "BUlavka",
+    "ParaShoes",
     "showcase"
   ],
   "license": "MIT",

@@ -1,12 +1,12 @@
 {
-  "name": "BUlavka admin",
+  "name": "ParaShoes admin",
   "authors": [
     "markel.kalugin <markel.kalugin@gmail.com>"
   ],
-  "description": "Admin panel for showcase Bulavka",
+  "description": "Admin panel for showcase ParaShoes",
   "main": "app.html",
   "keywords": [
-    "bulavka"
+    "parashoes"
   ],
   "license": "MIT",
   "homepage": "bu-lavka.com/admin",

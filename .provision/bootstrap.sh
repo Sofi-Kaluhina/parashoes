@@ -23,16 +23,16 @@ echo "Install Python libs..."
 pip3 install -r /opt/.provision/requirements/vagrant.txt
 echo "Done!"
 
-echo "Configuring bulavka application..."
-mkdir -p /etc/bulavka/
-cp /opt/.provision/bulavka.conf /etc/bulavka/bulavka.conf
-chown -R "root:root" /etc/bulavka/
+echo "Configuring parashoes application..."
+mkdir -p /etc/parashoes/
+cp /opt/.provision/parashoes.conf /etc/parashoes/parashoes.conf
+chown -R "root:root" /etc/parashoes/
 echo "Done!"
 
-echo "Preparing logging destination for bulavka application..."
-mkdir -p /var/log/bulavka
-touch /var/log/bulavka/application.log
-chown -R "vagrant:vagrant" /var/log/bulavka
+echo "Preparing logging destination for parashoes application..."
+mkdir -p /var/log/parashoes
+touch /var/log/parashoes/application.log
+chown -R "vagrant:vagrant" /var/log/parashoes
 echo "Done!"
 
 echo "Preparing destination for publicly shared data..."
@@ -42,15 +42,15 @@ mkdir -p /opt/apps/spa_request_handler/static
 chown -R "vagrant:vagrant" /opt/apps/spa_request_handler/static
 echo "Done!"
 
-echo "Run BUlavka application tornado..."
+echo "Run ParaShoes application tornado..."
 nohup python3 /opt/apps/spa_request_handler/application.py --debug &
 echo "Done!"
 
 echo "Configuring nginx..."
 mkdir -p /etc/nginx/sites-available /etc/nginx/sites-enabled
 cp /opt/.provision/nginx.conf /etc/nginx/nginx.conf
-cp /opt/.provision/app.nginx /etc/nginx/sites-available/bulavka && \
-    ln -fs /etc/nginx/sites-available/bulavka /etc/nginx/sites-enabled/bulavka
+cp /opt/.provision/app.nginx /etc/nginx/sites-available/parashoes && \
+    ln -fs /etc/nginx/sites-available/parashoes /etc/nginx/sites-enabled/parashoes
 rm /etc/nginx/sites-available/@default
 echo "Done!"
 

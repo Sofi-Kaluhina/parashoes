@@ -1,7 +1,6 @@
 # coding=utf8
 
 import ujson
-from datetime import datetime, timedelta
 from tornado import web, gen
 
 from admin.connection import db_session

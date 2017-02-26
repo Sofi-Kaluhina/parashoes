@@ -38,7 +38,7 @@
             <div class="prod-item" ng-repeat="product in categoriesPage.products | start: (currentPage - 1) * pageSize | limitTo: pageSize">
                 <a href="/product/{{product.slug_name}}">
                     <li class="flex-item-photo">
-                        <img ng-src="http://bulavka:8080/{{product.images[0].small_path}}">
+                        <img ng-src="http://parashoes:8080/{{product.images[0].small_path}}">
                     </li>
                     <div class="item-name-price">
                         <div class="name">
@@ -79,7 +79,7 @@
             <div class="prod-item" ng-repeat="product in Products | limitTo: 4">
                 <a href="/product/{{product.slug_name}}">
                     <li class="flex-item-photo">
-                        <img ng-src="http://bulavka:8080/{{product.images[0].small_path}}">
+                        <img ng-src="http://parashoes:8080/{{product.images[0].small_path}}">
                     </li>
                     <div class="item-name-price">
                         <div class="name">
