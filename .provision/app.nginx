@@ -1,4 +1,4 @@
-upstream bulavka {
+upstream parashoes {
     server 127.0.0.1:8000;
 }
 
@@ -44,7 +44,7 @@ server {
         proxy_redirect off;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Scheme $scheme;
-        proxy_pass http://bulavka/;
+        proxy_pass http://parashoes/;
     }
 }
 
@@ -65,7 +65,7 @@ server {
     }
 
     location /snapshot {
-        proxy_pass http://bulavka/;
+        proxy_pass http://parashoes/;
         proxy_connect_timeout  60s;
     }
 }
@@ -83,7 +83,7 @@ server {
     }
 
     location /snapshot {
-        proxy_pass http://bulavka/admin;
+        proxy_pass http://parashoes/admin;
         proxy_connect_timeout  60s;
     }
 }

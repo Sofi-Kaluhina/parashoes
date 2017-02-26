@@ -11,7 +11,7 @@ from unipath import Path
 
 
 #: A place to look for config.
-CONFIG_PATH = Path('/etc/bulavka/bulavka.conf')
+CONFIG_PATH = Path('/etc/parashoes/parashoes.conf')
 
 
 def safe_define(*args, **kwargs):
@@ -42,7 +42,7 @@ def define_options():
     )
     safe_define(
         'public_host',
-        default='bulavka',
+        default='parashoes',
         help='Public host',
         type=str,
     )
@@ -72,7 +72,7 @@ def define_options():
     # Database ----------------------------------------------------------------
     safe_define(
         'db_url',
-        default='postgresql://postgres:postgres@localhost:5432/bulavka',
+        default='postgresql://postgres:postgres@localhost:5432/parashoes',
         help='DataBase DB URL',
         type=str,
     )

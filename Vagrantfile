@@ -6,11 +6,11 @@ VAGRANTFILE_API_VERSION = "2"
 
 
 options = {
-    :network_ip => ENV['BULAVKA_VAGRANT_NETWORK_IP'] || "10.11.12.11",
-    :port_ssh => Integer(ENV['BULAVKA_VAGRANT_PORT_SSH'] || 2201),
-    :port_http => Integer(ENV['BULAVKA_VAGRANT_PORT_HTTP'] || 8081),
-    :port_pg => Integer(ENV['BULAVKA_VAGRANT_PORT_PG'] || 5433),
-    :vm_memory => Integer(ENV['BULAVKA_VAGRANT_MEMORY'] || 512),
+    :network_ip => ENV['PARASHOES_VAGRANT_NETWORK_IP'] || "10.11.12.11",
+    :port_ssh => Integer(ENV['PARASHOES_VAGRANT_PORT_SSH'] || 2201),
+    :port_http => Integer(ENV['PARASHOES_VAGRANT_PORT_HTTP'] || 8081),
+    :port_pg => Integer(ENV['PARASHOES_VAGRANT_PORT_PG'] || 5433),
+    :vm_memory => Integer(ENV['PARASHOES_VAGRANT_MEMORY'] || 512),
 }
 
 
@@ -23,8 +23,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
-    config.vm.define "bulavka" do |node|
-        node.vm.hostname = "bulavka"
+    config.vm.define "parashoes" do |node|
+        node.vm.hostname = "parashoes"
         node.vm.network :private_network, ip: options[:network_ip]
 
         node.vm.network :forwarded_port,
@@ -54,7 +54,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             vb.gui = false
         #    vb.customize [
         #        "modifyvm", :id,
-        #        "--name", "vagrant-bulavka-ubuntu",
+        #        "--name", "vagrant-parashoes-ubuntu",
         #        "--memory", options[:vm_memory],
         #        "--natdnshostresolver1", "on",
         #        "--longmode", "on",

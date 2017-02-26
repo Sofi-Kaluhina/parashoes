@@ -11,7 +11,7 @@ from admin.views import (
 )
 
 
-admin = Admin(app, 'BUlavka', index_view=MyAdminIndexView(), base_template='my_master.html')
+admin = Admin(app, 'ParaShoes', index_view=MyAdminIndexView(), base_template='my_master.html')
 admin.add_view(UserView(db_session))
 admin.add_view(CatalogUserTypeView(db_session))
 admin.add_view(AttributeView(db_session))
