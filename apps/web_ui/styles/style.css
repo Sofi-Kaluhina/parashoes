@@ -492,11 +492,18 @@ footer .col-md-6 {
     padding-top: 10px;
 }
 #footer-phone-mail span,
+#footer-phone-mail span a,
 #footer-adress span,
 #subscribe p,
 #socials p,
 #copyright{
     color: #f7f7f7;
+}
+#footer-phone-mail span a {
+    text-decoration: underline;
+}
+#footer-phone-mail span a:hover {
+    text-decoration: none;
 }
 #footer-phone-mail .glyphicon,
 #footer-adress .glyphicon {
